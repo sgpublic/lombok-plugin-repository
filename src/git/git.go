@@ -55,11 +55,13 @@ var (
 )
 
 func CreateTag(tag string, verNames []string, filePath string) error {
+	log.Infof("Start uploading version %s...", tag)
 	file, err := os.Open(filePath)
 	if err != nil {
 		return err
 	}
-	body := "+ " + strings.Join(verNames, "\n+ ")
+	prefix := "Extract from JetBrains IntelliJ IDEA " + tag + ", theoretically applicable to all Android Studio versions below:\n+ "
+	body := prefix + strings.Join(verNames, "\n+ ")
 	release, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
 		TagName:              &tag,
 		TargetCommitish:      &TargetCommitish,

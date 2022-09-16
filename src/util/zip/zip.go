@@ -5,61 +5,60 @@ import (
 	log "github.com/sirupsen/logrus"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 )
 
-func DeCompress(zipFile string, prefix string, dest string) (err error) {
-	log.Infof("DeCompressing %s...", zipFile)
-	zr, err := zip.OpenReader(zipFile)
-	defer zr.Close()
+func DeCompress(zipPath string, prefix string, dstDir string) error {
+	log.Infof("DeCompressing %s...", zipPath)
+	// open zip file
+	reader, err := zip.OpenReader(zipPath)
 	if err != nil {
-		return
+		return err
 	}
-
-	if dest != "" {
-		if err := os.MkdirAll(dest, 0755); err != nil {
-			return err
-		}
-	}
-
-	for _, file := range zr.File {
-		path := filepath.Join(dest, file.Name)
-
-		if file.FileInfo().IsDir() {
-			if err := os.MkdirAll(path, file.Mode()); err != nil {
-				return err
-			}
+	defer reader.Close()
+	for _, file := range reader.File {
+		if !strings.HasPrefix(file.Name, prefix) {
 			continue
 		}
-
-		if err := os.MkdirAll(filepath.Dir(path), file.Mode()); err != nil {
+		if err := unzipFile(file, dstDir); err != nil {
 			return err
 		}
-
-		if !strings.HasPrefix(path, prefix) {
-			continue
-		}
-		log.Infof("decompressing: %s", file.Name)
-
-		fr, err := file.Open()
-		if err != nil {
-			return err
-		}
-
-		fw, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR|os.O_TRUNC, file.Mode())
-		if err != nil {
-			return err
-		}
-
-		_, err = io.Copy(fw, fr)
-		if err != nil {
-			return err
-		}
-
-		_ = fw.Close()
-		_ = fr.Close()
 	}
-	log.Infof("DeCompress finish: %s", zipFile)
+	log.Infof("DeCompress finish: %s", zipPath)
 	return nil
+}
+
+func unzipFile(file *zip.File, dstDir string) error {
+	// create the directory of file
+	filePath := path.Join(dstDir, file.Name)
+	log.Infof("decompressing: %s", file.Name)
+	if file.FileInfo().IsDir() {
+		if err := os.MkdirAll(filePath, os.ModePerm); err != nil {
+			return err
+		}
+		return nil
+	}
+	if err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil {
+		return err
+	}
+
+	// open the file
+	rc, err := file.Open()
+	if err != nil {
+		return err
+	}
+	defer rc.Close()
+
+	// create the file
+	w, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer w.Close()
+
+	// save the decompressed file content
+	_, err = io.Copy(w, rc)
+	return err
 }

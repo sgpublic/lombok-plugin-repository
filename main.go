@@ -10,6 +10,7 @@ import (
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
 	"strings"
+	"time"
 )
 
 func init() {
@@ -50,6 +51,8 @@ func doAction() {
 	var item interface{}
 	var hasNext bool
 	for {
+		log.Infoln("Sleep 10 second...")
+		time.Sleep(time.Second * 10)
 		item, hasNext = asVer.Dequeue()
 		if !hasNext {
 			break
@@ -72,7 +75,7 @@ func doAction() {
 			continue
 		}
 
-		gzipFile, err := lombok.GetVersion(url.(string), item.(string))
+		gzipFile, err := lombok.GetVersion(url.(string), verTag)
 		if err != nil {
 			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue

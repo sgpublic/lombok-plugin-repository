@@ -41,3 +41,10 @@ jobs:
     - name: Cleanup
       run: |
         sudo rm -rf /workdir/tmp
+
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.TOKEN }}
+        retain_days: 1
+        keep_minimum_runs: 1
