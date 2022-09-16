@@ -2,32 +2,42 @@ name: Check Update
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 19 5 * *'
 
 jobs:
   build:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+    - name: Checkout
+      uses: actions/checkout@main
 
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
 
-      - name: Setup GoLang
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '^1.19'
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-          REPO: sgpublic/lombok-plugin-action
-        run: |
-          go build
-          mv ./lombok-plugin-action ./build/action
-          cd ./build
-          sudo chmod +x action
-          action -token $TOKEN -repo $REPO
+    - name: Setup GoLang
+      uses: actions/setup-go@v3
+      with:
+        go-version: '^1.19'
+
+    - name: Build Go
+      run: |
+        go build
+        mv ./lombok-plugin-action /workdir/action
+        sudo chmod +x /workdir/action
+    - name: Check update
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+        REPO: 'sgpublic/lombok-plugin-action'
+      run: |
+        cd /workdir
+        ./action -token $TOKEN -repo $REPO
+
+    - name: Cleanup
+      run: |
+        sudo rm -rf /workdir/tmp

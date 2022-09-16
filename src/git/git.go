@@ -59,7 +59,7 @@ func CreateTag(tag string, verNames []string, filePath string) error {
 	if err != nil {
 		return err
 	}
-	body := strings.Join(verNames, "\n")
+	body := "+ " + strings.Join(verNames, "\n+ ")
 	release, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
 		TagName:              &tag,
 		TargetCommitish:      &TargetCommitish,
@@ -75,8 +75,7 @@ func CreateTag(tag string, verNames []string, filePath string) error {
 	_, _, err = service.UploadReleaseAsset(
 		ctx, REPO_OWNER, REPO_NAME, *release.ID,
 		&github.UploadOptions{
-			Name:  "lombok-" + tag + "tar.gz",
-			Label: "Lombok plugin",
+			Name: "lombok-" + tag + ".tar.gz",
 		}, file)
 	return err
 }

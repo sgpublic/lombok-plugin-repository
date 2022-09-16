@@ -4,11 +4,11 @@ import (
 	"flag"
 	"github.com/mattn/go-colorable"
 	log "github.com/sirupsen/logrus"
-	"lombok-plugin-action/src/as"
-	"lombok-plugin-action/src/formater"
 	"lombok-plugin-action/src/git"
-	"lombok-plugin-action/src/iu"
 	"lombok-plugin-action/src/lombok"
+	"lombok-plugin-action/src/util/formater"
+	"lombok-plugin-action/src/versions/as"
+	"lombok-plugin-action/src/versions/iu"
 	"strings"
 )
 
@@ -62,25 +62,25 @@ func doAction() {
 		log.Infof("- %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
 
 		if git.HasTag(verTag) {
-			log.Infof("  Tag of %s already exits, skip.", verTag)
+			log.Infof("Tag of %s already exits, skip.", verTag)
 			continue
 		}
 
 		url, _ := iuVer.Get(item)
 		if url == nil {
-			log.Warnf("  WARN! Version %s exists in Android Studio, but not exists in IDEA.", verTag)
+			log.Warnf("Version %s exists in Android Studio, but not exists in IDEA.", verTag)
 			continue
 		}
 
-		gzipFile, err := lombok.GetWithinVersion(url.(string), item.(string))
+		gzipFile, err := lombok.GetVersion(url.(string), item.(string))
 		if err != nil {
-			log.Errorf("  Failed to get version %s: %s", verTag, err.Error())
+			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue
 		}
 		if git.CreateTag(verTag, verNames, gzipFile) != nil {
-			log.Errorf("  Failed to upload version %s: %s", verTag, err.Error())
+			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
 		} else {
-			log.Infof("  Version %s upload finish.", verTag)
+			log.Infof("Version %s upload finish.", verTag)
 		}
 	}
 }

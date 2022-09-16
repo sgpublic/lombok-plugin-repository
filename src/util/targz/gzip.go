@@ -1,4 +1,4 @@
-package gzip
+package targz
 
 import (
 	"archive/tar"
@@ -64,7 +64,7 @@ func compress(file *os.File, prefix string, tw *tar.Writer) error {
 	return nil
 }
 
-func DeCompress(tarFile, dest string) error {
+func DeCompress(tarFile string, dest string) error {
 	srcFile, err := os.Open(tarFile)
 	if err != nil {
 		return err

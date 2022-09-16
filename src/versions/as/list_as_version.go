@@ -6,7 +6,7 @@ import (
 	"github.com/emirpasic/gods/queues/priorityqueue"
 	"github.com/emirpasic/gods/utils"
 	log "github.com/sirupsen/logrus"
-	"lombok-plugin-action/src/web"
+	"lombok-plugin-action/src/util/web"
 	"regexp"
 	"strings"
 )
@@ -18,6 +18,7 @@ func ListVersions() (*priorityqueue.Queue, *hashmap.Map) {
 
 func getAchieveUrl() string {
 	as := "https://developer.android.com/studio/archive"
+	log.Infof("Getting versions page url from %s", as)
 	doc := web.GetDoc(as)
 	var achieve = "nil"
 	doc.Find("iframe").Each(func(i int, selection *goquery.Selection) {
@@ -35,6 +36,7 @@ func getAchieveUrl() string {
 func getFromAchieve(url string) (*priorityqueue.Queue, *hashmap.Map) {
 	result := hashmap.New()
 
+	log.Infoln("Getting Android Studio versions...")
 	doc := web.GetDoc(url)
 	reg, _ := regexp.Compile(`\d{4}\.\d+\.\d+`)
 	doc.Find(".all-downloads").Find(".expand-control").Each(func(i int, selection *goquery.Selection) {
