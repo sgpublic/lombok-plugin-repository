@@ -6,6 +6,7 @@ import (
 	"lombok-plugin-action/src/util/targz"
 	"lombok-plugin-action/src/util/zip"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -55,4 +56,9 @@ download:
 		return "", err
 	}
 	return gzipFile, nil
+}
+
+func CreateReleaseNote(tagName string, verNames []string) string {
+	prefix := "Extract from JetBrains IntelliJ IDEA " + tagName + ", theoretically applicable to all Android Studio versions below:\n+ "
+	return prefix + strings.Join(verNames, "\n+ ")
 }

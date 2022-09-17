@@ -5,6 +5,7 @@ import (
 	"github.com/google/go-github/v47/github"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
+	"lombok-plugin-action/src/lombok"
 	"os"
 	"strings"
 )
@@ -42,9 +43,14 @@ func Init() {
 	}
 }
 
-func HasTag(tag string) bool {
-	_, _, err := service.GetReleaseByTag(ctx, REPO_OWNER, REPO_NAME, tag)
-	return err == nil
+func GetReleaseByTag(tag string) (*github.RepositoryRelease, error) {
+	release, _, err := service.GetReleaseByTag(ctx, REPO_OWNER, REPO_NAME, tag)
+	return release, err
+}
+
+func UpdateReleaseBody(release *github.RepositoryRelease) error {
+	_, _, err := service.EditRelease(ctx, REPO_OWNER, REPO_NAME, *release.ID, release)
+	return err
 }
 
 var (
@@ -60,8 +66,7 @@ func CreateTag(tag string, verNames []string, filePath string) error {
 	if err != nil {
 		return err
 	}
-	prefix := "Extract from JetBrains IntelliJ IDEA " + tag + ", theoretically applicable to all Android Studio versions below:\n+ "
-	body := prefix + strings.Join(verNames, "\n+ ")
+	body := lombok.CreateReleaseNote(tag, verNames)
 	release, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
 		TagName:              &tag,
 		TargetCommitish:      &TargetCommitish,

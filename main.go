@@ -9,6 +9,7 @@ import (
 	"lombok-plugin-action/src/util/formater"
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
+	"os"
 	"strings"
 	"time"
 )
@@ -40,7 +41,7 @@ func initLogrus() {
 	log.SetOutput(colorable.NewColorableStdout())
 	log.SetFormatter(formater.LogFormat{EnableColor: true})
 	log.RegisterExitHandler(func() {
-		//_ = os.RemoveAll("./tmp")
+		_ = os.RemoveAll("./tmp")
 	})
 }
 
@@ -64,8 +65,21 @@ func doAction() {
 
 		log.Infof("- %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
 
-		if git.HasTag(verTag) {
-			log.Infof("Tag of %s already exits, skip.", verTag)
+		release, err := git.GetReleaseByTag(verTag)
+		if err == nil {
+			log.Infof("Tag of %s already exits, updateing...", verTag)
+			note := lombok.CreateReleaseNote(verTag, verNames)
+			if release.GetBody() == note {
+				log.Warnf("Tag of %s is up to date, skip.", verTag)
+				continue
+			}
+			release.Body = &note
+			err = git.UpdateReleaseBody(release)
+			if err != nil {
+				log.Warnf("Tag of %s update failed.", verTag)
+			} else {
+				log.Warnf("Tag of %s update success.", verTag)
+			}
 			continue
 		}
 
