@@ -30,7 +30,11 @@ func getAchieveUrl() string {
 	if achieve == "nil" {
 		log.Fatalf("cannot find iframe on %s", as)
 	}
-	return "https://developer.android.com" + achieve
+	if strings.HasPrefix(achieve, "http") {
+		return achieve
+	} else {
+		return "https://developer.android.com" + achieve
+	}
 }
 
 func getFromAchieve(url string) (*priorityqueue.Queue, *hashmap.Map) {
