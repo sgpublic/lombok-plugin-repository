@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/mattn/go-colorable"
-	cron2 "github.com/robfig/cron"
+	cron3 "github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/git"
 	"lombok-plugin-action/src/lombok"
@@ -34,13 +34,19 @@ func main() {
 		args := os.Args[1:]
 		execArgs := make([]string, 0)
 		l := len(args)
+		cronEnable := false
 		for i := 0; i < l; i++ {
 			if strings.Compare(args[i], "-service") == 0 {
 				continue
 			}
+			if strings.Compare(args[i], "-cron") == 0 {
+				cronEnable = true
+			}
 			execArgs = append(execArgs, args[i])
 		}
-		execArgs = append(execArgs, "-cron", "0 * 2 * * *")
+		if !cronEnable {
+			execArgs = append(execArgs, "-cron", "0 0 2 * * *")
+		}
 
 		ex, _ := os.Executable()
 		p, _ := filepath.Abs(ex)
@@ -59,9 +65,9 @@ func main() {
 		return
 	}
 
-	c := cron2.New()
+	c := cron3.New()
 	c.AddFunc(cron, doAction)
-	c.Start()
+	c.Run()
 }
 
 func initFlag() {
