@@ -86,7 +86,7 @@ func initLogrus() {
 	log.SetOutput(colorable.NewColorableStdout())
 	log.SetFormatter(formater.LogFormat{EnableColor: true})
 	log.RegisterExitHandler(func() {
-		_ = os.RemoveAll("./tmp")
+		_ = os.RemoveAll("/tmp/lombok-plugin/")
 	})
 }
 

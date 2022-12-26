@@ -11,7 +11,9 @@ import (
 )
 
 func GetVersion(url string, version string) (string, error) {
-	compress := "./tmp/" + version
+	os.MkdirAll("/tmp/lombok-plugin/", 0744)
+
+	compress := "/tmp/lombok-plugin/" + version
 	path := compress + "/ideaU.zip"
 
 	log.Infof("Start download: %s", url)
@@ -48,7 +50,7 @@ download:
 		log.Debug("Compress prepare error")
 		return "", err
 	}
-	gzipFile := "./lombok-" + version + ".tar.gz"
+	gzipFile := "/tmp/lombok-plugin/lombok-" + version + ".tar.gz"
 
 	err = targz.Compress([]*os.File{open}, gzipFile)
 	if err != nil {
