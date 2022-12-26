@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/mattn/go-colorable"
+	cron2 "github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/git"
 	"lombok-plugin-action/src/lombok"
@@ -10,8 +11,15 @@ import (
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
 	"os"
+	"os/exec"
+	"path/filepath"
 	"strings"
 	"time"
+)
+
+var (
+	service = false
+	cron    = "" // 0 * 2 * * *
 )
 
 func init() {
@@ -21,15 +29,52 @@ func init() {
 }
 
 func main() {
-	doAction()
+	// daemon mode
+	if service {
+		args := os.Args[1:]
+		execArgs := make([]string, 0)
+		l := len(args)
+		for i := 0; i < l; i++ {
+			if strings.Compare(args[i], "-service") == 0 {
+				continue
+			}
+			execArgs = append(execArgs, args[i])
+		}
+		execArgs = append(execArgs, "-cron", "0 * 2 * * *")
+
+		ex, _ := os.Executable()
+		p, _ := filepath.Abs(ex)
+		proc := exec.Command(p, execArgs...)
+		err := proc.Start()
+		if err != nil {
+			panic(err)
+		}
+		log.Infof("[PID] %d", proc.Process.Pid)
+		os.Exit(0)
+	}
+
+	// cron mode
+	if strings.Compare(cron, "") == 0 {
+		doAction()
+		return
+	}
+
+	c := cron2.New()
+	c.AddFunc(cron, doAction)
+	c.Start()
 }
 
 func initFlag() {
+	debug := false
+
 	flag.StringVar(&git.TOKEN, "token", "", "Security Token")
 	flag.StringVar(&git.REPO, "repo", "", "Target repo")
-	debug := false
-	flag.BoolVar(&debug, "d", false, "Debug mod")
+	flag.BoolVar(&debug, "debug", false, "Debug mod")
+	flag.BoolVar(&service, "service", false, "Service mod")
+	flag.StringVar(&cron, "cron", "", "Crontab operation")
 	flag.Parse()
+
+	// debug mode
 	if debug {
 		log.SetLevel(log.DebugLevel)
 	} else {
@@ -46,6 +91,8 @@ func initLogrus() {
 }
 
 func doAction() {
+	log.Info("Start updating lombok plugin...")
+
 	iuVer := iu.ListVersions()
 	asVer, info := as.ListVersions()
 	log.Infof("Android Studio versions (%d in total):", asVer.Size())
