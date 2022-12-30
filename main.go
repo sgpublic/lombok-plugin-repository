@@ -10,6 +10,8 @@ import (
 	"lombok-plugin-action/src/util/formater"
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
+	"net/http"
+	"net/http/cookiejar"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -57,6 +59,11 @@ func main() {
 		}
 		log.Infof("[PID] %d", proc.Process.Pid)
 		os.Exit(0)
+	}
+
+	jar, _ := cookiejar.New(nil)
+	http.DefaultClient = &http.Client{
+		Jar: jar,
 	}
 
 	// cron mode
