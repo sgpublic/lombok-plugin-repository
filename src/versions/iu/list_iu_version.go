@@ -3,6 +3,7 @@ package iu
 import (
 	"github.com/emirpasic/gods/maps/hashmap"
 	log "github.com/sirupsen/logrus"
+	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/util/web"
 )
 
@@ -22,7 +23,7 @@ type Products []struct {
 func ListVersions() *hashmap.Map {
 	release := (*getJson())[0].Release
 	if len(release) <= 0 {
-		log.Fatal("empty result of IntelliJ IDEA Ultimate versions")
+		util.FatalLogln("empty result of IntelliJ IDEA Ultimate versions")
 	}
 
 	m := hashmap.New()

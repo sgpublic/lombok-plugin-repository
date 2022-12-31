@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"lombok-plugin-action/src/lombok"
+	"lombok-plugin-action/src/util"
 	"os"
 	"strings"
 )
@@ -22,11 +23,11 @@ var (
 
 func Init() {
 	if TOKEN == "" || REPO == "" {
-		log.Fatalln("Arg required!")
+		util.FatalLogln("Arg required!")
 	}
 	split := strings.Split(REPO, "/")
 	if len(split) != 2 {
-		log.Fatalln("Unknown REPO!")
+		util.FatalLogln("Unknown REPO!")
 	}
 	REPO_OWNER = split[0]
 	REPO_NAME = split[1]
@@ -39,7 +40,7 @@ func Init() {
 	service = github.NewClient(tc).Repositories
 	_, _, err := service.Get(ctx, REPO_OWNER, REPO_NAME)
 	if err != nil {
-		log.Fatalf("unable to touch repo of %s/%s", REPO_OWNER, REPO_NAME)
+		util.FatalLogf("unable to touch repo of %s/%s", REPO_OWNER, REPO_NAME)
 	}
 }
 

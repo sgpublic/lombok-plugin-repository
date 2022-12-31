@@ -6,6 +6,7 @@ import (
 	"github.com/emirpasic/gods/queues/priorityqueue"
 	"github.com/emirpasic/gods/utils"
 	log "github.com/sirupsen/logrus"
+	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/util/web"
 	"regexp"
 	"strings"
@@ -28,7 +29,7 @@ func getAchieveUrl() string {
 		achieve = selection.AttrOr("src", "nil")
 	})
 	if achieve == "nil" {
-		log.Fatalf("cannot find iframe on %s", as)
+		util.FatalLogf("cannot find iframe on %s", as)
 	}
 	if strings.HasPrefix(achieve, "http") {
 		return achieve
@@ -59,7 +60,7 @@ func getFromAchieve(url string) (*priorityqueue.Queue, *hashmap.Map) {
 		}
 	})
 	if result.Empty() {
-		log.Fatalf("failed to get versions of Android Studio")
+		util.FatalLogf("failed to get versions of Android Studio")
 	}
 
 	return sort(result), result

@@ -2,18 +2,21 @@ package main
 
 import (
 	"flag"
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/mattn/go-colorable"
 	cron3 "github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
+	"lombok-plugin-action/src/config"
 	"lombok-plugin-action/src/git"
 	"lombok-plugin-action/src/lombok"
-	"lombok-plugin-action/src/util/formater"
+	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
 	"net/http"
 	"net/http/cookiejar"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -22,6 +25,7 @@ import (
 var (
 	service = false
 	cron    = "" // 0 * 2 * * *
+	debug   = false
 )
 
 func init() {
@@ -41,6 +45,9 @@ func main() {
 			if strings.Compare(args[i], "-service") == 0 {
 				continue
 			}
+			if strings.Compare(args[i], "-eoe") == 0 {
+				continue
+			}
 			if strings.Compare(args[i], "-cron") == 0 {
 				cronEnable = true
 			}
@@ -49,6 +56,7 @@ func main() {
 		if !cronEnable {
 			execArgs = append(execArgs, "-cron", "0 0 2 * * *")
 		}
+		execArgs = append(execArgs, "-eoe", "false")
 
 		ex, _ := os.Executable()
 		p, _ := filepath.Abs(ex)
@@ -78,29 +86,46 @@ func main() {
 }
 
 func initFlag() {
-	debug := false
-
 	flag.StringVar(&git.TOKEN, "token", "", "Security Token")
 	flag.StringVar(&git.REPO, "repo", "", "Target repo")
 	flag.BoolVar(&debug, "debug", false, "Debug mod")
 	flag.BoolVar(&service, "service", false, "Service mod")
 	flag.StringVar(&cron, "cron", "", "Crontab operation")
+	flag.BoolVar(&config.ExitOnException, "eoe", true, "Exit on exception")
 	flag.Parse()
-
-	// debug mode
-	if debug {
-		log.SetLevel(log.DebugLevel)
-	} else {
-		log.SetLevel(log.InfoLevel)
-	}
 }
 
 func initLogrus() {
 	log.SetOutput(colorable.NewColorableStdout())
-	log.SetFormatter(formater.LogFormat{EnableColor: true})
+	log.SetFormatter(util.LogFormat{EnableColor: true})
+
 	log.RegisterExitHandler(func() {
 		_ = os.RemoveAll("/tmp/lombok-plugin/")
 	})
+
+	rotateOptions := []rotatelogs.Option{
+		rotatelogs.WithRotationTime(time.Hour * 24),
+	}
+	rotateOptions = append(rotateOptions, rotatelogs.WithMaxAge(259200*time.Second))
+	err := os.MkdirAll("/var/log/lombok/", 0644)
+	if err != nil {
+		log.Errorf("log dir init err: %v", err)
+		return
+	}
+	w, err := rotatelogs.New(path.Join("/var/log/lombok/", "%Y-%m-%d.log"), rotateOptions...)
+	if err != nil {
+		log.Errorf("rotatelogs init err: %v", err)
+	} else {
+		log.AddHook(util.NewLocalHook(w, debug))
+	}
+
+	// debug mode
+	if debug {
+		log.SetLevel(log.DebugLevel)
+		log.Debug("Enable debug mode!")
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
 }
 
 func doAction() {
