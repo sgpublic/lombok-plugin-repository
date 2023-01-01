@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="build linux" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="lombok-plugin-action" />
+    <working_directory value="$PROJECT_DIR$/bin" />
+    <envs>
+      <env name="GOOS" value="linux" />
+      <env name="GOARCH" value="amd64" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="lombok-plugin-action" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/main.go" />
+    <output_directory value="$PROJECT_DIR$/build" />
+    <option name="run" value="false" />
+    <method v="2" />
+  </configuration>
+</component>

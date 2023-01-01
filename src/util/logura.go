@@ -46,7 +46,7 @@ func (hook *LocalHook) pathWrite(entry *logrus.Entry) error {
 		return err
 	}
 
-	fd, err := os.OpenFile(hook.path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0o666)
+	fd, err := os.OpenFile(hook.path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)
 	if err != nil {
 		return err
 	}

@@ -185,4 +185,5 @@ func doAction() {
 			log.Infof("Version %s upload finish.", verTag)
 		}
 	}
+	log.Info("Updating lombok plugin finish!")
 }
