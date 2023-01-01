@@ -153,12 +153,13 @@ func doAction() {
 		release, err := git.GetReleaseByTag(verTag)
 		if err == nil {
 			log.Infof("Tag of %s already exits, updateing...", verTag)
-			note := lombok.CreateReleaseNote(verTag, verNames)
-			if release.GetBody() == note {
+			note, prerelease := lombok.CreateReleaseNote(verNames)
+			if release.GetBody() == note && *release.Prerelease == prerelease {
 				log.Warnf("Tag of %s is up to date, skip.", verTag)
 				continue
 			}
 			release.Body = &note
+			release.Prerelease = &prerelease
 			err = git.UpdateReleaseBody(release)
 			if err != nil {
 				log.Warnf("Tag of %s update failed.", verTag)

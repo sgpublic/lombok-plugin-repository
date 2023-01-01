@@ -60,7 +60,15 @@ download:
 	return gzipFile, nil
 }
 
-func CreateReleaseNote(tagName string, verNames []string) string {
-	prefix := "Extract from JetBrains IntelliJ IDEA " + tagName + ", theoretically applicable to all Android Studio versions below:\n+ "
-	return prefix + strings.Join(verNames, "\n+ ")
+func CreateReleaseNote(verNames []string) (string, bool) {
+	result := ""
+	prerelease := false
+	for _, name := range verNames {
+		result += "\n+ " + name
+		if !prerelease && !strings.Contains(name, "Beta") ||
+			!strings.Contains(name, "Canary") || !strings.Contains(name, "RC") {
+			prerelease = true
+		}
+	}
+	return result, prerelease
 }

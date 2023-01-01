@@ -56,8 +56,6 @@ func UpdateReleaseBody(release *github.RepositoryRelease) error {
 
 var (
 	TargetCommitish      = "master"
-	Draft                = false
-	Prerelease           = false
 	GenerateReleaseNotes = false
 )
 
@@ -67,14 +65,13 @@ func CreateTag(tag string, verNames []string, filePath string) error {
 	if err != nil {
 		return err
 	}
-	body := lombok.CreateReleaseNote(tag, verNames)
+	body, prerelease := lombok.CreateReleaseNote(verNames)
 	release, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
 		TagName:              &tag,
 		TargetCommitish:      &TargetCommitish,
 		Name:                 &tag,
 		Body:                 &body,
-		Draft:                &Draft,
-		Prerelease:           &Prerelease,
+		Prerelease:           &prerelease,
 		GenerateReleaseNotes: &GenerateReleaseNotes,
 	})
 	if err != nil {
