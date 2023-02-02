@@ -1,69 +1,72 @@
 package as
 
 import (
-	"github.com/PuerkitoBio/goquery"
+	"bytes"
 	"github.com/emirpasic/gods/maps/hashmap"
 	"github.com/emirpasic/gods/queues/priorityqueue"
 	"github.com/emirpasic/gods/utils"
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/util/web"
-	"regexp"
+	"strconv"
 	"strings"
 )
 
+type AndroidStudioRelease struct {
+	PlatformVersion StrictPlatformVersion `json:"platformVersion"`
+	PlatformBuild   string                `json:"platformBuild"`
+	Version         string                `json:"version"`
+	Name            string                `json:"name"`
+	Build           string                `json:"build"`
+	Channel         string                `json:"channel"`
+}
+
+type StrictPlatformVersion string
+
+func (spv *StrictPlatformVersion) UnmarshalJSON(b []byte) error {
+	b = bytes.Trim(b, "\"")
+	*spv = StrictPlatformVersion(b)
+	return nil
+}
+
+type _Products struct {
+	Content struct {
+		Items []AndroidStudioRelease `json:"item"`
+	}
+}
+
 func ListVersions() (*priorityqueue.Queue, *hashmap.Map) {
-	achieve := getAchieveUrl()
-	return getFromAchieve(achieve)
+	versions := getJson().Content.Items
+	if len(versions) <= 0 {
+		util.FatalLogln("empty result of Android Studio versions")
+	}
+
+	m := hashmap.New()
+	for _, version := range versions {
+		if len(strings.Split(version.Version, ".")[0]) < 4 {
+			continue
+		}
+		build, _ := strconv.Atoi(strings.Split(version.PlatformBuild, ".")[0])
+		if build <= 202 {
+			continue
+		}
+		value, found := m.Get(version.PlatformBuild)
+		if !found {
+			value = []AndroidStudioRelease{}
+		}
+
+		m.Put(version.PlatformBuild, append(value.([]AndroidStudioRelease), version))
+	}
+
+	return sort(m), m
 }
 
-func getAchieveUrl() string {
-	as := "https://developer.android.com/studio/archive"
-	log.Infof("Getting versions page url from %s", as)
-	doc := web.GetDoc(as)
-	var achieve = "nil"
-	doc.Find("iframe").Each(func(i int, selection *goquery.Selection) {
-		if achieve != "nil" {
-			return
-		}
-		achieve = selection.AttrOr("src", "nil")
-	})
-	if achieve == "nil" {
-		util.FatalLogf("cannot find iframe on %s", as)
-	}
-	if strings.HasPrefix(achieve, "http") {
-		return achieve
-	} else {
-		return "https://developer.android.com" + achieve
-	}
-}
-
-func getFromAchieve(url string) (*priorityqueue.Queue, *hashmap.Map) {
-	result := hashmap.New()
-
-	log.Infoln("Getting Android Studio versions...")
-	doc := web.GetDoc(url)
-	reg, _ := regexp.Compile(`\d{4}\.\d+\.\d+`)
-	doc.Find(".all-downloads").Find(".expand-control").Each(func(i int, selection *goquery.Selection) {
-		data := selection.Text()
-		data = strings.Split(data, "\n")[0]
-		data = strings.TrimSpace(data)
-		version := reg.FindString(data)
-		if version != "" {
-			log.Debugf("Version recognized: %s", data)
-			value, _ := result.Get(version)
-			if value == nil {
-				value = []string{}
-			}
-			value = append(value.([]string), data)
-			result.Put(version, value)
-		}
-	})
-	if result.Empty() {
-		util.FatalLogf("failed to get versions of Android Studio")
-	}
-
-	return sort(result), result
+func getJson() *_Products {
+	as := "https://jb.gg/android-studio-releases-list.json"
+	log.Infof("Getting Google Android Studio versions from %s", as)
+	resp := &_Products{}
+	web.GetJson(as, resp)
+	return resp
 }
 
 func byPriority(a, b interface{}) int {

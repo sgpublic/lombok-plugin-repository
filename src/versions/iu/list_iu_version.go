@@ -7,7 +7,7 @@ import (
 	"lombok-plugin-action/src/util/web"
 )
 
-type Products []struct {
+type _Products []struct {
 	Release []struct {
 		Downloads struct {
 			WindowsZip struct {
@@ -16,7 +16,7 @@ type Products []struct {
 				ChecksumLink string `json:"checksumLink"`
 			} `json:"windowsZip,omitempty"`
 		} `json:"downloads"`
-		Version string `json:"version"`
+		Build string `json:"build"`
 	} `json:"releases"`
 }
 
@@ -28,17 +28,17 @@ func ListVersions() *hashmap.Map {
 
 	m := hashmap.New()
 
-	for _, item := range release {
-		m.Put(item.Version, item.Downloads.WindowsZip.Link)
+	for _, version := range release {
+		m.Put(version.Build, version.Downloads.WindowsZip.Link)
 	}
 
 	return m
 }
 
-func getJson() *Products {
+func getJson() *_Products {
 	iu := "https://data.services.jetbrains.com/products?release.type=release&code=IU&fields=releases"
 	log.Infof("Getting JetBrains IntelliJ IDEA versions from %s", iu)
-	resp := &Products{}
+	resp := &_Products{}
 	web.GetJson(iu, resp)
 	return resp
 }

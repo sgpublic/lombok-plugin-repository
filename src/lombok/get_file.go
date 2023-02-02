@@ -3,17 +3,17 @@ package lombok
 import (
 	"github.com/cavaliergopher/grab/v3"
 	log "github.com/sirupsen/logrus"
-	"lombok-plugin-action/src/util/targz"
 	"lombok-plugin-action/src/util/zip"
+	"lombok-plugin-action/src/versions/as"
 	"os"
-	"strings"
 	"time"
 )
 
 func GetVersion(url string, version string) (string, error) {
-	os.MkdirAll("/tmp/lombok-plugin/", 0744)
+	tmp := "/tmp/lombok-plugin/"
+	os.MkdirAll(tmp, 0744)
 
-	compress := "/tmp/lombok-plugin/" + version
+	compress := tmp + version
 	path := compress + "/ideaU.zip"
 
 	log.Infof("Start download: %s", url)
@@ -28,7 +28,7 @@ download:
 	req, _ = grab.NewRequest(path, url)
 	resp = client.Do(req)
 	for !resp.IsComplete() {
-		time.Sleep(time.Second)
+		time.Sleep(time.Second * 5)
 		log.Infof("Download %s...  %.2f%%", version, resp.Progress()*100)
 	}
 	if err = resp.Err(); err != nil {
@@ -50,23 +50,23 @@ download:
 		log.Debug("Compress prepare error")
 		return "", err
 	}
-	gzipFile := "/tmp/lombok-plugin/lombok-" + version + ".tar.gz"
+	zipFile := "/tmp/lombok-plugin/lombok-" + version + ".zip"
 
-	err = targz.Compress([]*os.File{open}, gzipFile)
+	err = zip.Compress([]*os.File{open}, zipFile)
 	if err != nil {
 		log.Debug("Compress error")
 		return "", err
 	}
-	return gzipFile, nil
+	return zipFile, nil
 }
 
-func CreateReleaseNote(verNames []string) (string, bool) {
-	result := ""
+func CreateReleaseNote(versions []as.AndroidStudioRelease) (string, bool) {
+	result := "Applies to the following versions:"
 	prerelease := true
-	for _, name := range verNames {
-		result += "\n+ " + name
-		if prerelease && !strings.Contains(name, "Beta") &&
-			!strings.Contains(name, "Canary") && !strings.Contains(name, "RC") {
+
+	for _, version := range versions {
+		result += "\n+ " + version.Name
+		if prerelease && ("Patch" == version.Channel || "Release" == version.Channel) {
 			prerelease = false
 		}
 	}

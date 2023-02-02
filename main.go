@@ -143,15 +143,20 @@ func doAction() {
 		}
 
 		verTag := item.(string)
-		verStr, _ := info.Get(item)
-		verNames := verStr.([]string)
+		verList, _ := info.Get(item)
+		verInfo := verList.([]as.AndroidStudioRelease)
 
-		log.Infof("- %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
+		var verNames []string
+		for _, version := range verInfo {
+			verNames = append(verNames, version.Name)
+		}
+
+		log.Infof("- Platform Version %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
 
 		release, err := git.GetReleaseByTag(verTag)
 		if err == nil {
 			log.Infof("Tag of %s already exits, updateing...", verTag)
-			note, prerelease := lombok.CreateReleaseNote(verNames)
+			note, prerelease := lombok.CreateReleaseNote(verInfo)
 			if release.GetBody() == note && *release.Prerelease == prerelease {
 				log.Warnf("Tag of %s is up to date, skip.", verTag)
 				continue
@@ -173,12 +178,13 @@ func doAction() {
 			continue
 		}
 
-		gzipFile, err := lombok.GetVersion(url.(string), verTag)
+		zipFile, err := lombok.GetVersion(url.(string), verTag)
 		if err != nil {
 			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue
 		}
-		if git.CreateTag(verTag, verNames, gzipFile) != nil {
+		err = git.CreateTag(verTag, verInfo, zipFile)
+		if err != nil {
 			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
 		} else {
 			log.Infof("Version %s upload finish.", verTag)

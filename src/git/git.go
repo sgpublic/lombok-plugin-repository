@@ -7,6 +7,7 @@ import (
 	"golang.org/x/oauth2"
 	"lombok-plugin-action/src/lombok"
 	"lombok-plugin-action/src/util"
+	"lombok-plugin-action/src/versions/as"
 	"os"
 	"strings"
 )
@@ -59,13 +60,13 @@ var (
 	GenerateReleaseNotes = false
 )
 
-func CreateTag(tag string, verNames []string, filePath string) error {
+func CreateTag(tag string, versions []as.AndroidStudioRelease, zipFile string) error {
 	log.Infof("Start uploading version %s...", tag)
-	file, err := os.Open(filePath)
+	file, err := os.Open(zipFile)
 	if err != nil {
 		return err
 	}
-	body, prerelease := lombok.CreateReleaseNote(verNames)
+	body, prerelease := lombok.CreateReleaseNote(versions)
 	release, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
 		TagName:              &tag,
 		TargetCommitish:      &TargetCommitish,
@@ -80,7 +81,7 @@ func CreateTag(tag string, verNames []string, filePath string) error {
 	_, _, err = service.UploadReleaseAsset(
 		ctx, REPO_OWNER, REPO_NAME, *release.ID,
 		&github.UploadOptions{
-			Name: "lombok-" + tag + ".tar.gz",
+			Name: "lombok-" + tag + ".zip",
 		}, file)
 	return err
 }
