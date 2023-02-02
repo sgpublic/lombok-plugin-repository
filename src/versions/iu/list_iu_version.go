@@ -36,7 +36,7 @@ func ListVersions() *hashmap.Map {
 }
 
 func getJson() *_Products {
-	iu := "https://data.services.jetbrains.com/products?release.type=release&code=IU&fields=releases"
+	iu := "https://data.services.jetbrains.com/products?code=IU&fields=releases"
 	log.Infof("Getting JetBrains IntelliJ IDEA versions from %s", iu)
 	resp := &_Products{}
 	web.GetJson(iu, resp)
