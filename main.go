@@ -2,16 +2,18 @@ package main
 
 import (
 	"flag"
+	"github.com/emirpasic/gods/maps/hashmap"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/mattn/go-colorable"
 	cron3 "github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/config"
-	"lombok-plugin-action/src/git"
+	"lombok-plugin-action/src/git/github"
 	"lombok-plugin-action/src/lombok"
 	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/versions/as"
 	"lombok-plugin-action/src/versions/iu"
+	"lombok-plugin-action/src/versions/plugin"
 	"net/http"
 	"net/http/cookiejar"
 	"os"
@@ -31,7 +33,7 @@ var (
 func init() {
 	initFlag()
 	initLogrus()
-	git.Init()
+	github.Init()
 }
 
 func main() {
@@ -85,8 +87,8 @@ func main() {
 }
 
 func initFlag() {
-	flag.StringVar(&git.TOKEN, "token", "", "Security Token")
-	flag.StringVar(&git.REPO, "repo", "", "Target repo")
+	flag.StringVar(&github.TOKEN, "token", "", "Github Security Token")
+	flag.StringVar(&github.REPO, "repo", "", "Target repo")
 	flag.BoolVar(&debug, "debug", false, "Debug mod")
 	flag.BoolVar(&service, "service", false, "Service mod")
 	flag.StringVar(&cron, "cron", "", "Crontab operation")
@@ -105,8 +107,8 @@ func initLogrus() {
 		rotatelogs.WithRotationTime(time.Hour * 24),
 	}
 	rotateOptions = append(rotateOptions, rotatelogs.WithMaxAge(259200*time.Second))
-	err := os.MkdirAll("/var/log/lombok/", 0644)
-	if err != nil {
+	err := os.MkdirAll("/var/log/lombok/", 0744)
+	if err != nil && !os.IsExist(err) {
 		log.Errorf("log dir init err: %v", err)
 		return
 	}
@@ -129,11 +131,19 @@ func initLogrus() {
 func doAction() {
 	log.Info("Start updating lombok plugin...")
 
-	iuVer := iu.ListVersions()
-	asVer, info := as.ListVersions()
+	err := os.MkdirAll("/tmp/lombok-plugin", 0744)
+	if err != nil && !os.IsExist(err) {
+		log.Warnf("Create temp dir failed: %s", err.Error())
+		return
+	}
+
+	iuVer, iuInfo := iu.ListVersions()
+	asVer, asInfo := as.ListVersions()
 	log.Infof("Android Studio versions (%d in total):", asVer.Size())
 	var item interface{}
 	var hasNext bool
+
+	sizes := hashmap.New()
 	for {
 		log.Infoln("Sleep 10 second...")
 		time.Sleep(time.Second * 10)
@@ -143,7 +153,7 @@ func doAction() {
 		}
 
 		verTag := item.(string)
-		verList, _ := info.Get(item)
+		verList, _ := asInfo.Get(item)
 		verInfo := verList.([]as.AndroidStudioRelease)
 
 		var verNames []string
@@ -153,7 +163,7 @@ func doAction() {
 
 		log.Infof("- Platform Version %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
 
-		release, err := git.GetReleaseByTag(verTag)
+		release, err := github.GetReleaseByTag(verTag)
 		if err == nil {
 			log.Infof("Tag of %s already exits, updateing...", verTag)
 			note, prerelease := lombok.CreateReleaseNote(verInfo)
@@ -163,7 +173,7 @@ func doAction() {
 			}
 			release.Body = &note
 			release.Prerelease = &prerelease
-			err = git.UpdateReleaseBody(release)
+			err = github.UpdateReleaseBody(release)
 			if err != nil {
 				log.Warnf("Tag of %s update failed.", verTag)
 			} else {
@@ -172,23 +182,39 @@ func doAction() {
 			continue
 		}
 
-		url, _ := iuVer.Get(item)
-		if url == nil {
+		info, found := iuInfo.Get(item)
+		if !found {
 			log.Warnf("Version %s exists in Android Studio, but not exists in IDEA.", verTag)
 			continue
 		}
 
-		zipFile, err := lombok.GetVersion(url.(string), verTag)
-		if err != nil {
+		zipFile, err := lombok.GetVersion(info.(iu.IdeaRelease).Downloads.WindowsZip.Link, verTag)
+		sizes.Put(verTag, 0)
+		file, err := os.Open(zipFile)
+		if err == nil {
+			stat, err := file.Stat()
+			if err == nil {
+				sizes.Put(verTag, stat.Size())
+			}
+		} else {
 			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue
 		}
-		err = git.CreateTag(verTag, verInfo, zipFile)
+		err = github.CreateTag(verTag, verInfo, zipFile)
 		if err != nil {
 			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
 		} else {
 			log.Infof("Version %s upload finish.", verTag)
 		}
+	}
+	xml, err := plugin.CreateRepositoryXml(iuVer, iuInfo, sizes)
+	if err != nil {
+		log.Warnf("Creating plugin repository failed, %s", err.Error())
+		return
+	}
+	err = github.CreatePluginRepository(xml)
+	if err != nil {
+		log.Warnf("Updating plugin repository failed, %s", err.Error())
 	}
 	log.Info("Updating lombok plugin finish!")
 }

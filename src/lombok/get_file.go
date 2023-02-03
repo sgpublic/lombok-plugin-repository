@@ -11,7 +11,6 @@ import (
 
 func GetVersion(url string, version string) (string, error) {
 	tmp := "/tmp/lombok-plugin/"
-	os.MkdirAll(tmp, 0744)
 
 	compress := tmp + version
 	path := compress + "/ideaU.zip"
@@ -46,6 +45,7 @@ download:
 		return "", err
 	}
 	open, err := os.Open(compress + "/" + prefix + "/")
+	defer open.Close()
 	if err != nil {
 		log.Debug("Compress prepare error")
 		return "", err

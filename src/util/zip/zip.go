@@ -56,7 +56,6 @@ func zipFile(file *os.File, prefix string, zw *zip.Writer) error {
 			return err
 		}
 		_, err = io.Copy(writer, file)
-		file.Close()
 		if err != nil {
 			return err
 		}

@@ -1,4 +1,4 @@
-package git
+package github
 
 import (
 	"context"
@@ -20,6 +20,9 @@ var (
 
 	ctx     context.Context
 	service *github.RepositoriesService
+
+	TargetCommitish      = "master"
+	GenerateReleaseNotes = false
 )
 
 func Init() {
@@ -56,9 +59,46 @@ func UpdateReleaseBody(release *github.RepositoryRelease) error {
 }
 
 var (
-	TargetCommitish      = "master"
-	GenerateReleaseNotes = false
+	PluginRepositoryName = "plugin-repository"
 )
+
+func CreatePluginRepository(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	release, _, _ := service.GetReleaseByTag(ctx, REPO_OWNER, REPO_NAME, PluginRepositoryName)
+	if release == nil {
+		if err != nil {
+			return err
+		}
+		body := "Lombok plugin repository, see README.md."
+		release, _, err = service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
+			TagName:              &PluginRepositoryName,
+			TargetCommitish:      &TargetCommitish,
+			Name:                 &PluginRepositoryName,
+			Body:                 &body,
+			GenerateReleaseNotes: &GenerateReleaseNotes,
+		})
+		if err != nil {
+			return err
+		}
+	} else {
+		for _, asset := range release.Assets {
+			_, err := service.DeleteReleaseAsset(ctx, REPO_OWNER, REPO_NAME, *asset.ID)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	_, _, err = service.UploadReleaseAsset(
+		ctx, REPO_OWNER, REPO_NAME, *release.ID,
+		&github.UploadOptions{
+			Name: PluginRepositoryName,
+		}, file)
+	file.Close()
+	return err
+}
 
 func CreateTag(tag string, versions []as.AndroidStudioRelease, zipFile string) error {
 	log.Infof("Start uploading version %s...", tag)
