@@ -161,7 +161,7 @@ func doAction() {
 			verNames = append(verNames, version.Name)
 		}
 
-		log.Infof("- Platform Version %s:\n%s", verTag, strings.Join(verNames, "\n  > "))
+		log.Infof("- Platform Version %s:\n > %s", verTag, strings.Join(verNames, "\n  > "))
 
 		release, err := github.GetReleaseByTag(verTag)
 		if err == nil {
