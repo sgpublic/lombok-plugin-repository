@@ -99,50 +99,50 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			Size:        0,
 			Date:        unix,
 			UpdatedDate: unix,
-			URL:         "",
+			URL:         "https://github.com/" + github.REPO,
 			Name:        _IdeaPluginName{Text: "Lombok"},
 			ID:          _IdeaPluginId{Text: "Lombook Plugin"},
 			Description: _IdeaPluginDescription{
-				Text: "<![CDATA[<h1>IntelliJ Lombok plugin</h1>\n" +
-					"<br/>\n" +
-					"<a href=\"https://github.com/mplushnikov/lombok-intellij-plugin\">GitHub</a> |\n" +
-					"<a href=\"https://github.com/mplushnikov/lombok-intellij-plugin/issues\">Issues</a> | Donate (\n" +
-					"<a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3F9HXD7A2SMCN\">PayPal</a> )\n" +
-					"<br/>\n" +
-					"<br/>\n" +
-					"\n" +
-					"<b>A plugin that adds first-class support for Project Lombok</b>\n" +
-					"<br/>\n" +
-					"<br/>\n" +
-					"\n" +
-					"<b>Features</b>\n" +
-					"<ul>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/GetterSetter.html\">@Getter and @Setter</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/FieldNameConstants\">@FieldNameConstants</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/ToString.html\">@ToString</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/EqualsAndHashCode.html\">@EqualsAndHashCode</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Constructor.html\">@AllArgsConstructor, @RequiredArgsConstructor and\n" +
-					"    @NoArgsConstructor</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Log.html\">@Log, @Log4j, @Log4j2, @Slf4j, @XSlf4j, @CommonsLog,\n" +
-					"    @JBossLog, @Flogger, @CustomLog</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Data.html\">@Data</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Builder.html\">@Builder</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/SuperBuilder\">@SuperBuilder</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Builder.html#singular\">@Singular</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Delegate.html\">@Delegate</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/Value.html\">@Value</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/Accessors.html\">@Accessors</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/Wither.html\">@Wither</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/With.html\">@With</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/SneakyThrows.html\">@SneakyThrows</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/val.html\">@val</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/var.html\">@var</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/var.html\">experimental @var</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/experimental/UtilityClass.html\">@UtilityClass</a></li>\n" +
-					"  <li><a href=\"https://projectlombok.org/features/configuration.html\">Lombok config system</a></li>\n" +
-					"  <li>Code inspections</li>\n" +
-					"  <li>Refactoring actions (lombok and delombok)</li>\n" +
-					"</ul>\n" +
+				Text: "<![CDATA[<h1>IntelliJ Lombok plugin</h1>" +
+					"<br/>" +
+					"<a href=\"https://github.com/mplushnikov/lombok-intellij-plugin\">GitHub</a> |" +
+					"<a href=\"https://github.com/mplushnikov/lombok-intellij-plugin/issues\">Issues</a> | Donate (" +
+					"<a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3F9HXD7A2SMCN\">PayPal</a> )" +
+					"<br/>" +
+					"<br/>" +
+					"" +
+					"<b>A plugin that adds first-class support for Project Lombok</b>" +
+					"<br/>" +
+					"<br/>" +
+					"" +
+					"<b>Features</b>" +
+					"<ul>" +
+					"  <li><a href=\"https://projectlombok.org/features/GetterSetter.html\">@Getter and @Setter</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/FieldNameConstants\">@FieldNameConstants</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/ToString.html\">@ToString</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/EqualsAndHashCode.html\">@EqualsAndHashCode</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Constructor.html\">@AllArgsConstructor, @RequiredArgsConstructor and" +
+					"    @NoArgsConstructor</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Log.html\">@Log, @Log4j, @Log4j2, @Slf4j, @XSlf4j, @CommonsLog," +
+					"    @JBossLog, @Flogger, @CustomLog</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Data.html\">@Data</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Builder.html\">@Builder</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/SuperBuilder\">@SuperBuilder</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Builder.html#singular\">@Singular</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Delegate.html\">@Delegate</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/Value.html\">@Value</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/Accessors.html\">@Accessors</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/Wither.html\">@Wither</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/With.html\">@With</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/SneakyThrows.html\">@SneakyThrows</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/val.html\">@val</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/var.html\">@var</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/var.html\">experimental @var</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/experimental/UtilityClass.html\">@UtilityClass</a></li>" +
+					"  <li><a href=\"https://projectlombok.org/features/configuration.html\">Lombok config system</a></li>" +
+					"  <li>Code inspections</li>" +
+					"  <li>Refactoring actions (lombok and delombok)</li>" +
+					"</ul>" +
 					"<br/>]]>",
 			},
 			Version: _IdeaPluginVersion{Text: verTag},
@@ -152,7 +152,7 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			},
 			Rating:      _IdeaPluginRating{Text: "5.0"},
 			ChangeNotes: _IdeaPluginChangeNotes{Text: "<![CDATA[]]>"},
-			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + github.REPO + "/release/download/lombok-" + verTag + ".zip"},
+			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + github.REPO + "/release/download/" + verTag + "/lombok-" + verTag + ".zip"},
 			IdeaVersion: _IdeaPluginIdeaVersion{
 				Max:        "n/a",
 				Min:        "n/a",
