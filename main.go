@@ -145,14 +145,17 @@ func doAction() {
 	needUpdate := false
 	sizes := hashmap.New()
 	for {
-		log.Infoln("Sleep 10 second...")
-		time.Sleep(time.Second * 10)
 		item, hasNext = asVer.Dequeue()
 		if !hasNext {
 			break
 		}
 
 		verTag := item.(string)
+		if !debug {
+			log.Infoln("Sleep 10 second...")
+			time.Sleep(time.Second * 10)
+		}
+
 		verList, _ := asInfo.Get(item)
 		verInfo := verList.([]as.AndroidStudioRelease)
 
@@ -196,7 +199,8 @@ func doAction() {
 			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue
 		}
-		sizes.Put(verTag, stat.Size())
+		sizes.Put(verTag, int(stat.Size()))
+
 		err = github.CreateTag(verTag, verInfo, zipFile)
 		if err != nil {
 			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
@@ -210,6 +214,7 @@ func doAction() {
 		log.Warnf("Creating plugin repository failed, %s", err.Error())
 		return
 	}
+	
 	err = github.CreatePluginRepository(xml, needUpdate)
 	if err != nil {
 		log.Warnf("Updating plugin repository failed, %s", err.Error())

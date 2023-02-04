@@ -5,7 +5,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/util/zip"
 	"lombok-plugin-action/src/versions/as"
-	"os"
 	"time"
 )
 
@@ -44,15 +43,9 @@ download:
 		log.Debug("DeCompress error")
 		return "", err
 	}
-	open, err := os.Open(compress + "/" + prefix + "/")
-	defer open.Close()
-	if err != nil {
-		log.Debug("Compress prepare error")
-		return "", err
-	}
 	zipFile := "/tmp/lombok-plugin/lombok-" + version + ".zip"
 
-	err = zip.Compress([]*os.File{open}, zipFile)
+	err = zip.Compress(compress+"/"+prefix, "lombok", zipFile)
 	if err != nil {
 		log.Debug("Compress error")
 		return "", err

@@ -2,7 +2,9 @@ package zip
 
 import (
 	"archive/zip"
+	"github.com/mholt/archiver/v4"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/net/context"
 	"io"
 	"os"
 	"path"
@@ -10,57 +12,52 @@ import (
 	"strings"
 )
 
-func Compress(files []*os.File, dest string) error {
-	d, _ := os.Create(dest)
-	defer d.Close()
-	w := zip.NewWriter(d)
-	defer w.Close()
-	for _, file := range files {
-		err := zipFile(file, "", w)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func zipFile(file *os.File, prefix string, zw *zip.Writer) error {
-	info, err := file.Stat()
+func Compress(files string, prefix string, name string) error { // map files on disk to their paths in the archive
+	zip, err := zipFile(files, prefix)
 	if err != nil {
 		return err
 	}
-	if info.IsDir() {
-		prefix = prefix + "/" + info.Name()
-		fileInfos, err := file.Readdir(-1)
-		if err != nil {
-			return err
-		}
-		for _, fi := range fileInfos {
-			f, err := os.Open(file.Name() + "/" + fi.Name())
-			if err != nil {
-				return err
-			}
-			err = zipFile(f, prefix, zw)
-			if err != nil {
-				return err
-			}
-		}
-	} else {
-		header, err := zip.FileInfoHeader(info)
-		header.Name = prefix + "/" + header.Name
-		if err != nil {
-			return err
-		}
-		writer, err := zw.CreateHeader(header)
-		if err != nil {
-			return err
-		}
-		_, err = io.Copy(writer, file)
-		if err != nil {
-			return err
-		}
+
+	// create the output file we'll write to
+	out, err := os.Create(name)
+	if err != nil {
+		return err
 	}
-	return nil
+	defer out.Close()
+
+	format := archiver.CompressedArchive{
+		Archival: archiver.Zip{},
+	}
+
+	err = format.Archive(context.Background(), out, zip)
+	return err
+}
+
+func zipFile(file string, prefix string) ([]archiver.File, error) {
+	log.Debugf("zipFile(\"%s\", \"%s\")", file, prefix)
+	stat, err := os.Stat(file)
+	if err != nil {
+		return nil, err
+	}
+	if !stat.IsDir() {
+		return archiver.FilesFromDisk(nil, map[string]string{
+			file: prefix,
+		})
+	}
+
+	var next []archiver.File
+	dirs, err := os.ReadDir(file)
+	if err != nil {
+		return nil, err
+	}
+	for _, dir := range dirs {
+		files, err := zipFile(file+"/"+dir.Name(), prefix+"/"+dir.Name())
+		if err != nil {
+			return nil, err
+		}
+		next = append(next, files...)
+	}
+	return next, nil
 }
 
 func DeCompress(zipPath string, prefix string, dstDir string) error {
