@@ -6,7 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/cavaliergopher/grab/v3 v3.0.1
 	github.com/emirpasic/gods v1.18.1
-	github.com/google/go-github/v47 v47.0.0
+	github.com/google/go-github/v50 v50.0.0
 	github.com/mattn/go-colorable v0.1.13
 	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/oauth2 v0.0.0-20220909003341-f21342109be1

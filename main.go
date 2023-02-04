@@ -142,7 +142,7 @@ func doAction() {
 	log.Infof("Android Studio versions (%d in total):", asVer.Size())
 	var item interface{}
 	var hasNext bool
-
+	needUpdate := false
 	sizes := hashmap.New()
 	for {
 		log.Infoln("Sleep 10 second...")
@@ -161,10 +161,11 @@ func doAction() {
 			verNames = append(verNames, version.Name)
 		}
 
-		log.Infof("- Platform Version %s:\n > %s", verTag, strings.Join(verNames, "\n  > "))
+		log.Infof("- Platform Version %s:\n  > %s", verTag, strings.Join(verNames, "\n  > "))
 
 		release, err := github.GetReleaseByTag(verTag)
 		if err == nil {
+			sizes.Put(verTag, *release.Assets[0].Size)
 			log.Infof("Tag of %s already exits, updateing...", verTag)
 			note, prerelease := lombok.CreateReleaseNote(verInfo)
 			if release.GetBody() == note && *release.Prerelease == prerelease {
@@ -177,6 +178,7 @@ func doAction() {
 			if err != nil {
 				log.Warnf("Tag of %s update failed.", verTag)
 			} else {
+				needUpdate = true
 				log.Warnf("Tag of %s update success.", verTag)
 			}
 			continue
@@ -189,21 +191,17 @@ func doAction() {
 		}
 
 		zipFile, err := lombok.GetVersion(info.(iu.IdeaRelease).Downloads.WindowsZip.Link, verTag)
-		sizes.Put(verTag, 0)
-		file, err := os.Open(zipFile)
-		if err == nil {
-			stat, err := file.Stat()
-			if err == nil {
-				sizes.Put(verTag, stat.Size())
-			}
-		} else {
+		stat, err := os.Stat(zipFile)
+		if err != nil {
 			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
 			continue
 		}
+		sizes.Put(verTag, stat.Size())
 		err = github.CreateTag(verTag, verInfo, zipFile)
 		if err != nil {
 			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
 		} else {
+			needUpdate = true
 			log.Infof("Version %s upload finish.", verTag)
 		}
 	}
@@ -212,9 +210,11 @@ func doAction() {
 		log.Warnf("Creating plugin repository failed, %s", err.Error())
 		return
 	}
-	err = github.CreatePluginRepository(xml)
+	err = github.CreatePluginRepository(xml, needUpdate)
 	if err != nil {
 		log.Warnf("Updating plugin repository failed, %s", err.Error())
+	} else {
+		log.Info("Updating plugin repository success!")
 	}
 	log.Info("Updating lombok plugin finish!")
 }

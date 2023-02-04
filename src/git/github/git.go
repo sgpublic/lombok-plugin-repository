@@ -2,7 +2,7 @@ package github
 
 import (
 	"context"
-	"github.com/google/go-github/v47/github"
+	"github.com/google/go-github/v50/github"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"lombok-plugin-action/src/lombok"
@@ -62,7 +62,7 @@ var (
 	PluginRepositoryName = "plugin-repository"
 )
 
-func CreatePluginRepository(path string) error {
+func CreatePluginRepository(path string, forceUpdate bool) error {
 	file, err := os.Open(path)
 	if err != nil {
 		return err
@@ -84,6 +84,9 @@ func CreatePluginRepository(path string) error {
 			return err
 		}
 	} else {
+		if !forceUpdate {
+			return nil
+		}
 		for _, asset := range release.Assets {
 			_, err := service.DeleteReleaseAsset(ctx, REPO_OWNER, REPO_NAME, *asset.ID)
 			if err != nil {

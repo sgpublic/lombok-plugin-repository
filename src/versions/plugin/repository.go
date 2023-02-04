@@ -1,7 +1,6 @@
 package plugin
 
 import (
-	"bufio"
 	"encoding/xml"
 	"github.com/emirpasic/gods/maps/hashmap"
 	"github.com/emirpasic/gods/queues/priorityqueue"
@@ -25,6 +24,7 @@ type _IdeaPluginVersion struct {
 	Text string `xml:",chardata"`
 }
 type _IdeaPluginVendor struct {
+	Text  string `xml:",chardata"`
 	Email string `xml:"email,attr"`
 	URL   string `xml:"url,attr"`
 }
@@ -38,6 +38,7 @@ type _IdeaPluginDownloadURL struct {
 	Text string `xml:",chardata"`
 }
 type _IdeaPluginIdeaVersion struct {
+	Text       string `xml:",chardata"`
 	Min        string `xml:"min,attr"`
 	Max        string `xml:"max,attr"`
 	SinceBuild string `xml:"since-build,attr"`
@@ -65,6 +66,7 @@ type _PluginRepositoryFf struct {
 	Text string `xml:",chardata"`
 }
 type _PluginRepositoryCategory struct {
+	Text       string        `xml:",chardata"`
 	Name       string        `xml:"name,attr"`
 	IdeaPlugin []_IdeaPlugin `xml:"idea-plugin"`
 }
@@ -73,6 +75,7 @@ type _PluginRepository struct {
 	XMLName  xml.Name                  `xml:"plugin-repository"`
 	Ff       _PluginRepositoryFf       `xml:"ff"`
 	Category _PluginRepositoryCategory `xml:"category"`
+	Text     string                    `xml:",chardata"`
 }
 
 func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, sizes *hashmap.Map) (string, error) {
@@ -89,6 +92,10 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			break
 		}
 		verTag := item.(string)
+		size, found := sizes.Get(verTag)
+		if !found {
+			continue
+		}
 		tmp, _ := verInfos.Get(verTag)
 		release := tmp.(iu.IdeaRelease)
 		date, _ := time.Parse("2006-01-02", release.Date)
@@ -96,7 +103,7 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 		untilBuild := strings.Split(verTag, ".")[0] + ".*"
 		categories = append(categories, _IdeaPlugin{
 			Downloads:   0,
-			Size:        0,
+			Size:        size.(int),
 			Date:        unix,
 			UpdatedDate: unix,
 			URL:         "https://github.com/" + github.REPO,
@@ -167,25 +174,23 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 		IdeaPlugin: categories,
 	}
 
-	marshal, err := xml.Marshal(content)
-	if err != nil {
+	name := "/tmp/lombok-plugin/plugin-repository"
+	_, err := os.Stat(name)
+	if err == nil {
+		err = os.Remove(name)
+	}
+	if err != nil && !os.IsNotExist(err) {
 		return "", err
 	}
 
-	name := "/tmp/lombok-plugin/plugin-repository"
-	file, err := os.OpenFile(name, os.O_WRONLY|os.O_CREATE, 0777)
+	file, err := os.OpenFile(name, os.O_CREATE|os.O_WRONLY, 0744)
+	defer file.Close()
 	if err != nil {
 		return "", err
 	}
-	write := bufio.NewWriter(file)
-	_, err = write.Write(marshal)
+	err = xml.NewEncoder(file).Encode(content)
 	if err != nil {
 		return "", err
 	}
-	err = write.Flush()
-	if err != nil {
-		return "", err
-	}
-	file.Close()
-	return name, github.CreatePluginRepository(name)
+	return name, nil
 }
