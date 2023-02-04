@@ -7,7 +7,6 @@ import (
 	"lombok-plugin-action/src/git/github"
 	"lombok-plugin-action/src/versions/iu"
 	"os"
-	"strings"
 	"time"
 )
 
@@ -100,7 +99,6 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 		release := tmp.(iu.IdeaRelease)
 		date, _ := time.Parse("2006-01-02", release.Date)
 		unix := date.Unix() * 1000
-		untilBuild := strings.Split(verTag, ".")[0] + ".*"
 		categories = append(categories, _IdeaPlugin{
 			Downloads:   0,
 			Size:        size.(int),
@@ -154,17 +152,17 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			},
 			Version: _IdeaPluginVersion{Text: verTag},
 			Vendor: _IdeaPluginVendor{
-				URL:   "https://github.com/" + github.REPO + "/release/tag/" + verTag,
+				URL:   "https://github.com/" + github.REPO + "/releases/tag/" + verTag,
 				Email: "",
 			},
 			Rating:      _IdeaPluginRating{Text: "5.0"},
 			ChangeNotes: _IdeaPluginChangeNotes{Text: "<![CDATA[]]>"},
-			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + github.REPO + "/release/download/" + verTag + "/lombok-" + verTag + ".zip"},
+			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + github.REPO + "/releases/download/" + verTag + "/lombok-" + verTag + ".zip"},
 			IdeaVersion: _IdeaPluginIdeaVersion{
 				Max:        "n/a",
 				Min:        "n/a",
 				SinceBuild: verTag,
-				UntilBuild: untilBuild,
+				UntilBuild: verTag,
 			},
 		})
 	}
