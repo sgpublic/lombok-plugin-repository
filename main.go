@@ -1,10 +1,7 @@
 package main
 
 import (
-	"flag"
 	"github.com/emirpasic/gods/maps/hashmap"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
-	"github.com/mattn/go-colorable"
 	cron3 "github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
 	"lombok-plugin-action/src/config"
@@ -17,125 +14,37 @@ import (
 	"net/http"
 	"net/http/cookiejar"
 	"os"
-	"os/exec"
-	"path"
-	"path/filepath"
 	"strings"
 	"time"
 )
 
-var (
-	service = false
-	cron    = "" // 0 * 2 * * *
-	debug   = false
-)
-
 func init() {
-	initFlag()
-	initLogrus()
+	config.Setup()
 	github.Init()
 }
 
 func main() {
-	// daemon mode
-	if service {
-		args := os.Args[1:]
-		execArgs := make([]string, 0)
-		l := len(args)
-		cronEnable := false
-		for i := 0; i < l; i++ {
-			if strings.Compare(args[i], "-service") == 0 {
-				continue
-			}
-			if strings.Compare(args[i], "-cron") == 0 {
-				cronEnable = true
-			}
-			execArgs = append(execArgs, args[i])
-		}
-		if !cronEnable {
-			execArgs = append(execArgs, "-cron", "0 0 2 * * *")
-		}
-
-		ex, _ := os.Executable()
-		p, _ := filepath.Abs(ex)
-		proc := exec.Command(p, execArgs...)
-		err := proc.Start()
-		if err != nil {
-			panic(err)
-		}
-		log.Infof("[PID] %d", proc.Process.Pid)
-		os.Exit(0)
-	}
-
 	jar, _ := cookiejar.New(nil)
 	http.DefaultClient = &http.Client{
 		Jar: jar,
 	}
 
 	// cron mode
-	if strings.Compare(cron, "") == 0 {
+	if config.Cron() == "" {
 		doAction()
 		return
 	} else {
-		config.KeepWhenException = true
+		util.KeepWhenException = true
 	}
 
 	c := cron3.New()
-	c.AddFunc(cron, doAction)
+	c.AddFunc(config.Cron(), doAction)
 	log.Infof("lombok-plugin-action started!")
 	c.Run()
 }
 
-func initFlag() {
-	flag.StringVar(&github.TOKEN, "token", "", "Github Security Token")
-	flag.StringVar(&github.REPO, "repo", "", "Target repo")
-	flag.BoolVar(&debug, "debug", false, "Debug mod")
-	flag.BoolVar(&service, "service", false, "Service mod")
-	flag.StringVar(&cron, "cron", "", "Crontab operation")
-	flag.Parse()
-}
-
-func initLogrus() {
-	log.SetOutput(colorable.NewColorableStdout())
-	log.SetFormatter(util.LogFormat{EnableColor: true})
-
-	log.RegisterExitHandler(func() {
-		_ = os.RemoveAll("/tmp/lombok-plugin/")
-	})
-
-	rotateOptions := []rotatelogs.Option{
-		rotatelogs.WithRotationTime(time.Hour * 24),
-	}
-	rotateOptions = append(rotateOptions, rotatelogs.WithMaxAge(259200*time.Second))
-	err := os.MkdirAll("/var/log/lombok/", 0744)
-	if err != nil && !os.IsExist(err) {
-		log.Errorf("log dir init err: %v", err)
-		return
-	}
-	w, err := rotatelogs.New(path.Join("/var/log/lombok/", "%Y-%m-%d.log"), rotateOptions...)
-	if err != nil {
-		log.Errorf("rotatelogs init err: %v", err)
-	} else {
-		log.AddHook(util.NewLocalHook(w, debug))
-	}
-
-	// debug mode
-	if debug {
-		log.SetLevel(log.DebugLevel)
-		log.Debug("Enable debug mode!")
-	} else {
-		log.SetLevel(log.InfoLevel)
-	}
-}
-
 func doAction() {
 	log.Info("Start updating lombok plugin...")
-
-	err := os.MkdirAll("/tmp/lombok-plugin", 0744)
-	if err != nil && !os.IsExist(err) {
-		log.Warnf("Create temp dir failed: %s", err.Error())
-		return
-	}
 
 	iuVer, iuInfo := iu.ListVersions()
 	asVer, asInfo := as.ListVersions()
@@ -151,7 +60,7 @@ func doAction() {
 		}
 
 		verTag := item.(string)
-		if !debug {
+		if !config.IsDebug() {
 			log.Infoln("Sleep 10 second...")
 			time.Sleep(time.Second * 10)
 		}
@@ -196,14 +105,14 @@ func doAction() {
 		zipFile, err := lombok.GetVersion(info.(iu.IdeaRelease).Downloads.WindowsZip.Link, verTag)
 		stat, err := os.Stat(zipFile)
 		if err != nil {
-			log.Errorf("Failed to get version %s: %s", verTag, err.Error())
+			log.Errorf("Failed to get version %s: %v", verTag, err)
 			continue
 		}
 		sizes.Put(verTag, int(stat.Size()))
 
 		err = github.CreateTag(verTag, verInfo, zipFile)
 		if err != nil {
-			log.Errorf("Failed to upload version %s: %s", verTag, err.Error())
+			log.Errorf("Failed to upload version %s: %v", verTag, err)
 		} else {
 			needUpdate = true
 			log.Infof("Version %s upload finish.", verTag)
@@ -211,13 +120,13 @@ func doAction() {
 	}
 	xml, err := plugin.CreateRepositoryXml(iuVer, iuInfo, sizes)
 	if err != nil {
-		log.Warnf("Creating plugin repository failed, %s", err.Error())
+		log.Warnf("Creating plugin repository failed, %v", err)
 		return
 	}
-	
+
 	err = github.CreatePluginRepository(xml, needUpdate)
 	if err != nil {
-		log.Warnf("Updating plugin repository failed, %s", err.Error())
+		log.Warnf("Updating plugin repository failed, %v", err)
 	} else {
 		log.Info("Updating plugin repository success!")
 	}

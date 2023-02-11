@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/emirpasic/gods/maps/hashmap"
 	"github.com/emirpasic/gods/queues/priorityqueue"
-	"lombok-plugin-action/src/git/github"
+	"lombok-plugin-action/src/config"
 	"lombok-plugin-action/src/versions/iu"
 	"os"
 	"time"
@@ -104,7 +104,7 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			Size:        size.(int),
 			Date:        unix,
 			UpdatedDate: unix,
-			URL:         "https://github.com/" + github.REPO,
+			URL:         "https://github.com/" + config.GithubRepo(),
 			Name:        _IdeaPluginName{Text: "Lombok"},
 			ID:          _IdeaPluginId{Text: "Lombook Plugin"},
 			Description: _IdeaPluginDescription{
@@ -152,12 +152,12 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 			},
 			Version: _IdeaPluginVersion{Text: verTag},
 			Vendor: _IdeaPluginVendor{
-				URL:   "https://github.com/" + github.REPO + "/releases/tag/" + verTag,
+				URL:   "https://github.com/" + config.GithubRepo() + "/releases/tag/" + verTag,
 				Email: "",
 			},
 			Rating:      _IdeaPluginRating{Text: "5.0"},
 			ChangeNotes: _IdeaPluginChangeNotes{Text: "<![CDATA[]]>"},
-			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + github.REPO + "/releases/download/" + verTag + "/lombok-" + verTag + ".zip"},
+			DownloadURL: _IdeaPluginDownloadURL{Text: "https://github.com/" + config.GithubRepo() + "/releases/download/" + verTag + "/lombok-" + verTag + ".zip"},
 			IdeaVersion: _IdeaPluginIdeaVersion{
 				Max:        "n/a",
 				Min:        "n/a",

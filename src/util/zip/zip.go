@@ -85,12 +85,12 @@ func unzipFile(file *zip.File, dstDir string) error {
 	filePath := path.Join(dstDir, file.Name)
 	log.Infof("decompressing: %s", file.Name)
 	if file.FileInfo().IsDir() {
-		if err := os.MkdirAll(filePath, os.ModePerm); err != nil {
+		if err := os.MkdirAll(filePath, os.ModePerm); err != nil && !os.IsExist(err) {
 			return err
 		}
 		return nil
 	}
-	if err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil {
+	if err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil && !os.IsExist(err) {
 		return err
 	}
 

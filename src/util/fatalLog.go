@@ -2,9 +2,10 @@ package util
 
 import (
 	log "github.com/sirupsen/logrus"
-	"lombok-plugin-action/src/config"
 	"os"
 )
+
+var KeepWhenException = false
 
 func FatalLogf(format string, args ...interface{}) {
 	log.Errorf(format, args...)
@@ -17,7 +18,7 @@ func FatalLogln(args ...interface{}) {
 }
 
 func checkExit() {
-	if !config.KeepWhenException {
+	if !KeepWhenException {
 		os.Exit(1)
 	}
 }

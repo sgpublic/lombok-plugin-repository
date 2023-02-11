@@ -5,6 +5,7 @@ import (
 	"github.com/google/go-github/v50/github"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
+	"lombok-plugin-action/src/config"
 	"lombok-plugin-action/src/lombok"
 	"lombok-plugin-action/src/util"
 	"lombok-plugin-action/src/versions/as"
@@ -13,8 +14,6 @@ import (
 )
 
 var (
-	TOKEN      string
-	REPO       string
 	REPO_OWNER string
 	REPO_NAME  string
 
@@ -26,10 +25,10 @@ var (
 )
 
 func Init() {
-	if TOKEN == "" || REPO == "" {
+	if config.GithubToken() == "" || config.GithubRepo() == "" {
 		util.FatalLogln("Arg required!")
 	}
-	split := strings.Split(REPO, "/")
+	split := strings.Split(config.GithubRepo(), "/")
 	if len(split) != 2 {
 		util.FatalLogln("Unknown REPO!")
 	}
@@ -38,7 +37,7 @@ func Init() {
 
 	ctx = context.Background()
 	ts := oauth2.StaticTokenSource(&oauth2.Token{
-		AccessToken: TOKEN,
+		AccessToken: config.GithubToken(),
 	})
 	tc := oauth2.NewClient(ctx, ts)
 	service = github.NewClient(tc).Repositories

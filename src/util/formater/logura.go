@@ -47,7 +47,7 @@ func (hook *LocalHook) ioWrite(entry *logrus.Entry) error {
 
 func (hook *LocalHook) pathWrite(entry *logrus.Entry) error {
 	dir := filepath.Dir(hook.path)
-	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil && !os.IsExist(err) {
 		return err
 	}
 
