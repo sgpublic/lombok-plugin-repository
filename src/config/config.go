@@ -56,6 +56,14 @@ func GithubToken() string {
 	return _ReadConfig().Github.Token
 }
 
+func TempDir() string {
+	dir := _ReadConfig().TmpDir
+	if !strings.HasSuffix(dir, "/") {
+		dir = dir + "/"
+	}
+	return dir
+}
+
 func _SetupConfig() {
 	conf := _ReadConfig()
 
@@ -144,5 +152,5 @@ type _ConfigRoot struct {
 
 	Cron string `yaml:"cron"`
 
-	TmpDir string `yaml:"tmp-dir" default:"/tmp/lombok"`
+	TmpDir string `yaml:"tmp-dir" default:"/tmp/lombok-plugin"`
 }

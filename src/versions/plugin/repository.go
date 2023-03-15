@@ -172,7 +172,7 @@ func CreateRepositoryXml(verTags *priorityqueue.Queue, verInfos *hashmap.Map, si
 		IdeaPlugin: categories,
 	}
 
-	name := "/tmp/lombok-plugin/plugin-repository"
+	name := config.TempDir() + "plugin-repository"
 	_, err := os.Stat(name)
 	if err == nil {
 		err = os.Remove(name)

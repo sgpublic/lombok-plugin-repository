@@ -3,15 +3,14 @@ package lombok
 import (
 	"github.com/cavaliergopher/grab/v3"
 	log "github.com/sirupsen/logrus"
+	"lombok-plugin-action/src/config"
 	"lombok-plugin-action/src/util/zip"
 	"lombok-plugin-action/src/versions/as"
 	"time"
 )
 
 func GetVersion(url string, version string) (string, error) {
-	tmp := "/tmp/lombok-plugin/"
-
-	compress := tmp + version
+	compress := config.TempDir() + version
 	path := compress + "/ideaU.zip"
 
 	log.Infof("Start download: %s", url)
@@ -43,7 +42,7 @@ download:
 		log.Debug("DeCompress error")
 		return "", err
 	}
-	zipFile := "/tmp/lombok-plugin/lombok-" + version + ".zip"
+	zipFile := config.TempDir() + "lombok-" + version + ".zip"
 
 	err = zip.Compress(compress+"/"+prefix, "lombok", zipFile)
 	if err != nil {
