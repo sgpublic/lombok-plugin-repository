@@ -127,3 +127,16 @@ func CreateTag(tag string, versions []as.AndroidStudioRelease, zipFile string) e
 		}, file)
 	return err
 }
+
+func CreateEmptyTag(tag string, versions []as.AndroidStudioRelease) error {
+	body, prerelease := lombok.CreateEmptyReleaseNote(versions)
+	_, _, err := service.CreateRelease(ctx, REPO_OWNER, REPO_NAME, &github.RepositoryRelease{
+		TagName:              &tag,
+		TargetCommitish:      &TargetCommitish,
+		Name:                 &tag,
+		Body:                 &body,
+		Prerelease:           &prerelease,
+		GenerateReleaseNotes: &GenerateReleaseNotes,
+	})
+	return err
+}

@@ -64,3 +64,16 @@ func CreateReleaseNote(versions []as.AndroidStudioRelease) (string, bool) {
 	}
 	return result, prerelease
 }
+
+func CreateEmptyReleaseNote(versions []as.AndroidStudioRelease) (string, bool) {
+	result := "The JetBrains IDEA Ultimate corresponding to these versions used to exist, but JetBrains does not provide downloads now:"
+	prerelease := true
+
+	for _, version := range versions {
+		result += "\n+ " + version.Name
+		if prerelease && ("Patch" == version.Channel || "Release" == version.Channel) {
+			prerelease = false
+		}
+	}
+	return result, prerelease
+}

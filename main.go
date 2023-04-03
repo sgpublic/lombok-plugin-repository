@@ -98,11 +98,18 @@ func doAction() {
 
 		info, found := iuInfo.Get(item)
 		if !found {
-			log.Warnf("Version %s exists in Android Studio, but not exists in IDEA.", verTag)
+			err = github.CreateEmptyTag(verTag, verInfo)
+			if err != nil {
+				return
+			}
 			continue
 		}
 
 		zipFile, err := lombok.GetVersion(info.(iu.IdeaRelease).Downloads.WindowsZip.Link, verTag)
+		if err != nil {
+			log.Errorf("Failed to get version %s: %v", verTag, err)
+			continue
+		}
 		stat, err := os.Stat(zipFile)
 		if err != nil {
 			log.Errorf("Failed to get version %s: %v", verTag, err)
