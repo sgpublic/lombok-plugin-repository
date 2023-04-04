@@ -30,7 +30,7 @@ func main() {
 	}
 
 	// cron mode
-	if config.Cron() == "" {
+	if config.Cron() == "" || config.IsNow() {
 		doAction()
 		return
 	} else {

@@ -19,6 +19,7 @@ var (
 	_ConfigPath string
 	_Debug      bool
 	_Service    bool
+	_Now        bool
 )
 
 func Setup() {
@@ -33,6 +34,7 @@ func _SetupFlag() {
 	flag.StringVar(&_ConfigPath, "config", "./config.yaml", "Set the config file (*.yaml) to use.")
 	flag.BoolVar(&_Debug, "debug", false, "Debug mod")
 	flag.BoolVar(&_Service, "service", false, "Service mod")
+	flag.BoolVar(&_Now, "now", false, "ignore cron")
 	flag.Parse()
 }
 
@@ -42,6 +44,10 @@ func IsDebug() bool {
 
 func IsService() bool {
 	return _Service
+}
+
+func IsNow() bool {
+	return _Now
 }
 
 func Cron() string {
