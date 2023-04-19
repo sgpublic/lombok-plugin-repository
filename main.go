@@ -38,7 +38,7 @@ func main() {
 	}
 
 	c := cron3.New()
-	c.AddFunc(config.Cron(), doAction)
+	_ = c.AddFunc(config.Cron(), doAction)
 	log.Infof("lombok-plugin-action started!")
 	c.Run()
 }
