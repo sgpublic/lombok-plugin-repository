@@ -77,9 +77,15 @@ func doAction() {
 
 		release, err := github.GetReleaseByTag(verTag)
 		if err == nil {
-			sizes.Put(verTag, *release.Assets[0].Size)
 			log.Infof("Tag of %s already exits, updateing...", verTag)
-			note, prerelease := lombok.CreateReleaseNote(verInfo)
+			var note string
+			var prerelease bool
+			if len(release.Assets) > 0 {
+				sizes.Put(verTag, *release.Assets[0].Size)
+				note, prerelease = lombok.CreateReleaseNote(verInfo)
+			} else {
+				note, prerelease = lombok.CreateEmptyReleaseNote(verInfo)
+			}
 			if release.GetBody() == note && *release.Prerelease == prerelease {
 				log.Warnf("Tag of %s is up to date, skip.", verTag)
 				continue
