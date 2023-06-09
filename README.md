@@ -1,3 +1,4 @@
+lombok-plugin-repositorylombok_plugin_repository
 # lombok-plugin
 
 This is a repository for Lombok plugin incompatibility issues with Android Studio.
