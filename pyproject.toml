@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "lombok-plugin-repository"
+version = "1.0.0-alpha01"
+description = "A repository for Lombok plugin incompatibility issues with Android Studio."
+authors = ["Madray Haven <sgpublic2002@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "lombok_plugin_repository"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
