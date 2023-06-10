@@ -161,3 +161,4 @@ cython_debug/
 
 # lombok_plugin_repository
 /config.yaml
+/config.yaml.bak
