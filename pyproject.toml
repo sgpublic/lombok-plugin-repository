@@ -13,6 +13,8 @@ pyyaml = "^6.0"
 argparse = "^1.4.0"
 loguru = "^0.7.0"
 attrs = "^23.1.0"
+apscheduler = "^3.10.1"
+python-crontab = "^2.7.1"
 
 
 [build-system]
