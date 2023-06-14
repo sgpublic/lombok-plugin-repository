@@ -4,46 +4,7 @@ import attr
 import yaml
 from loguru import logger
 
-@attr.s
-class _ConfigLogging:
-    path: str = attr.ib(default="/var/log/lombok")
-    level: str = attr.ib(default="INFO")
-    aging: int = attr.ib(default=604800)
-
-
-_repo_git_url_default: str = "https://username@auth_token:github.com/user/example.git"
-
-
-@attr.s
-class ConfigRepository:
-    git_url: str = attr.ib(default=_repo_git_url_default)
-    branch: str = attr.ib(default="repository")
-
-
-@attr.s
-class Config:
-    temp_dir: str = attr.ib(default="/tmp/lombok-plugin")
-    cron: str = attr.ib(default="0 0 2 * * *")
-    logging: _ConfigLogging = attr.ib(factory=_ConfigLogging)
-    repos: dict[str, ConfigRepository] = attr.ib(factory=dict[str, ConfigRepository])
-
-    # noinspection PyArgumentList
-    def __attrs_post_init__(self):
-        try:
-            self.logging = _ConfigLogging(**self.logging)
-        except Exception:
-            self.logging = _ConfigLogging()
-        try:
-            self.repos = {
-                key: ConfigRepository(**value)
-                for key, value in self.repos.items()
-            }
-        except Exception:
-            self.repos = {}
-
-
-class ConfigObject:
-    config: Config = None
+from lombok_plugin_repository.config import Config, ConfigRepository, _git_url_default
 
 
 def _yaml_filter(attribute, _) -> bool:
@@ -77,6 +38,6 @@ def load_setting(config_path: str) -> Config:
         )
     config.repos = {
         key: value
-        for key, value in config.repos.items() if value.git_url != _repo_git_url_default
+        for key, value in config.repos.items() if value.git_url != _git_url_default
     }
     return config

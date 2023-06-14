@@ -7,13 +7,14 @@ import git
 from git import Repo
 from loguru import logger
 
-from lombok_plugin_repository.setting import ConfigRepository, ConfigObject
+from lombok_plugin_repository.config import global_config
+from lombok_plugin_repository.config.setting import ConfigRepository
 
 
 class GitRepo:
     @staticmethod
     def checkout_git_repo(name: str, conf: ConfigRepository) -> Repo | None:
-        path: str = os.path.join(ConfigObject.config.temp_dir, "git", name)
+        path: str = os.path.join(global_config.temp_dir, "git", name)
         try:
             repo: Repo = git.Repo(path)
             if repo.remote("origin").repo != conf.git_url:

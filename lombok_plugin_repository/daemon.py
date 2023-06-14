@@ -9,8 +9,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from loguru import logger
 
 from lombok_plugin_repository.action import Action
-from lombok_plugin_repository.setting import load_setting, ConfigObject
-from lombok_plugin_repository.util.loguru_extra import log_file_path
+from lombok_plugin_repository.config.setting import load_setting
 
 
 class Main:
@@ -32,25 +31,25 @@ class Main:
         arg: argparse.Namespace = parser.parse_args()
 
         logger.remove()
-        logger.bind(file_path=log_file_path).add(sys.stdout,
+        logger.add(sys.stdout,
                    format="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> "
                           "<level>{level: <8}</level> <cyan>\"{extra[file_path]}:{line}\"</cyan>: "
                           "<level>{message}</level>",
                    level="DEBUG" if arg.debug else "INFO")
 
-        ConfigObject.config = load_setting(arg.config)
+        global_config = load_setting(arg.config)
 
         if not os.path.exists(arg.config):
             open(arg.config, "w+").close()
         if not arg.debug:
-            logger.add(os.path.join(ConfigObject.config.logging.path, "lombok-plugin-repository.log"),
+            logger.add(os.path.join(global_config.logging.path, "lombok-plugin-repository.log"),
                        format="{time} | {level: <8} | {file}:{line} - {message}",
-                       rotation=timedelta(seconds=ConfigObject.config.logging.aging),
-                       level=ConfigObject.config.logging.level)
+                       rotation=timedelta(seconds=global_config.logging.aging),
+                       level=global_config.logging.level)
 
-        logger.debug(f"使用配置：\n{ConfigObject.config}")
+        logger.debug(f"使用配置：\n{global_config}")
 
-        if len(ConfigObject.config.repos) == 0:
+        if len(global_config.repos) == 0:
             logger.error("请至少为 repo 添加一个仓库！")
             exit(0)
 
