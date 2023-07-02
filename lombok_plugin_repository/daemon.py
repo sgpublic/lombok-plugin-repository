@@ -59,7 +59,7 @@ class Main:
         if arg.now:
             Action.single()
         else:
-            Main.scheduler.add_job(Action.single, trigger="cron", minute=1)
+            Main.scheduler.add_job(Action.schedule, trigger="cron", minute=1)
 
             signal.signal(signal.SIGINT, Main.stop)
             signal.signal(signal.SIGTERM, Main.stop)

@@ -1,1 +1,1 @@
-poetry run python ./src/daemon.py
+poetry run python ./lombok_plugin_repository/daemon.py

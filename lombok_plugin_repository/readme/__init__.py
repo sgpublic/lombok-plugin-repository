@@ -1,3 +1,64 @@
+from enum import Enum
+import attr
+
+from lombok_plugin_repository.config import ConfigRepository
+
+
+class Language(Enum):
+    zh_Hans = 0
+    en_US = 1
+
+
+@attr.s
+class LombokVerItem:
+    lombok_ver: str = attr.ib()
+    idea_ver: str = attr.ib()
+    file_name: str = attr.ib()
+
+    full_version = '''
+# %AS_VERSION%
+
+%VERSION_LIST%
+
+'''
+
+    _full_version_item_cn = '''
+## %LOMBOK_VERSION%
+
+源 IDEA Ultimate 版本：%IDEA_VERSION%
+
+下载：[%PLUGIN_FILE_NAME%](%LOMBOK_LINK%)
+
+适用于以下版本：
+
+%VERSION_LIST%
+'''
+
+    _full_version_item_en = '''
+## %LOMBOK_VERSION%
+
+From IDEA Ultimate Version：%IDEA_VERSION%
+
+Download：[%PLUGIN_FILE_NAME%](%LOMBOK_LINK%)
+
+Applies to the following versions:
+
+%VERSION_LIST%
+'''
+
+    def __full_version_item__(self, target: str, conf: ConfigRepository) -> str:
+        return target.replace("%LOMBOK_VERSION%", self.lombok_ver) \
+            .replace("%IDEA_VERSION%", self.idea_ver) \
+            .replace("%PLUGIN_FILE_NAME%", self.file_name) \
+            .replace("%LOMBOK_LINK%", conf.item_download_url(self.lombok_ver))
+
+    def _full_version_item(self, conf: ConfigRepository) -> dict[Language, str]:
+        return {
+            Language.zh_Hans: self.__full_version_item__(self._full_version_item_cn, conf),
+            Language.en_US: self.__full_version_item__(self._full_version_item_en, conf)
+        }
+
+
 readme_cn = '''
 # lombok-plugin-repository
 
@@ -26,7 +87,7 @@ readme_cn = '''
 
 ## 版本合集
 
-此表仅列举 Release 版本。
+此表仅列举 Release 版本，完整列表请前往 [Wiki](%WIKI_URL%)。
 
 | Lombok 插件版本 | 源 IDEA Ultimate 版本 | 适用于 Android Studio 版本 |
 | --------------- | --------------------- | -------------------------- |
@@ -61,42 +122,9 @@ This is a repository for Lombok plugin incompatibility issues with Android Studi
 
 ## Versions
 
-This table only lists release versions.
+This table only lists the Release versions. For a complete list, please visit the [Wiki](%WIKI_URL%).
 
 | Lombok Plugin Version | From IDEA Ultimate Version | For Android Studio Version |
 | -------------------- | ---------------------------- | ------------------------------------- |
 %VERSIONS%
-'''
-
-full_version = '''
-<details>
-<summary>%AS_VERSION%</summary>
-%VERSION_ITEMS%
-</details>
-
-'''
-
-full_version_item_cn = '''
-### %LOMBOK_VERSION%
-
-源 IDEA Ultimate 版本：%IDEA_VERSION%
-
-下载：[%LOMBOK_VERSION%](%LOMBOK_LINK%)
-
-适用于以下版本：
-
-%VERSION_LIST%
-'''
-
-
-full_version_item_en = '''
-### %LOMBOK_VERSION%
-
-From IDEA Ultimate Version：%IDEA_VERSION%
-
-Download：[%LOMBOK_VERSION%](%LOMBOK_LINK%)
-
-Applies to the following versions:
-
-%VERSION_LIST%
 '''

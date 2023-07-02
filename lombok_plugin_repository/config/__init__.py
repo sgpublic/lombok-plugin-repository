@@ -16,6 +16,8 @@ class ConfigRepository:
     repo_url: str = attr.ib(default="https://github.com/user/example")
     git_url: str = attr.ib(default=_git_url_default)
     branch: str = attr.ib(default="repository")
+    wiki_url: str = attr.ib(default="https://github.com/user/example/wiki")
+    wiki_git: str = attr.ib(default="https://username@auth_token:github.com/user/example.wiki.git")
 
     RELEASE_REPOSITORY: str = attr.ib(default="https://raw.githubusercontent.com/user/example/%BRANCH%/release")
     FULL_REPOSITORY: str = attr.ib(default="https://raw.githubusercontent.com/user/example/%BRANCH%/full")
