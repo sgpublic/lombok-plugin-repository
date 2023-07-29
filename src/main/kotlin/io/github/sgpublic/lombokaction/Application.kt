@@ -1,121 +1,110 @@
 package io.github.sgpublic.lombokaction
 
+import ch.qos.logback.classic.LoggerContext
+import ch.qos.logback.classic.joran.JoranConfigurator
 import com.charleskorn.kaml.Yaml
-import com.charleskorn.kaml.decodeFromStream
 import io.github.sgpublic.kotlin.util.Loggable
+import io.github.sgpublic.lombokaction.action.Action
 import io.github.sgpublic.lombokaction.core.AbsConfig
 import org.apache.commons.cli.*
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.context.ApplicationContext
+import org.quartz.JobKey
+import org.quartz.impl.JobDetailImpl
+import org.quartz.impl.StdSchedulerFactory
+import org.quartz.impl.triggers.CronTriggerImpl
 import java.io.File
 import java.io.IOException
-import kotlin.reflect.KClass
-import kotlin.system.exitProcess
 
 
-@SpringBootApplication
-class Application {
+object Application: Loggable {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val cmd = cmd(args) ?: return
 
-    companion object: Loggable {
-        const val APPLICATION_BASE_NAME = "lombok-plugin-repository"
+        val path = if (cmd.hasOption("config")) {
+            cmd.getOptionValue("config")
+        } else {
+            "./config/config.yaml"
+        }
+        val file = File(path)
 
-        private lateinit var context: ApplicationContext
-        val Context: ApplicationContext get() = context
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val cmd = cmd(args) ?: return
-
-            val path = if (cmd.hasOption("config")) {
-                cmd.getOptionValue("config")
-            } else {
-                "./config/config.yaml"
-            }
-            val file = File(path)
-
-            if (!file.isFile) {
-                log.error("配置文件不可用：$path")
-                exitProcess(-1)
-            }
-            val configPath: String = try {
-                file.canonicalPath
-            } catch (e: IOException) {
-                file.path
-            }
-            log.info("使用配置文件：$configPath")
-
+        if (!file.isFile) {
+            throw IllegalStateException("配置文件不可用：$path")
+        }
+        val configPath: String = try {
+            file.canonicalPath
+        } catch (e: IOException) {
+            file.path
+        }
+        try {
             config = file.inputStream().use {
                 Yaml.default.decodeFromStream(AbsConfig.serializer(), it)
             }
-
-            context = Bootstrap(Application::class.java)
-                    .setDebug(Config.debug)
-                    .setLogPath(Config.logDir)
-                    .run(args)
+            initLogback()
+        } catch (e: Exception) {
+            throw IllegalStateException("配置文件无效：$path", e)
         }
+        log.info("lombok-plugin-repository 启动！")
+        log.info("使用配置文件：$configPath")
 
-        private fun cmd(args: Array<String>): CommandLine? {
-            try {
-                val options = Options()
-                val configOption = Option.builder("c")
-                        .longOpt("config")
-                        .argName("配置文件路径")
-                        .hasArg()
-                        .build()
-                options.addOption(configOption)
-                val parser: CommandLineParser = DefaultParser()
-                return parser.parse(options, args)
-            } catch (e: Exception) {
-                log.warn("参数解析出错", e)
-                return null
-            }
-        }
+        start(cmd.hasOption("now"))
+    }
 
-        inline fun <reified T> getBean(): T {
-            return Context.getBean(T::class.java)
+    private fun start(once: Boolean) {
+        if (once) {
+            log.info("单次运行模式...")
+            Action.execute(null)
+            return
         }
+        val factory = StdSchedulerFactory()
+        val scheduler = factory.scheduler
+        val cron = CronTriggerImpl().apply {
+            cronExpression = Config.cron
+            name = "cron"
+        }
+        val job = JobDetailImpl().apply {
+            jobClass = Action::class.java
+            key = JobKey("job")
+        }
+        scheduler.scheduleJob(job, cron)
+        scheduler.start()
+        log.info("服务模式...")
+        Thread.currentThread().join()
+    }
 
-        val <T: Any> KClass<T>.Bean: T get() {
-            return Context.getBean(java)
+    private fun cmd(args: Array<String>): CommandLine? {
+        return try {
+            val options = Options()
+            options.addOption(
+                    Option.builder("c")
+                            .longOpt("config")
+                            .argName("配置文件路径")
+                            .type(String::class.java)
+                            .hasArg()
+                            .build()
+            )
+            options.addOption(
+                    Option.builder("n")
+                            .longOpt("now")
+                            .argName("单次运行")
+                            .type(Boolean::class.java)
+                            .build()
+            )
+            val parser: CommandLineParser = DefaultParser()
+            parser.parse(options, args)
+        } catch (e: Exception) {
+            log.warn("参数解析出错", e)
+            null
         }
+    }
+
+    private fun initLogback() {
+        val context = org.slf4j.LoggerFactory.getILoggerFactory() as LoggerContext
+        val configurator = JoranConfigurator()
+        configurator.context = context
+        context.reset()
+        configurator.doConfigure(javaClass.classLoader.getResourceAsStream("logback.xml"))
     }
 }
-
-
-private class Bootstrap(clazz: Class<*>) {
-    private val application: SpringApplication = SpringApplication(clazz)
-    private val properties: MutableMap<String, Any> = HashMap()
-
-    fun setDatasource(
-            dbPath: String, dbUsername: String, dbPassword: String
-    ): Bootstrap {
-        properties["spring.datasource.username"] = dbUsername
-        properties["spring.datasource.password"] = dbPassword
-        properties["spring.datasource.url"] = "jdbc:h2:file:$dbPath/${Application.APPLICATION_BASE_NAME}"
-        return this
-    }
-
-    fun setDebug(isDebug: Boolean): Bootstrap {
-        if (isDebug) {
-            properties["spring.profiles.active"] = "dev"
-        } else {
-            properties["spring.profiles.active"] = "prod"
-        }
-        return this
-    }
-
-    fun setLogPath(path: String): Bootstrap {
-        properties["application.logging.path"] = path
-        return this
-    }
-
-    fun run(args: Array<String>): ApplicationContext {
-        application.setDefaultProperties(properties)
-        return application.run(*args)
-    }
-}
-
 
 private lateinit var config: AbsConfig
 

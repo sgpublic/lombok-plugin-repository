@@ -8,7 +8,7 @@ data class AbsConfig(
     @SerialName("debug")
     val debug: Boolean = false,
     @SerialName("cron")
-    val cron: String = "0 0 2 * * *",
+    val cron: String = "0 0 2 * * ?",
     @SerialName("temp-dir")
     val tempDir: String = "/tmp/lombok-plugin-repository",
     @SerialName("log-dir")

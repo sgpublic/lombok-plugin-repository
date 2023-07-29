@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <springProperty scope="context" name="log.path" source="application.logging.path"/>
+    <define name="LOG_DIR" class="io.github.sgpublic.lombokaction.core.logback.LogPathDefiner"/>
 
     <contextName>lombok-plugin-repository</contextName>
     <!--自定义日志转换规则，添加颜色高亮支持-->
@@ -20,11 +20,11 @@
         <!--自定义过滤器，自动判断 debug 环境-->
         <filter class="io.github.sgpublic.lombokaction.core.logback.ConsoleFilter" />
         <!--输出日志到文件-->
-        <file>${log.path}/lombok-plugin-repository.log</file>
+        <file>${LOG_DIR}/lombok-plugin-repository.log</file>
         <!--设置日志分段-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--设置分段命名规则-->
-            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/lombok-plugin-repository.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/lombok-plugin-repository.%i.log</fileNamePattern>
             <!--设置日志最大保留天数-->
             <MaxHistory>30</MaxHistory>
             <!--设置日志最大文件大小-->
@@ -37,7 +37,7 @@
         </encoder>
     </appender>
 
-    <root level="DEBUG">
+    <root level="ALL">
         <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>
