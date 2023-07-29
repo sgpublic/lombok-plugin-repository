@@ -93,7 +93,7 @@ class PluginActionImpl(
                     if (!entity.name.startsWith("plugins/lombok/")) {
                         continue
                     }
-                    zipOut.putNextEntry(ZipEntry(entity.name.replace("plugins/lombok/", "")))
+                    zipOut.putNextEntry(ZipEntry(entity.name.replace("plugins/", "")))
 
                     val buffer = ByteArray(4096)
                     var length: Int
