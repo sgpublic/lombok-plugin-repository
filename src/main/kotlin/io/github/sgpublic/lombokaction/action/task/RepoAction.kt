@@ -47,7 +47,7 @@ class RepoActionImpl internal constructor(
     private val repo: AbsConfig.Repo
 ): RepoAction {
     private val tempDir: File by lazy {
-        File(Config.tempDir, "git/${id}")
+        File(Config.tempDir, "git/$id")
     }
     private val repository: File by lazy {
         File(tempDir, "repository")
@@ -60,12 +60,12 @@ class RepoActionImpl internal constructor(
         val open = try {
             val git = Git.open(target)
             val remote = git.repository.config.getString("remote", "origin", "url")
-            git.takeIf { remote == repo.gitUrl }
+            git.takeIf { remote == url }
                 ?: throw IllegalStateException("此目录不是目标仓库，而是：$remote")
         } catch (e: Exception) {
-            log.warn("仓库 $id（${repo.gitUrl}）不存在或检查失败，重新 clone")
+            log.warn("仓库 $id（${url}）不存在或检查失败，重新 clone")
             Git.cloneRepository()
-                .setURI(repo.gitUrl)
+                .setURI(url)
                 .setGitDir(target)
                 .call()
         }
