@@ -26,6 +26,13 @@ dependencies {
 	implementation("com.google.code.gson:gson:2.10.1")
 
 	implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r")
+	implementation("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.6.0.202305301015-r") {
+		// com.jcraft.jsch.JSchException: invalid privatekey: xxx
+		exclude("com.jcraft", "jsch")
+	}
+	// https://github.com/mwiede/jsch#by-replacing-a-direct-maven-dependency
+	implementation("com.github.mwiede:jsch:0.2.10")
+
 	implementation("com.charleskorn.kaml:kaml:0.54.0")
 	implementation("commons-cli:commons-cli:1.5.0")
 	implementation("org.quartz-scheduler:quartz:2.3.2")

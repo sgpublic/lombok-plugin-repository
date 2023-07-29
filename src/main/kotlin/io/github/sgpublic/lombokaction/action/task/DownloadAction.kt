@@ -22,7 +22,7 @@ import kotlin.math.max
  * @author sgpublic
  * @Date 2023/7/29 15:35
  */
-interface DownloadAction: Loggable {
+interface DownloadAction {
     fun download(): File?
 
     companion object {
@@ -37,7 +37,7 @@ interface DownloadAction: Loggable {
 class DownloadActionImp(
     private val info: IdeaUltimateVersionRSS.IdeaVersionItem,
     private val retry: Int,
-): DownloadAction {
+): DownloadAction, Loggable {
     override fun download(): File? {
         log.info("开始下载 IDEA Ultimate：${info.build}（${info.downloads.windowsZip.link}）")
         try {
@@ -67,6 +67,7 @@ class DownloadActionImp(
     @OptIn(DelicateCoroutinesApi::class)
     private fun realDownload() {
         tempFile.deleteRecursively()
+        tempFile.parentFile.mkdirs()
         tempFile.createNewFile()
         val url = URI.create(info.downloads.windowsZip.link)
         val resp = HttpClients.createDefault().execute(HttpGet(url))
@@ -85,8 +86,18 @@ class DownloadActionImp(
                 }
             }
             val tickJob = GlobalScope.async {
+                var debugFlag = 0
                 while (downloadJob.isActive) {
-                    log.info("下载中（${info.build}）：${downloaded / info.downloads.windowsZip.size}%")
+                    val message = "下载中（${info.build}）：${String.format(
+                        "%.2f", downloaded.toFloat() / info.downloads.windowsZip.size * 100
+                    )}%"
+                    if (debugFlag == 0) {
+                        log.info(message)
+                    } else {
+                        log.debug(message)
+                    }
+                    debugFlag = (debugFlag + 1) % 3
+                    delay(2_000)
                 }
             }
             downloadJob.await()
@@ -98,6 +109,10 @@ class DownloadActionImp(
         Forest.request(String::class.java)
             .url(info.downloads.windowsZip.checksumLink)
             .execute().toString()
+            .substring(0, 64)
+            .also {
+                log.debug("目标校验值：$it")
+            }
     }
 
     private val tempFile: File by lazy {

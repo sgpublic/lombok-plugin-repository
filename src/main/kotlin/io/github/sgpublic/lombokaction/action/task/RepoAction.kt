@@ -7,9 +7,13 @@ import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import io.github.sgpublic.lombokaction.core.AbsConfig
+import io.github.sgpublic.lombokaction.core.applyAuth
+import org.apache.http.auth.UsernamePasswordCredentials
 import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import java.io.File
 import java.lang.IllegalStateException
+import java.util.LinkedList
 
 /**
  * @author sgpublic
@@ -19,19 +23,22 @@ interface RepoAction: AutoCloseable {
     val id: String
 
     /**
-     * 检查当前 repo 是否包含指定版本的 Lombok
-     * @param version 指定版本
+     * 检查当前 repo 是否包含适用于指定 Android Studio 版本的 Lombok
+     * @param asBuild 指定版本
      */
-    fun hasVersion(version: String): Boolean
+    fun hasVersion(asBuild: String): Boolean
 
     /**
      * 提交插件文件
      * @param file 插件文件
+     * @param asBuild Android Studio 平台版本
+     * @param asVersions 平台版本下 Android Studio 版本列表
      * @param ideaInfo 提供插件的源 IDEA Ultimate 版本
      */
     fun saveVersion(
         file: File,
-        asInfo: AndroidStudioVersionRSS.AndroidVersionItem,
+        asBuild: String,
+        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
         ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
     )
 
@@ -52,59 +59,89 @@ class RepoActionImpl internal constructor(
     private val repository: File by lazy {
         File(tempDir, "repository")
     }
+    private val repositoryGit = checkout(repo.gitRepo, repository, repo.gitRepo.branch)
     private val wiki: File by lazy {
         File(tempDir, "wiki")
     }
+    private val wikiGit: Lazy<Git> = lazy {
+        checkout(repo.wikiRepo, wiki)
+    }
 
-    private fun checkout(url: String, target: File, branch: String? = null): Git {
+    private fun checkout(gitUrl: AbsConfig.Repo.GitUrl, target: File, branch: String? = null): Git {
         val open = try {
             val git = Git.open(target)
             val remote = git.repository.config.getString("remote", "origin", "url")
-            git.takeIf { remote == url }
+            git.takeIf { remote == gitUrl.gitUrl }
                 ?: throw IllegalStateException("此目录不是目标仓库，而是：$remote")
         } catch (e: Exception) {
-            log.warn("仓库 $id（${url}）不存在或检查失败，重新 clone")
+            log.warn("仓库 $id（${gitUrl.gitUrl}）不存在或检查失败，重新 clone")
             Git.cloneRepository()
-                .setURI(url)
-                .setGitDir(target)
+                .setURI(gitUrl.gitUrl)
+                .setDirectory(target)
+                .applyAuth(gitUrl.auth)
                 .call()
         }
         if (branch != null) {
-            open.checkout().setName(branch).call()
+            open.checkout().setName("origin/$branch").call()
         }
         return open
     }
 
-    private fun plugin(version: String): File {
-        return File(repository, "plugins/${version}/lombok-$version.zip")
+    private fun plugin(asBuild: String, ideaBuild: String): File {
+        return File(repository, "plugins/${asBuild}/lombok-$ideaBuild.zip")
     }
-    private fun targetInfo(version: String): File {
-        return File(repository, "plugins/${version}/target.json")
+    private fun targetInfo(asBuild: String): File {
+        return File(repository, "plugins/${asBuild}/target.json")
     }
-    override fun hasVersion(version: String): Boolean {
-        return plugin(version).exists() && targetInfo(version).exists()
+    override fun hasVersion(asBuild: String): Boolean {
+        val root = File(repository, "plugins/${asBuild}")
+        return root.listFiles { _: File, name: String ->
+            name == "target.json" || (name.startsWith("lombok-") && name.endsWith(".zip"))
+        }?.size == 2
     }
 
     override fun saveVersion(
         file: File,
-        asInfo: AndroidStudioVersionRSS.AndroidVersionItem,
+        asBuild: String,
+        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
         ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
     ) {
-        checkout(repo.gitUrl, repository, repo.branch)
-        file.copyTo(plugin(ideaInfo.build))
-        targetInfo(ideaInfo.build).writeText(PluginTargetInfo(
-            asInfo, ideaInfo
+        file.copyTo(plugin(asBuild, ideaInfo.build), true)
+        targetInfo(asBuild).writeText(PluginTargetInfo(
+            PluginTargetInfo.AndroidStudio(asBuild, asVersions), ideaInfo
         ).toGson())
+        log.info("插件导出成功：$asBuild")
     }
 
     override fun close() {
-
+        repositoryGit.also {
+            it.add().addFilepattern(".").call()
+            it.push().setForce(true).call()
+            it.close()
+        }
+        if (wikiGit.isInitialized()) {
+            wikiGit.value.also {
+                it.add().addFilepattern(".").call()
+                it.push().setForce(true).call()
+                it.close()
+            }
+        }
     }
 }
 
 data class PluginTargetInfo(
     @SerializedName("android_studio")
-    val androidStudio: AndroidStudioVersionRSS.AndroidVersionItem,
+    val androidStudio: AndroidStudio,
     @SerializedName("idea_ultimate")
     val ideaUltimate: IdeaUltimateVersionRSS.IdeaVersionItem,
-)
+) {
+    data class AndroidStudio(
+        @SerializedName("platform_build")
+        val platformBuild: String,
+        @SerializedName("versions")
+        val versions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>
+    )
+}
+val PluginTargetInfo.isWrapped: Boolean get() {
+    return androidStudio.platformBuild != ideaUltimate.build
+}

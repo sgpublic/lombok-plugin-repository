@@ -4,6 +4,7 @@ import com.dtflys.forest.Forest
 import com.dtflys.forest.callback.RetryWhen
 import com.dtflys.forest.http.ForestRequest
 import com.dtflys.forest.http.ForestResponse
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.github.sgpublic.kotlin.core.util.fromGson
@@ -28,9 +29,9 @@ object IdeaUltimateVersionRSS: RetryWhen {
                 .sync()
                 .execute(String::class.java)
             val list = IdeaVersionItem::class.fromGson(
-                JsonObject::class.fromGson(json)
-                    .getAsJsonObject("content")
-                    .getAsJsonArray("item")
+                JsonArray::class.fromGson(json)
+                    .get(0).asJsonObject
+                    .getAsJsonArray("releases")
             ).apply {
                 sortByDescending {
                     it.build
@@ -39,7 +40,7 @@ object IdeaUltimateVersionRSS: RetryWhen {
 
             return list
         } catch (e: Exception) {
-            log.warn("IntaliJ IDEA 版本列表获取失败", e)
+            log.warn("IDEA Ultimate 版本列表获取失败", e)
             return null
         }
     }

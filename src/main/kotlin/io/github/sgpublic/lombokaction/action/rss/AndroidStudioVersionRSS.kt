@@ -18,7 +18,7 @@ object AndroidStudioVersionRSS: RetryWhen {
         return false
     }
 
-    operator fun getValue(thisRef: Any, prop: KProperty<*>): LinkedList<AndroidVersionItem>? {
+    operator fun getValue(thisRef: Any, prop: KProperty<*>): LinkedHashMap<String, LinkedList<AndroidVersionItem>>? {
         try {
             val json = Forest.request(String::class.java)
                 .url(Config.versionRss.androidStudio)
@@ -31,13 +31,22 @@ object AndroidStudioVersionRSS: RetryWhen {
                 JsonObject::class.fromGson(json)
                     .getAsJsonObject("content")
                     .getAsJsonArray("item")
-            ).apply {
-                sortByDescending {
-                    it.platformBuild
+            )
+            list.sortByDescending { it.version }
+
+            val result = linkedMapOf<String, LinkedList<AndroidVersionItem>>()
+            for (item in list) {
+                if (item.version.split(".")[0].toInt() < 202) {
+                    // 不适用于 Android Studio version is 4.2.2 (202.*) 及以下
+                    continue
                 }
+                if (result[item.platformBuild] == null) {
+                    result[item.platformBuild] = LinkedList()
+                }
+                result[item.platformBuild]!!.add(item)
             }
 
-            return list
+            return result
         } catch (e: Exception) {
             log.warn("Android Studio 版本列表获取失败", e)
             return null
@@ -45,12 +54,12 @@ object AndroidStudioVersionRSS: RetryWhen {
     }
 
     data class AndroidVersionItem(
+        /** 2023.1.1.14 */
+        @SerializedName("version")
+        val version: String,
         /** 231.9225.16 */
         @SerializedName("platformBuild")
         val platformBuild: String,
-        /** 2023.1.4 */
-        @SerializedName("platformVersion")
-        val platformVersion: String,
         /** Android Studio Hedgehog | 2023.1.1 Canary 14 */
         @SerializedName("name")
         val name: String,

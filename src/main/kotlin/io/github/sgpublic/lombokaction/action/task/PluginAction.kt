@@ -6,6 +6,7 @@ import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import java.io.*
+import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
@@ -15,20 +16,22 @@ import java.util.zip.ZipOutputStream
  * @Date 2023/7/29 15:16
  */
 
-interface PluginAction {
+interface PluginAction: AutoCloseable {
     /**
      * 检查所有仓库中是否有至少一个仓库缺少指定版本的 Lombok
-     * @param version 指定版本
+     * @param asBuild 指定版本
      */
-    fun needAddVersion(version: String): Boolean
+    fun needAddVersion(asBuild: String): Boolean
 
     /**
      * 开始缺少指定版本 Lombok 的仓库提交插件文件
-     * @param asInfo 适用的 Android Studio 的版本信息
+     * @param asBuild Android Studio 平台版本
+     * @param asVersions 平台版本下 Android Studio 版本列表
      * @param ideaInfo 提供插件的源 IDEA Ultimate 版本
      */
     fun postVersion(
-        asInfo: AndroidStudioVersionRSS.AndroidVersionItem,
+        asBuild: String,
+        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
         ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
     )
 
@@ -42,9 +45,9 @@ interface PluginAction {
 class PluginActionImpl(
     private val list: List<RepoAction>
 ): PluginAction {
-    override fun needAddVersion(version: String): Boolean {
+    override fun needAddVersion(asBuild: String): Boolean {
         for (item in list) {
-            if (!item.hasVersion(version)) {
+            if (!item.hasVersion(asBuild)) {
                 return true
             }
         }
@@ -52,29 +55,36 @@ class PluginActionImpl(
     }
 
     override fun postVersion(
-        asInfo: AndroidStudioVersionRSS.AndroidVersionItem,
+        asBuild: String,
+        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
         ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
     ) {
-        val plugin: File? = extractPlugin(ideaInfo)
+        val plugin: File? = extractPlugin(asBuild, ideaInfo)
         if (plugin == null) {
             log.warn("IDEA Ultimate 版本 ${ideaInfo.version}（${ideaInfo.build}）下载失败")
             return
         }
         for (item in list) {
-            if (item.hasVersion(asInfo.platformBuild)) {
+            if (item.hasVersion(asBuild)) {
                 continue
             }
             try {
-                item.saveVersion(plugin, asInfo, ideaInfo)
+                item.saveVersion(plugin, asBuild, asVersions, ideaInfo)
             } catch (e: Exception) {
-                log.warn("插件版本 ${ideaInfo.build}（目标 Android Studio 版本 ${asInfo.platformBuild}）保存失败，仓库 ID：${item.id}", e)
+                log.warn("插件版本 ${ideaInfo.build}（目标 Android Studio 版本 $asBuild）保存失败，仓库 ID：${item.id}", e)
             }
         }
     }
 
-    private fun extractPlugin(ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem): File? {
+    private fun extractPlugin(
+        asBuild: String,
+        ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
+    ): File? {
         val idea = DownloadAction.of(ideaInfo).download() ?: return null
         val tempDir = File(Config.tempDir, "lombok/lombok-${ideaInfo.build}.zip")
+        tempDir.deleteRecursively()
+        tempDir.parentFile.mkdirs()
+        tempDir.createNewFile()
         ZipOutputStream(BufferedOutputStream(tempDir.outputStream())).use { zipOut ->
             ZipInputStream(BufferedInputStream(idea.inputStream())).use { zipIn ->
                 var tmp: ZipEntry?
@@ -87,14 +97,20 @@ class PluginActionImpl(
 
                     val buffer = ByteArray(4096)
                     var length: Int
-                    while (zipIn.read(buffer).also { length = it } > 0) {
+
+                    val wrappedInput = zipIn.wrap(asBuild, ideaInfo)
+                    while (wrappedInput.read(buffer).also { length = it } > 0) {
                         zipOut.write(buffer, 0, length)
                     }
-                    zipIn.closeEntry()
-                    zipOut.closeEntry()
                 }
             }
         }
         return tempDir
+    }
+
+    override fun close() {
+        for (repoAction in list) {
+            repoAction.close()
+        }
     }
 }
