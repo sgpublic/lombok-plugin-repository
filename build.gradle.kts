@@ -33,6 +33,7 @@ dependencies {
 	implementation("ch.qos.logback:logback-classic:1.4.8")
 	implementation("com.dtflys.forest:forest-core:1.5.32")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+	implementation("commons-codec:commons-codec:1.16.0")
 
 	val uniktx = "1.0.0-alpha04"
 	implementation("io.github.sgpublic:uniktx-kotlin-common:$uniktx")

@@ -23,7 +23,7 @@ object Application: Loggable {
         val path = if (cmd.hasOption("config")) {
             cmd.getOptionValue("config")
         } else {
-            "./config/config.yaml"
+            "./config.yaml"
         }
         val file = File(path)
 

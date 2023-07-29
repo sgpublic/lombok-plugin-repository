@@ -15,6 +15,8 @@ data class AbsConfig(
     val logDir: String = "/var/log/lombok-plugin-repository",
     @SerialName("version-rss")
     val versionRss: VersionRSS = VersionRSS(),
+    @SerialName("download-retry")
+    val downloadRetry: Int = 3,
     @SerialName("repos")
     val repos: Map<String, Repo> = mapOf(),
 ) {
