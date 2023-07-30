@@ -17,7 +17,7 @@ This is a repository for Lombok plugin incompatibility issues with Android Studi
 
 ### Manual installation
 
-1. Go to the [repository branch](%BRANCH%) of this repository, find the Android Studio version you are using from README.md, and download `lombok-xxxx.x.x.tar.gz`.
+1. Find the version of Android Studio you are using from the table at the end of the current README.md, and download `lombok-xxxx.x.x.zip`.
 2. Go to `File` -> `Settings` -> `Plugins`, click the settings gear icon to the right of `Install`.
 3. Select `Install Plugin from Disk...`.
 4. Select the downloaded `zip` file and click `OK`.
@@ -27,6 +27,6 @@ This is a repository for Lombok plugin incompatibility issues with Android Studi
 
 This table only lists the Release versions. For a complete list, please visit the [Wiki](%WIKI_URL%).
 
-| Lombok Plugin Version | From IDEA Ultimate Version | For Android Studio Version |
-| -------------------- | ---------------------------- | ------------------------------------- |
+| For Android Studio Version | From IDEA Ultimate Version | Download |
+|----------------------------|----------------------------|----------|
 %VERSIONS%

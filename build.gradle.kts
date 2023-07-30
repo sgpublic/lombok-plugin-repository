@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+	testImplementation("junit:junit:4.13.2")
+
 	implementation("com.google.code.gson:gson:2.10.1")
 
 	implementation("org.eclipse.jgit:org.eclipse.jgit:6.6.0.202305301015-r")
@@ -34,6 +36,7 @@ dependencies {
 	implementation("com.github.mwiede:jsch:0.2.10")
 
 	implementation("com.charleskorn.kaml:kaml:0.54.0")
+	implementation("io.github.sgpublic:SimplifyXMLObject:1.2.2")
 	implementation("commons-cli:commons-cli:1.5.0")
 	implementation("org.quartz-scheduler:quartz:2.3.2")
 

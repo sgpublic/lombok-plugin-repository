@@ -82,6 +82,21 @@ data class AbsConfig(
     }
 }
 
+fun AbsConfig.Repo.branchUrl(): String {
+    return branchUrl.replace("%BRANCH%", gitRepo.branch)
+}
+fun AbsConfig.Repo.fullRepository(): String {
+    return fullRepository.replace("%BRANCH%", gitRepo.branch)
+}
+fun AbsConfig.Repo.releaseRepository(): String {
+    return releaseRepository.replace("%BRANCH%", gitRepo.branch)
+}
+fun AbsConfig.Repo.itemDownloadUrl(asBuild: String, ideaBuild: String): String {
+    return itemDownloadUrl.replace("%BRANCH%", gitRepo.branch)
+        .replace("%ANDROID_STUDIO_BUILD%", asBuild)
+        .replace("%FILE_NAME%", "lombok-${ideaBuild}.zip")
+}
+
 fun <T: GitCommand<R>, R> TransportCommand<T, R>.applyAuth(auth: AbsConfig.Repo.PasswordAuth?): T {
     if (auth != null) {
         setCredentialsProvider(

@@ -34,6 +34,11 @@ interface PluginAction: AutoCloseable {
         targetInfo: PluginTargetInfo
     )
 
+    /**
+     * 检查并更新 README 和 wiki
+     */
+    fun checkRepository()
+
     companion object {
         fun create(list: List<RepoAction>): PluginAction {
             return PluginActionImpl(list)
@@ -72,6 +77,7 @@ class PluginActionImpl(
             }
             try {
                 item.saveVersion(plugin, targetInfo)
+                log.info("插件导出到 ${item.id} 成功：${targetInfo.androidStudio.platformBuild}")
             } catch (e: Exception) {
                 log.warn("插件版本 ${targetInfo.ideaUltimate.build}（目标 Android Studio 版本 ${
                     targetInfo.androidStudio.platformBuild
@@ -112,6 +118,12 @@ class PluginActionImpl(
             }
         }
         return tempDir
+    }
+
+    override fun checkRepository() {
+        for (repoAction in list) {
+            repoAction.checkRepository()
+        }
     }
 
     override fun close() {

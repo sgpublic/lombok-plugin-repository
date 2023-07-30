@@ -32,7 +32,7 @@ object AndroidStudioVersionRSS: RetryWhen {
                     .getAsJsonObject("content")
                     .getAsJsonArray("item")
             )
-            list.sortByDescending { it.version }
+            list.sortDescending()
 
             val result = linkedMapOf<String, LinkedList<AndroidVersionItem>>()
             for (item in list) {
@@ -66,7 +66,14 @@ object AndroidStudioVersionRSS: RetryWhen {
         /** Canary/Beta/RC/Release/Patch */
         @SerializedName("channel")
         val channel: Channel,
-    ) {
+        /** AI-223.8836.35.2231.10406996 */
+        @SerializedName("build")
+        private val build: String,
+    ): Comparable<AndroidVersionItem> {
+        override fun compareTo(other: AndroidVersionItem): Int {
+            return build.compareTo(other.build)
+        }
+
         enum class Channel {
             Canary, Beta, RC, Release, Patch;
 

@@ -3,6 +3,9 @@ package io.github.sgpublic.lombokaction
 import ch.qos.logback.classic.LoggerContext
 import ch.qos.logback.classic.joran.JoranConfigurator
 import com.charleskorn.kaml.Yaml
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
+import io.github.sgpublic.kotlin.core.util.GSON
 import io.github.sgpublic.kotlin.util.Loggable
 import io.github.sgpublic.lombokaction.action.Action
 import io.github.sgpublic.lombokaction.core.AbsConfig
@@ -46,13 +49,18 @@ object Application: Loggable {
         log.info("lombok-plugin-repository 启动！")
         log.info("使用配置文件：$configPath")
 
-        start(cmd.hasOption("now"))
+        GSON = GsonBuilder()
+            .disableHtmlEscaping()
+            .setPrettyPrinting()
+            .create()
+
+        start(cmd.hasOption("now"), cmd.hasOption("force"))
     }
 
-    private fun start(once: Boolean) {
+    private fun start(once: Boolean, force: Boolean) {
         if (once) {
             log.info("单次运行模式...")
-            Action.execute(null)
+            Action.realExecute(force)
             return
         }
         val factory = StdSchedulerFactory()
@@ -86,6 +94,13 @@ object Application: Loggable {
                     Option.builder("n")
                             .longOpt("now")
                             .argName("单次运行")
+                            .type(Boolean::class.java)
+                            .build()
+            )
+            options.addOption(
+                    Option.builder("f")
+                            .longOpt("force")
+                            .argName("强制更新")
                             .type(Boolean::class.java)
                             .build()
             )

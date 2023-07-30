@@ -17,16 +17,16 @@
 
 ### 手动安装
 
-1. 进入此存储库的 [repository branch](%BRANCH_URL%)，从 README.md 中找到您正在使用的 Android Studio 版本，然后下载 `lombok-xxxx.x.x.tar.gz`。
+1. 从当前 README.md 尾部的表格中找到您正在使用的 Android Studio 版本，然后下载 `lombok-xxxx.x.x.zip`。
 2. 进入 `File` -> `Settings` -> `Plugins`，点击右侧 `Install` 旁边的设置齿轮图标。
 3. 选择 `Install Plugin from Disk...`。
-4. 选择下载的 `tar.gz` 文件，然后点击 `OK`。
+4. 选择下载的 `zip` 文件，然后点击 `OK`。
 5. Lombok 安装成功，enjoy！
 
 ## 版本合集
 
 此表仅列举 Release 版本，完整列表请前往 [Wiki](%WIKI_URL%)。
 
-| Lombok 插件版本 | 源 IDEA Ultimate 版本 | 适用于 Android Studio 版本 |
-| --------------- | --------------------- | -------------------------- |
+| 适用于 Android Studio 版本 | 源 IDEA Ultimate 版本 | 下载 |
+|-----------------------|--------------------|----|
 %VERSIONS%

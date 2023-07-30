@@ -1,0 +1,24 @@
+debug: true
+repos:
+  github:
+    plugin-repo:
+      branch: repository
+      git-url: https://github.com/user/repo.git
+      auth:
+        username: username
+        password: your_token_or_password
+    wiki-repo:
+      git-url: https://github.com/user/repo.wiki.git
+    repo-url: https://github.com/user/repo
+    wiki-url: https://github.com/user/repo/wiki
+    # %xxx% 为标识符，将自动替换为相应信息，请勿提前手动替换
+    # %BRANCH%：分支
+    # %ANDROID_STUDIO_BUILD%：Android Studio 平台版本
+    # %FILE_NAME%：插件 zip 文件名
+    branch-url: https://github.com/user/repo/%BRANCH%
+    # 下面的链接为 raw 原始数据链接，请自行根据你所使用的 git 托管平台进行设置
+    full-repository: https://raw.githubusercontent.com/user/repo/%BRANCH%/full
+    item-download-url: https://raw.githubusercontent.com/user/repo/%BRANCH%/plugins/%ANDROID_STUDIO_BUILD%/%FILE_NAME%
+    release-repository: https://raw.githubusercontent.com/user/repo/%BRANCH%/release
+log-dir: ./log
+temp-dir: ./temp

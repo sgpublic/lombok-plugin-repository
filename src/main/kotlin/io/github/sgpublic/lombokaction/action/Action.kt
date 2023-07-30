@@ -18,7 +18,7 @@ object Action: Loggable, Job {
     private val asRss: LinkedHashMap<String, LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>>? by AndroidStudioVersionRSS
     private val ideaRss: LinkedList<IdeaUltimateVersionRSS.IdeaVersionItem>? by IdeaUltimateVersionRSS
 
-    override fun execute(context: JobExecutionContext?) {
+    fun realExecute(force: Boolean = false) {
         try {
             if (Config.repos.isEmpty()) {
                 log.warn("没有配置仓库信息，跳过此次更新。")
@@ -32,7 +32,7 @@ object Action: Loggable, Job {
                 PluginAction.create(
                     Config.repos.map {
                         log.debug("检查仓库：${it.key}")
-                        RepoAction.of(it.key, it.value)
+                        RepoAction.of(it.key, force, it.value)
                     }
                 )
             } catch (e: Exception) {
@@ -46,11 +46,12 @@ object Action: Loggable, Job {
                         ideaRss.findTargetVersion(asBuild) ?: continue,
                     )
                     try {
-                        if (!actions.needAddVersion(target)) {
+                        if (!force && !actions.needAddVersion(target)) {
                             continue
                         }
                         log.info("开始导出插件：$asBuild（源版本 ${target.ideaUltimate.build}）")
                         actions.postVersion(target)
+                        actions.checkRepository()
                     } catch (e: Exception) {
                         log.warn("版本导出失败：$asBuild", e)
                     }
@@ -61,6 +62,10 @@ object Action: Loggable, Job {
         } finally {
             log.info("更新结束")
         }
+    }
+
+    override fun execute(context: JobExecutionContext?) {
+        realExecute()
     }
 
     private fun List<IdeaUltimateVersionRSS.IdeaVersionItem>.findTargetVersion(

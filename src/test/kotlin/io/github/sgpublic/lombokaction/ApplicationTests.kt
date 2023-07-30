@@ -1,13 +1,10 @@
 package io.github.sgpublic.lombokaction
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
+import org.junit.Test
 
-@SpringBootTest
 class ApplicationTests {
-
-	@Test
-	fun contextLoads() {
-	}
-
+    @Test
+    fun read() {
+        assert(ClassLoader.getSystemClassLoader().getResource("readme-template/cn/main.md") != null)
+    }
 }
