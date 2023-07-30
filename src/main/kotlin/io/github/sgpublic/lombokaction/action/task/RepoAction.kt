@@ -9,15 +9,11 @@ import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import io.github.sgpublic.lombokaction.core.AbsConfig
 import io.github.sgpublic.lombokaction.core.applyAuth
-import io.github.sgpublic.lombokaction.core.util.exportMarkdown
-import org.apache.http.auth.UsernamePasswordCredentials
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import java.io.File
-import java.lang.IllegalStateException
-import java.util.LinkedList
+import java.util.*
 
 /**
  * @author sgpublic
@@ -156,7 +152,36 @@ class RepoActionImpl internal constructor(
     }
 
     override fun checkRepository() {
-        repository.checkRepository(repo)
+        val existList = LinkedList<PluginTargetInfo>()
+        for (file in File(repository, "plugins").listFiles() ?: return) {
+            if (!file.isDirectory) {
+                continue
+            }
+            val target = File(file, "target.json")
+            log.debug("读取 target.json：{}", target)
+            if (!target.exists()) {
+                return
+            }
+            existList.add(
+                try {
+                    PluginTargetInfo::class.fromGson(target.readText())
+                } catch (e: Exception) {
+                    log.warn("解析 target.json 出错（${target}）", e)
+                    continue
+                }
+            )
+        }
+        if (existList.isEmpty()) {
+            log.warn("当前仓库不包含任何 Lombok 插件信息")
+            return
+        }
+
+        existList.sortByDescending {
+            it.androidStudio.platformBuild
+        }
+
+        repository.checkRepository(existList, repo)
+        wiki.checkWiki(existList, repo)
     }
 
     override fun close() {

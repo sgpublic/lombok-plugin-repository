@@ -36,7 +36,7 @@ object AndroidStudioVersionRSS: RetryWhen {
 
             val result = linkedMapOf<String, LinkedList<AndroidVersionItem>>()
             for (item in list) {
-                if (item.version.split(".")[0].toInt() < 202) {
+                if (item.version.split(".")[0].toInt() < 203) {
                     // 不适用于 Android Studio version is 4.2.2 (202.*) 及以下
                     continue
                 }

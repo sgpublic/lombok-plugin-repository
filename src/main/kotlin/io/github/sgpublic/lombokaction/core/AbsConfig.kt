@@ -32,8 +32,6 @@ data class AbsConfig(
     )
     @Serializable
     data class Repo(
-        @SerialName("branch-url")
-        val branchUrl: String,
         @SerialName("full-repository")
         val fullRepository: String,
         @SerialName("item-download-url")
@@ -82,9 +80,6 @@ data class AbsConfig(
     }
 }
 
-fun AbsConfig.Repo.branchUrl(): String {
-    return branchUrl.replace("%BRANCH%", gitRepo.branch)
-}
 fun AbsConfig.Repo.fullRepository(): String {
     return fullRepository.replace("%BRANCH%", gitRepo.branch)
 }

@@ -1,9 +1,6 @@
 package io.github.sgpublic.lombokaction.action.task
 
-import com.charleskorn.kaml.YamlPath.Companion.root
 import com.sgpublic.xml.SXMLObject
-import io.github.sgpublic.kotlin.core.util.fromGson
-import io.github.sgpublic.kotlin.util.log
 import io.github.sgpublic.lombokaction.core.AbsConfig
 import io.github.sgpublic.lombokaction.core.fullRepository
 import io.github.sgpublic.lombokaction.core.itemDownloadUrl
@@ -17,37 +14,12 @@ import java.util.*
  * @Date 2023/7/30 11:19
  */
 
-fun File.checkRepository(repo: AbsConfig.Repo) {
-    val existList = LinkedList<PluginTargetInfo>()
-    for (file in listFiles() ?: return) {
-        if (!file.isDirectory) {
-            continue
-        }
-        val target = File(file, "target.json")
-        log.debug("读取 target.json：{}", target)
-        if (!target.exists()) {
-            return
-        }
-        existList.add(
-            try {
-                PluginTargetInfo::class.fromGson(target.readText())
-            } catch (e: Exception) {
-                log.warn("解析 target.json 出错（${target}）", e)
-                continue
-            }
-        )
-    }
-    if (existList.isEmpty()) {
-        log.warn("当前仓库不包含任何 Lombok 插件信息")
-        return
-    }
-
-    existList.sortByDescending {
-        it.androidStudio.platformBuild
-    }
-
+fun File.checkRepository(existList: LinkedList<PluginTargetInfo>, repo: AbsConfig.Repo) {
     existList.checkMainReadme(this, repo)
     existList.checkRepository(this, repo)
+}
+fun File.checkWiki(existList: LinkedList<PluginTargetInfo>, repo: AbsConfig.Repo) {
+    existList.checkWikiReadme(this, repo)
 }
 
 private fun LinkedList<PluginTargetInfo>.checkMainReadme(baseFile: File, repo: AbsConfig.Repo) {
@@ -57,16 +29,18 @@ private fun LinkedList<PluginTargetInfo>.checkMainReadme(baseFile: File, repo: A
             continue
         }
         versionItem.add("| ${
-            item.androidStudio.versionName
-        } | ${item.ideaUltimate.version} (${item.ideaUltimate.build}) | [lombok-${
+            item.androidStudio.versionName.replace("|", "\\|")
+        } (${
+            item.androidStudio.platformBuild
+        }) | ${item.ideaUltimate.version} (${item.ideaUltimate.build}) | [lombok-${
             item.ideaUltimate.build
-        }](${
+        }.zip](${
             repo.itemDownloadUrl(item.androidStudio.platformBuild, item.ideaUltimate.build)
         }) |")
     }
     baseFile.exportMarkdown("main") {
-        it.replace("%RELEASE%", repo.releaseRepository())
-            .replace("%FULL%", repo.fullRepository())
+        it.replace("%RELEASE_REPOSITORY%", repo.releaseRepository())
+            .replace("%FULL_REPOSITORY%", repo.fullRepository())
             .replace("%WIKI_URL%", repo.wikiUrl)
             .replace("%VERSIONS%", versionItem.toString())
     }
@@ -88,6 +62,7 @@ private fun RepositoryXMLObject(repo: AbsConfig.Repo, list: List<PluginTargetInf
         })
         root.putInnerObject(SXMLObject().also { category ->
             category.setRootTagName("category")
+            category.putAttr("name", "Tools Integration")
             for (plugin in list) {
                 val info = plugin.info ?: continue
                 category.putInnerObject(SXMLObject().also { ideaPlugin ->
@@ -122,10 +97,6 @@ private fun RepositoryXMLObject(repo: AbsConfig.Repo, list: List<PluginTargetInf
                         rating.setRootTagName("rating")
                         rating.setInnerData("5.0")
                     })
-                    ideaPlugin.putInnerObject(SXMLObject().also { rating ->
-                        rating.setRootTagName("rating")
-                        rating.setInnerData("5.0")
-                    })
                     ideaPlugin.putInnerObject(SXMLObject().also { changeNotes ->
                         changeNotes.setRootTagName("change-notes")
                         changeNotes.setInnerData("")
@@ -149,4 +120,31 @@ private fun RepositoryXMLObject(repo: AbsConfig.Repo, list: List<PluginTargetInf
     }
 }
 
-
+private fun LinkedList<PluginTargetInfo>.checkWikiReadme(baseFile: File, repo: AbsConfig.Repo) {
+    for (listFile in baseFile.listFiles { file, name ->
+        file.isFile && name.endsWith(".md")
+    } ?: return) {
+        listFile.deleteRecursively()
+    }
+    baseFile.exportMarkdown("wiki-home", false, "Home")
+    val sidebar = StringJoiner("\n")
+    for (item in this) {
+        sidebar.add("+ [${item.androidStudio.platformBuild}](${item.androidStudio.platformBuild})")
+        baseFile.exportMarkdown("wiki-version", false, item.androidStudio.platformBuild) {
+            val versions = StringJoiner("\n")
+            for (version in item.androidStudio.versions) {
+                versions.add("+ ${version.name}")
+            }
+            it.replace("%IDEA_VERSION%", item.ideaUltimate.version)
+                .replace("%IDEA_BUILD%", item.ideaUltimate.build)
+                .replace("%DOWNLOAD%", repo.itemDownloadUrl(
+                    item.androidStudio.platformBuild,
+                    item.ideaUltimate.build
+                ))
+                .replace("%ANDROID_STUDIO_VERSIONS%", versions.toString())
+        }
+    }
+    baseFile.exportMarkdown("wiki-sidebar", false, "_Sidebar") {
+        it.replace("%VERSIONS%", sidebar.toString())
+    }
+}

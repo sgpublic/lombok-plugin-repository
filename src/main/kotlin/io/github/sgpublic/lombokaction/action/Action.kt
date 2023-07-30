@@ -10,8 +10,6 @@ import io.github.sgpublic.lombokaction.action.task.RepoAction
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
 import kotlin.math.min
 
 object Action: Loggable, Job {
@@ -51,11 +49,12 @@ object Action: Loggable, Job {
                         }
                         log.info("开始导出插件：$asBuild（源版本 ${target.ideaUltimate.build}）")
                         actions.postVersion(target)
-                        actions.checkRepository()
                     } catch (e: Exception) {
                         log.warn("版本导出失败：$asBuild", e)
                     }
                 }
+                log.info("开始写入介绍")
+                actions.checkRepository()
             }
         } catch (e: Exception) {
             log.error("未捕获的错误！", e)

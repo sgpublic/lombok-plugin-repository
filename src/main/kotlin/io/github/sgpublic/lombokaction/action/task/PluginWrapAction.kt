@@ -72,7 +72,10 @@ fun InputStream.wrap(
                     changed = true
                     pluginXml = pluginXml.replace(sinceBuild, "since-build=\"${asBuild}\"")
                 }
-                zipOut.writer().write(pluginXml)
+                zipOut.writer().let {
+                    it.write(pluginXml)
+                    it.flush()
+                }
             }
 
             if (!changed) {
