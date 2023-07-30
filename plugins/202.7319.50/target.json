@@ -1,1 +1,50 @@
-{"android_studio":{"platform_build":"202.7319.50","versions":[{"version":"2020.3.1.4","platformBuild":"202.7319.50","name":"Android Studio 2020.3.1 Canary 4","channel":"Canary"},{"version":"2020.3.1.3","platformBuild":"202.7319.50","name":"Android Studio 2020.3.1 Canary 3","channel":"Canary"},{"version":"2020.3.1.2","platformBuild":"202.7319.50","name":"Android Studio 2020.3.1 Canary 2","channel":"Canary"},{"version":"2020.3.1.1","platformBuild":"202.7319.50","name":"Android Studio 2020.3.1 Canary 1","channel":"Canary"}]},"idea_ultimate":{"build":"202.7319.50","version":"2020.2.2","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2020.2.2.win.zip","size":805817766,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2020.2.2.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "202.7319.50",
+    "versions": [
+      {
+        "version": "2020.3.1.4",
+        "platformBuild": "202.7319.50",
+        "name": "Android Studio 2020.3.1 Canary 4",
+        "channel": "Canary",
+        "build": "AI-202.7319.50.2031.7049475"
+      },
+      {
+        "version": "2020.3.1.3",
+        "platformBuild": "202.7319.50",
+        "name": "Android Studio 2020.3.1 Canary 3",
+        "channel": "Canary",
+        "build": "AI-202.7319.50.2031.7019041"
+      },
+      {
+        "version": "2020.3.1.2",
+        "platformBuild": "202.7319.50",
+        "name": "Android Studio 2020.3.1 Canary 2",
+        "channel": "Canary",
+        "build": "AI-202.7319.50.2031.7006259"
+      },
+      {
+        "version": "2020.3.1.1",
+        "platformBuild": "202.7319.50",
+        "name": "Android Studio 2020.3.1 Canary 1",
+        "channel": "Canary",
+        "build": "AI-202.7319.50.2031.6983675"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "202.7319.50",
+    "version": "2020.2.2",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2020.2.2.win.zip",
+        "size": 805817766,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2020.2.2.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 22,
+    "date": 1690698333536
+  }
+}

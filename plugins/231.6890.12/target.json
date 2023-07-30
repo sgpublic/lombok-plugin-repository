@@ -1,1 +1,29 @@
-{"android_studio":{"platform_build":"231.6890.12","versions":[{"version":"2023.1.1.2","platformBuild":"231.6890.12","name":"Android Studio Hedgehog | 2023.1.1 Canary 2","channel":"Canary"}]},"idea_ultimate":{"build":"231.6890.12","version":"2023.1","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-231.6890.12.win.zip","size":1107918714,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-231.6890.12.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "231.6890.12",
+    "versions": [
+      {
+        "version": "2023.1.1.2",
+        "platformBuild": "231.6890.12",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 2",
+        "channel": "Canary",
+        "build": "AI-231.6890.12.2311.10027519"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "231.6890.12",
+    "version": "2023.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-231.6890.12.win.zip",
+        "size": 1107918714,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-231.6890.12.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 433758,
+    "date": 1690697715006
+  }
+}

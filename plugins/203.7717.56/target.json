@@ -1,1 +1,120 @@
-{"android_studio":{"platform_build":"203.7717.56","versions":[{"version":"2021.1.1.1","platformBuild":"203.7717.56","name":"Android Studio Bumblebee | 2021.1.1 Canary 1","channel":"Canary"},{"version":"2020.3.1.26","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Patch 4","channel":"Patch"},{"version":"2020.3.1.25","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Patch 3","channel":"Patch"},{"version":"2020.3.1.24","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Patch 2","channel":"Patch"},{"version":"2020.3.1.23","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Patch 1","channel":"Patch"},{"version":"2020.3.1.22","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1","channel":"Release"},{"version":"2020.3.1.21","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 RC 1","channel":"RC"},{"version":"2020.3.1.20","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Beta 5","channel":"Beta"},{"version":"2020.3.1.19","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Beta 4","channel":"Beta"},{"version":"2020.3.1.18","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Beta 3","channel":"Beta"},{"version":"2020.3.1.17","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Beta 2","channel":"Beta"},{"version":"2020.3.1.16","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Beta 1","channel":"Beta"},{"version":"2020.3.1.15","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Canary 15","channel":"Canary"},{"version":"2020.3.1.14","platformBuild":"203.7717.56","name":"Android Studio Arctic Fox | 2020.3.1 Canary 14","channel":"Canary"}]},"idea_ultimate":{"build":"203.7717.56","version":"2020.3.3","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2020.3.3.win.zip","size":867226565,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2020.3.3.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "203.7717.56",
+    "versions": [
+      {
+        "version": "2021.1.1.1",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 1",
+        "channel": "Canary",
+        "build": "AI-203.7717.56.2111.7361063"
+      },
+      {
+        "version": "2020.3.1.26",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Patch 4",
+        "channel": "Patch",
+        "build": "AI-203.7717.56.2031.7935034"
+      },
+      {
+        "version": "2020.3.1.25",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Patch 3",
+        "channel": "Patch",
+        "build": "AI-203.7717.56.2031.7784292"
+      },
+      {
+        "version": "2020.3.1.24",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Patch 2",
+        "channel": "Patch",
+        "build": "AI-203.7717.56.2031.7678000"
+      },
+      {
+        "version": "2020.3.1.23",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Patch 1",
+        "channel": "Patch",
+        "build": "AI-203.7717.56.2031.7621141"
+      },
+      {
+        "version": "2020.3.1.22",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1",
+        "channel": "Release",
+        "build": "AI-203.7717.56.2031.7583922"
+      },
+      {
+        "version": "2020.3.1.21",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 RC 1",
+        "channel": "RC",
+        "build": "AI-203.7717.56.2031.7557721"
+      },
+      {
+        "version": "2020.3.1.20",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Beta 5",
+        "channel": "Beta",
+        "build": "AI-203.7717.56.2031.7479365"
+      },
+      {
+        "version": "2020.3.1.19",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Beta 4",
+        "channel": "Beta",
+        "build": "AI-203.7717.56.2031.7435690"
+      },
+      {
+        "version": "2020.3.1.18",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Beta 3",
+        "channel": "Beta",
+        "build": "AI-203.7717.56.2031.7395685"
+      },
+      {
+        "version": "2020.3.1.17",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Beta 2",
+        "channel": "Beta",
+        "build": "AI-203.7717.56.2031.7375522"
+      },
+      {
+        "version": "2020.3.1.16",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Beta 1",
+        "channel": "Beta",
+        "build": "AI-203.7717.56.2031.7360992"
+      },
+      {
+        "version": "2020.3.1.15",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Canary 15",
+        "channel": "Canary",
+        "build": "AI-203.7717.56.2031.7321754"
+      },
+      {
+        "version": "2020.3.1.14",
+        "platformBuild": "203.7717.56",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Canary 14",
+        "channel": "Canary",
+        "build": "AI-203.7717.56.2031.7260174"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "203.7717.56",
+    "version": "2020.3.3",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2020.3.3.win.zip",
+        "size": 867226565,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2020.3.3.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 393991,
+    "date": 1690698284429
+  }
+}

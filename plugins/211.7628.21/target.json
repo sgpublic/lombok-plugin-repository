@@ -1,1 +1,162 @@
-{"android_studio":{"platform_build":"211.7628.21","versions":[{"version":"2021.1.1.9","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 9","channel":"Canary"},{"version":"2021.1.1.8","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 8","channel":"Canary"},{"version":"2021.1.1.7","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 7","channel":"Canary"},{"version":"2021.1.1.6","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 6","channel":"Canary"},{"version":"2021.1.1.5","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 5","channel":"Canary"},{"version":"2021.1.1.4","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 4","channel":"Canary"},{"version":"2021.1.1.23","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Patch 3","channel":"Patch"},{"version":"2021.1.1.22","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Patch 2","channel":"Patch"},{"version":"2021.1.1.21","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Patch 1","channel":"Patch"},{"version":"2021.1.1.20","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1","channel":"Release"},{"version":"2021.1.1.19","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 RC 1","channel":"RC"},{"version":"2021.1.1.18","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Beta 5","channel":"Beta"},{"version":"2021.1.1.17","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Beta 4","channel":"Beta"},{"version":"2021.1.1.16","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Beta 3","channel":"Beta"},{"version":"2021.1.1.15","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Beta 2","channel":"Beta"},{"version":"2021.1.1.14","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Beta 1","channel":"Beta"},{"version":"2021.1.1.13","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 13","channel":"Canary"},{"version":"2021.1.1.12","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 12","channel":"Canary"},{"version":"2021.1.1.11","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 11","channel":"Canary"},{"version":"2021.1.1.10","platformBuild":"211.7628.21","name":"Android Studio Bumblebee | 2021.1.1 Canary 10","channel":"Canary"}]},"idea_ultimate":{"build":"211.7628.21","version":"2021.1.3","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2021.1.3.win.zip","size":936349137,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2021.1.3.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "211.7628.21",
+    "versions": [
+      {
+        "version": "2021.1.1.23",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Patch 3",
+        "channel": "Patch",
+        "build": "AI-211.7628.21.2111.8309675"
+      },
+      {
+        "version": "2021.1.1.22",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Patch 2",
+        "channel": "Patch",
+        "build": "AI-211.7628.21.2111.8193401"
+      },
+      {
+        "version": "2021.1.1.21",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Patch 1",
+        "channel": "Patch",
+        "build": "AI-211.7628.21.2111.8139111"
+      },
+      {
+        "version": "2021.1.1.20",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1",
+        "channel": "Release",
+        "build": "AI-211.7628.21.2111.8092744"
+      },
+      {
+        "version": "2021.1.1.19",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 RC 1",
+        "channel": "RC",
+        "build": "AI-211.7628.21.2111.8005941"
+      },
+      {
+        "version": "2021.1.1.18",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Beta 5",
+        "channel": "Beta",
+        "build": "AI-211.7628.21.2111.7956428"
+      },
+      {
+        "version": "2021.1.1.17",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Beta 4",
+        "channel": "Beta",
+        "build": "AI-211.7628.21.2111.7905991"
+      },
+      {
+        "version": "2021.1.1.16",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Beta 3",
+        "channel": "Beta",
+        "build": "AI-211.7628.21.2111.7863044"
+      },
+      {
+        "version": "2021.1.1.15",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Beta 2",
+        "channel": "Beta",
+        "build": "AI-211.7628.21.2111.7824002"
+      },
+      {
+        "version": "2021.1.1.14",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Beta 1",
+        "channel": "Beta",
+        "build": "AI-211.7628.21.2111.7785763"
+      },
+      {
+        "version": "2021.1.1.13",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 13",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7762732"
+      },
+      {
+        "version": "2021.1.1.12",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 12",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7699744"
+      },
+      {
+        "version": "2021.1.1.11",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 11",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7676841"
+      },
+      {
+        "version": "2021.1.1.10",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 10",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7667256"
+      },
+      {
+        "version": "2021.1.1.9",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 9",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7653804"
+      },
+      {
+        "version": "2021.1.1.8",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 8",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7619903"
+      },
+      {
+        "version": "2021.1.1.7",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 7",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7615328"
+      },
+      {
+        "version": "2021.1.1.6",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 6",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7584175"
+      },
+      {
+        "version": "2021.1.1.5",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 5",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7579519"
+      },
+      {
+        "version": "2021.1.1.4",
+        "platformBuild": "211.7628.21",
+        "name": "Android Studio Bumblebee | 2021.1.1 Canary 4",
+        "channel": "Canary",
+        "build": "AI-211.7628.21.2111.7545178"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "211.7628.21",
+    "version": "2021.1.3",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2021.1.3.win.zip",
+        "size": 936349137,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2021.1.3.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 399600,
+    "date": 1690698223689
+  }
+}

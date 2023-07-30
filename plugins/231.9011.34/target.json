@@ -1,1 +1,50 @@
-{"android_studio":{"platform_build":"231.9011.34","versions":[{"version":"2023.1.1.9","platformBuild":"231.9011.34","name":"Android Studio Hedgehog | 2023.1.1 Canary 9","channel":"Canary"},{"version":"2023.1.1.8","platformBuild":"231.9011.34","name":"Android Studio Hedgehog | 2023.1.1 Canary 8","channel":"Canary"},{"version":"2023.1.1.7","platformBuild":"231.9011.34","name":"Android Studio Hedgehog | 2023.1.1 Canary 7","channel":"Canary"},{"version":"2023.1.1.10","platformBuild":"231.9011.34","name":"Android Studio Hedgehog | 2023.1.1 Canary 10","channel":"Canary"}]},"idea_ultimate":{"build":"231.9011.34","version":"2023.1.2","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2023.1.2.win.zip","size":1105734882,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2023.1.2.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "231.9011.34",
+    "versions": [
+      {
+        "version": "2023.1.1.10",
+        "platformBuild": "231.9011.34",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 10",
+        "channel": "Canary",
+        "build": "AI-231.9011.34.2311.10366083"
+      },
+      {
+        "version": "2023.1.1.9",
+        "platformBuild": "231.9011.34",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 9",
+        "channel": "Canary",
+        "build": "AI-231.9011.34.2311.10335024"
+      },
+      {
+        "version": "2023.1.1.8",
+        "platformBuild": "231.9011.34",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 8",
+        "channel": "Canary",
+        "build": "AI-231.9011.34.2311.10290408"
+      },
+      {
+        "version": "2023.1.1.7",
+        "platformBuild": "231.9011.34",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 7",
+        "channel": "Canary",
+        "build": "AI-231.9011.34.2311.10238683"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "231.9011.34",
+    "version": "2023.1.2",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2023.1.2.win.zip",
+        "size": 1105734882,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2023.1.2.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 434201,
+    "date": 1690697632950
+  }
+}

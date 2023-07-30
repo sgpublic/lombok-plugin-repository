@@ -1,1 +1,29 @@
-{"android_studio":{"platform_build":"221.4165.146","versions":[{"version":"2022.1.1.5","platformBuild":"221.4165.146","name":"Android Studio Electric Eel | 2022.1.1 Canary 5","channel":"Canary"}]},"idea_ultimate":{"build":"221.5080.210","version":"2022.1","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2022.1.win.zip","size":996174976,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2022.1.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "221.4165.146",
+    "versions": [
+      {
+        "version": "2022.1.1.5",
+        "platformBuild": "221.4165.146",
+        "name": "Android Studio Electric Eel | 2022.1.1 Canary 5",
+        "channel": "Canary",
+        "build": "AI-221.4165.146.2211.8713749"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "221.5080.210",
+    "version": "2022.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2022.1.win.zip",
+        "size": 996174976,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2022.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 414260,
+    "date": 1690698047033
+  }
+}

@@ -1,1 +1,36 @@
-{"android_studio":{"platform_build":"203.6682.168","versions":[{"version":"2020.3.1.6","platformBuild":"203.6682.168","name":"Android Studio Arctic Fox | 2020.3.1 Canary 6","channel":"Canary"},{"version":"2020.3.1.5","platformBuild":"203.6682.168","name":"Android Studio Arctic Fox | 2020.3.1 Canary 5","channel":"Canary"}]},"idea_ultimate":{"build":"203.6682.168","version":"2020.3.1","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2020.3.1.win.zip","size":866644541,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2020.3.1.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "203.6682.168",
+    "versions": [
+      {
+        "version": "2020.3.1.6",
+        "platformBuild": "203.6682.168",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Canary 6",
+        "channel": "Canary",
+        "build": "AI-203.6682.168.2031.7132434"
+      },
+      {
+        "version": "2020.3.1.5",
+        "platformBuild": "203.6682.168",
+        "name": "Android Studio Arctic Fox | 2020.3.1 Canary 5",
+        "channel": "Canary",
+        "build": "AI-203.6682.168.2031.7101492"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "203.6682.168",
+    "version": "2020.3.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2020.3.1.win.zip",
+        "size": 866644541,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2020.3.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 380026,
+    "date": 1690698316922
+  }
+}

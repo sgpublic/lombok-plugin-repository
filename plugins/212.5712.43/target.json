@@ -1,1 +1,78 @@
-{"android_studio":{"platform_build":"212.5712.43","versions":[{"version":"2021.2.1.9","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 Beta 2","channel":"Beta"},{"version":"2021.2.1.16","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 Patch 2","channel":"Patch"},{"version":"2021.2.1.15","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 Patch 1","channel":"Patch"},{"version":"2021.2.1.14","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1","channel":"Release"},{"version":"2021.2.1.13","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 RC 2","channel":"RC"},{"version":"2021.2.1.12","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 RC 1","channel":"RC"},{"version":"2021.2.1.11","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 Beta 4","channel":"Beta"},{"version":"2021.2.1.10","platformBuild":"212.5712.43","name":"Android Studio Chipmunk | 2021.2.1 Beta 3","channel":"Beta"}]},"idea_ultimate":{"build":"212.5712.43","version":"2021.2.4","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2021.2.4.win.zip","size":967148646,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2021.2.4.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "212.5712.43",
+    "versions": [
+      {
+        "version": "2021.2.1.16",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 Patch 2",
+        "channel": "Patch",
+        "build": "AI-212.5712.43.2112.8815526"
+      },
+      {
+        "version": "2021.2.1.15",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 Patch 1",
+        "channel": "Patch",
+        "build": "AI-212.5712.43.2112.8609683"
+      },
+      {
+        "version": "2021.2.1.14",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1",
+        "channel": "Release",
+        "build": "AI-212.5712.43.2112.8512546"
+      },
+      {
+        "version": "2021.2.1.13",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 RC 2",
+        "channel": "RC",
+        "build": "AI-212.5712.43.2112.8504664"
+      },
+      {
+        "version": "2021.2.1.12",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 RC 1",
+        "channel": "RC",
+        "build": "AI-212.5712.43.2112.8403254"
+      },
+      {
+        "version": "2021.2.1.11",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 Beta 4",
+        "channel": "Beta",
+        "build": "AI-212.5712.43.2112.8233820"
+      },
+      {
+        "version": "2021.2.1.10",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 Beta 3",
+        "channel": "Beta",
+        "build": "AI-212.5712.43.2112.8184640"
+      },
+      {
+        "version": "2021.2.1.9",
+        "platformBuild": "212.5712.43",
+        "name": "Android Studio Chipmunk | 2021.2.1 Beta 2",
+        "channel": "Beta",
+        "build": "AI-212.5712.43.2112.8125332"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "212.5712.43",
+    "version": "2021.2.4",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2021.2.4.win.zip",
+        "size": 967148646,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2021.2.4.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 399291,
+    "date": 1690698146930
+  }
+}

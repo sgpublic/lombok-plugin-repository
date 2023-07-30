@@ -1,1 +1,50 @@
-{"android_studio":{"platform_build":"212.5457.46","versions":[{"version":"2021.2.1.8","platformBuild":"212.5457.46","name":"Android Studio Chipmunk | 2021.2.1 Beta 1","channel":"Beta"},{"version":"2021.2.1.7","platformBuild":"212.5457.46","name":"Android Studio Chipmunk | 2021.2.1 Canary 7","channel":"Canary"},{"version":"2021.2.1.6","platformBuild":"212.5457.46","name":"Android Studio Chipmunk | 2021.2.1 Canary 6","channel":"Canary"},{"version":"2021.2.1.5","platformBuild":"212.5457.46","name":"Android Studio Chipmunk | 2021.2.1 Canary 5","channel":"Canary"}]},"idea_ultimate":{"build":"212.5457.46","version":"2021.2.3","downloads":{"windowsZip":{"link":"https://download.jetbrains.com/idea/ideaIU-2021.2.3.win.zip","size":960946468,"checksumLink":"https://download.jetbrains.com/idea/ideaIU-2021.2.3.win.zip.sha256"}}}}
+{
+  "android_studio": {
+    "platform_build": "212.5457.46",
+    "versions": [
+      {
+        "version": "2021.2.1.8",
+        "platformBuild": "212.5457.46",
+        "name": "Android Studio Chipmunk | 2021.2.1 Beta 1",
+        "channel": "Beta",
+        "build": "AI-212.5457.46.2112.8094850"
+      },
+      {
+        "version": "2021.2.1.7",
+        "platformBuild": "212.5457.46",
+        "name": "Android Studio Chipmunk | 2021.2.1 Canary 7",
+        "channel": "Canary",
+        "build": "AI-212.5457.46.2112.8043657"
+      },
+      {
+        "version": "2021.2.1.6",
+        "platformBuild": "212.5457.46",
+        "name": "Android Studio Chipmunk | 2021.2.1 Canary 6",
+        "channel": "Canary",
+        "build": "AI-212.5457.46.2112.7968471"
+      },
+      {
+        "version": "2021.2.1.5",
+        "platformBuild": "212.5457.46",
+        "name": "Android Studio Chipmunk | 2021.2.1 Canary 5",
+        "channel": "Canary",
+        "build": "AI-212.5457.46.2112.7905983"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "212.5457.46",
+    "version": "2021.2.3",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2021.2.3.win.zip",
+        "size": 960946468,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2021.2.3.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 399294,
+    "date": 1690698166797
+  }
+}
