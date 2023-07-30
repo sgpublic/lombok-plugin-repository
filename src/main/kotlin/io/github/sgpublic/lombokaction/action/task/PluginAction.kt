@@ -98,7 +98,9 @@ class PluginActionImpl(
                     val buffer = ByteArray(4096)
                     var length: Int
 
-                    val wrappedInput = zipIn.wrap(asBuild, ideaInfo)
+                    val wrappedInput = zipIn.takeIf {
+                        !entity.name.endsWith("lombok.jar")
+                    } ?: zipIn.wrap(asBuild, ideaInfo)
                     while (wrappedInput.read(buffer).also { length = it } > 0) {
                         zipOut.write(buffer, 0, length)
                     }

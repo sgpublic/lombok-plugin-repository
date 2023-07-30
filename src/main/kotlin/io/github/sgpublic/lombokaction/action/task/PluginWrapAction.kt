@@ -2,7 +2,6 @@ package io.github.sgpublic.lombokaction.action.task
 
 import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.Action.log
-import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import java.io.File
 import java.io.InputStream
@@ -77,8 +76,7 @@ fun InputStream.wrap(
             }
 
             if (!changed) {
-                log.error("未完成 META-INF/plugin.xml 文件的修改！")
-                return tempDir.inputStream()
+                throw IllegalStateException("未完成 META-INF/plugin.xml 文件的修改！")
             }
         }
     }
