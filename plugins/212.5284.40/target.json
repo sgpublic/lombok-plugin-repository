@@ -7,21 +7,21 @@
         "platformBuild": "212.5284.40",
         "name": "Android Studio Chipmunk | 2021.2.1 Canary 4",
         "channel": "Canary",
-        "build": "AI-212.5284.40.2112.7863073"
+        "date": "November 9, 2021"
       },
       {
         "version": "2021.2.1.3",
         "platformBuild": "212.5284.40",
         "name": "Android Studio Chipmunk | 2021.2.1 Canary 3",
         "channel": "Canary",
-        "build": "AI-212.5284.40.2112.7855545"
+        "date": "October 27, 2021"
       },
       {
         "version": "2021.2.1.2",
         "platformBuild": "212.5284.40",
         "name": "Android Studio Chipmunk | 2021.2.1 Canary 2",
         "channel": "Canary",
-        "build": "AI-212.5284.40.2112.7824075"
+        "date": "October 19, 2021"
       }
     ]
   },
@@ -38,6 +38,6 @@
   },
   "info": {
     "size": 399462,
-    "date": 1690698185884
+    "date": 1690711338607
   }
 }

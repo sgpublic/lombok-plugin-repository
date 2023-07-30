@@ -7,7 +7,7 @@
         "platformBuild": "222.3739.54",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 1",
         "channel": "Canary",
-        "build": "AI-222.3739.54.2221.9043926"
+        "date": "September 20, 2022"
       }
     ]
   },
@@ -24,6 +24,6 @@
   },
   "info": {
     "size": 415069,
-    "date": 1690697934677
+    "date": 1690711056323
   }
 }

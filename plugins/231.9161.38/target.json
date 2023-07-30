@@ -7,21 +7,21 @@
         "platformBuild": "231.9161.38",
         "name": "Android Studio Hedgehog | 2023.1.1 Canary 13",
         "channel": "Canary",
-        "build": "AI-231.9161.38.2311.10491752"
+        "date": "July 18, 2023"
       },
       {
         "version": "2023.1.1.12",
         "platformBuild": "231.9161.38",
         "name": "Android Studio Hedgehog | 2023.1.1 Canary 12",
         "channel": "Canary",
-        "build": "AI-231.9161.38.2311.10457801"
+        "date": "July 11, 2023"
       },
       {
         "version": "2023.1.1.11",
         "platformBuild": "231.9161.38",
         "name": "Android Studio Hedgehog | 2023.1.1 Canary 11",
         "channel": "Canary",
-        "build": "AI-231.9161.38.2311.10413018"
+        "date": "July 6, 2023"
       }
     ]
   },
@@ -38,6 +38,6 @@
   },
   "info": {
     "size": 434801,
-    "date": 1690697605690
+    "date": 1690710708752
   }
 }

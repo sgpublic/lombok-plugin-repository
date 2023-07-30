@@ -7,35 +7,35 @@
         "platformBuild": "222.4345.14",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 9",
         "channel": "Canary",
-        "build": "AI-222.4345.14.2221.9321504"
+        "date": "November 30, 2022"
       },
       {
         "version": "2022.2.1.8",
         "platformBuild": "222.4345.14",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 8",
         "channel": "Canary",
-        "build": "AI-222.4345.14.2221.9252092"
+        "date": "November 7, 2022"
       },
       {
         "version": "2022.2.1.7",
         "platformBuild": "222.4345.14",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 7",
         "channel": "Canary",
-        "build": "AI-222.4345.14.2221.9228443"
+        "date": "November 2, 2022"
       },
       {
         "version": "2022.2.1.6",
         "platformBuild": "222.4345.14",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 6",
         "channel": "Canary",
-        "build": "AI-222.4345.14.2221.9189903"
+        "date": "October 24, 2022"
       },
       {
         "version": "2022.2.1.5",
         "platformBuild": "222.4345.14",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 5",
         "channel": "Canary",
-        "build": "AI-222.4345.14.2221.9178080"
+        "date": "October 18, 2022"
       }
     ]
   },
@@ -52,6 +52,6 @@
   },
   "info": {
     "size": 415068,
-    "date": 1690697888414
+    "date": 1690710985979
   }
 }

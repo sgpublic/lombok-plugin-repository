@@ -7,49 +7,49 @@
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 13",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7242491"
+        "date": "April 5, 2021"
       },
       {
         "version": "2020.3.1.12",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 12",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7226969"
+        "date": "March 25, 2021"
       },
       {
         "version": "2020.3.1.11",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 11",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7209405"
+        "date": "March 22, 2021"
       },
       {
         "version": "2020.3.1.10",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 10",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7194378"
+        "date": "March 15, 2021"
       },
       {
         "version": "2020.3.1.9",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 9",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7185775"
+        "date": "March 8, 2021"
       },
       {
         "version": "2020.3.1.8",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 8",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7165533"
+        "date": "February 24, 2021"
       },
       {
         "version": "2020.3.1.7",
         "platformBuild": "203.7148.57",
         "name": "Android Studio Arctic Fox | 2020.3.1 Canary 7",
         "channel": "Canary",
-        "build": "AI-203.7148.57.2031.7136282"
+        "date": "February 18, 2021"
       }
     ]
   },
@@ -66,6 +66,6 @@
   },
   "info": {
     "size": 380036,
-    "date": 1690698300983
+    "date": 1690711411559
   }
 }

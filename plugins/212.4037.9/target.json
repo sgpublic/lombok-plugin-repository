@@ -7,7 +7,7 @@
         "platformBuild": "212.4037.9",
         "name": "Android Studio Chipmunk | 2021.2.1 Canary 1",
         "channel": "Canary",
-        "build": "AI-212.4037.9.2112.7818732"
+        "date": "October 13, 2021"
       }
     ]
   },
@@ -23,7 +23,7 @@
     }
   },
   "info": {
-    "size": 399747,
-    "date": 1690698205367
+    "size": 400426,
+    "date": 1690711357676
   }
 }

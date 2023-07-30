@@ -7,84 +7,84 @@
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Patch 2",
         "channel": "Patch",
-        "build": "AI-221.6008.13.2211.9619390"
+        "date": "February 27, 2023"
       },
       {
         "version": "2022.1.1.20",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Patch 1",
         "channel": "Patch",
-        "build": "AI-221.6008.13.2211.9514443"
+        "date": "January 31, 2023"
       },
       {
         "version": "2022.1.1.19",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1",
         "channel": "Release",
-        "build": "AI-221.6008.13.2211.9477386"
+        "date": "January 12, 2023"
       },
       {
         "version": "2022.1.1.18",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 RC 3",
         "channel": "RC",
-        "build": "AI-221.6008.13.2211.9424903"
+        "date": "December 27, 2022"
       },
       {
         "version": "2022.1.1.17",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 RC 2",
         "channel": "RC",
-        "build": "AI-221.6008.13.2211.9392097"
+        "date": "December 21, 2022"
       },
       {
         "version": "2022.1.1.16",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 RC 1",
         "channel": "RC",
-        "build": "AI-221.6008.13.2211.9301383"
+        "date": "November 30, 2022"
       },
       {
         "version": "2022.1.1.15",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Beta 5",
         "channel": "Beta",
-        "build": "AI-221.6008.13.2211.9237616"
+        "date": "November 7, 2022"
       },
       {
         "version": "2022.1.1.14",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Beta 4",
         "channel": "Beta",
-        "build": "AI-221.6008.13.2211.9208527"
+        "date": "October 28, 2022"
       },
       {
         "version": "2022.1.1.13",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Beta 3",
         "channel": "Beta",
-        "build": "AI-221.6008.13.2211.9173235"
+        "date": "October 24, 2022"
       },
       {
         "version": "2022.1.1.12",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Beta 2",
         "channel": "Beta",
-        "build": "AI-221.6008.13.2211.9113387"
+        "date": "October 3, 2022"
       },
       {
         "version": "2022.1.1.11",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Beta 1",
         "channel": "Beta",
-        "build": "AI-221.6008.13.2211.9039819"
+        "date": "September 20, 2022"
       },
       {
         "version": "2022.1.1.10",
         "platformBuild": "221.6008.13",
         "name": "Android Studio Electric Eel | 2022.1.1 Canary 10",
         "channel": "Canary",
-        "build": "AI-221.6008.13.2211.8963757"
+        "date": "August 26, 2022"
       }
     ]
   },
@@ -101,6 +101,6 @@
   },
   "info": {
     "size": 415093,
-    "date": 1690697957417
+    "date": 1690710886367
   }
 }

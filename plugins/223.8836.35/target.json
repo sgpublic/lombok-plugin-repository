@@ -3,74 +3,74 @@
     "platform_build": "223.8836.35",
     "versions": [
       {
-        "version": "2023.1.1.1",
-        "platformBuild": "223.8836.35",
-        "name": "Android Studio Hedgehog | 2023.1.1 Canary 1",
-        "channel": "Canary",
-        "build": "AI-223.8836.35.2311.9976484"
-      },
-      {
-        "version": "2022.3.1.12",
-        "platformBuild": "223.8836.35",
-        "name": "Android Studio Giraffe | 2022.3.1 Beta 1",
-        "channel": "Beta",
-        "build": "AI-223.8836.35.2231.9923731"
-      },
-      {
-        "version": "2022.3.1.11",
-        "platformBuild": "223.8836.35",
-        "name": "Android Studio Giraffe | 2022.3.1 Canary 11",
-        "channel": "Canary",
-        "build": "AI-223.8836.35.2231.9848316"
-      },
-      {
-        "version": "2022.3.1.10",
-        "platformBuild": "223.8836.35",
-        "name": "Android Studio Giraffe | 2022.3.1 Canary 10",
-        "channel": "Canary",
-        "build": "AI-223.8836.35.2231.9762515"
-      },
-      {
         "version": "2022.3.1.18",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1",
         "channel": "Release",
-        "build": "AI-223.8836.35.2231.10406996"
+        "date": "July 25, 2023"
       },
       {
         "version": "2022.3.1.17",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 RC 1",
         "channel": "RC",
-        "build": "AI-223.8836.35.2231.10320515"
+        "date": "June 22, 2023"
       },
       {
         "version": "2022.3.1.16",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 Beta 5",
         "channel": "Beta",
-        "build": "AI-223.8836.35.2231.10271316"
+        "date": "June 8, 2023"
       },
       {
         "version": "2022.3.1.15",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 Beta 4",
         "channel": "Beta",
-        "build": "AI-223.8836.35.2231.10190587"
+        "date": "May 30, 2023"
       },
       {
         "version": "2022.3.1.14",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 Beta 3",
         "channel": "Beta",
-        "build": "AI-223.8836.35.2231.10075884"
+        "date": "May 16, 2023"
       },
       {
         "version": "2022.3.1.13",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 Beta 2",
         "channel": "Beta",
-        "build": "AI-223.8836.35.2231.10023527"
+        "date": "May 8, 2023"
+      },
+      {
+        "version": "2023.1.1.1",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Hedgehog | 2023.1.1 Canary 1",
+        "channel": "Canary",
+        "date": "April 25, 2023"
+      },
+      {
+        "version": "2022.3.1.12",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Beta 1",
+        "channel": "Beta",
+        "date": "April 20, 2023"
+      },
+      {
+        "version": "2022.3.1.11",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Canary 11",
+        "channel": "Canary",
+        "date": "March 30, 2023"
+      },
+      {
+        "version": "2022.3.1.10",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Canary 10",
+        "channel": "Canary",
+        "date": "March 21, 2023"
       }
     ]
   },
@@ -86,7 +86,7 @@
     }
   },
   "info": {
-    "size": 416112,
-    "date": 1690702730255
+    "size": 416111,
+    "date": 1690710682095
   }
 }

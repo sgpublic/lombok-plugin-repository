@@ -7,21 +7,21 @@
         "platformBuild": "222.4167.29",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 4",
         "channel": "Canary",
-        "build": "AI-222.4167.29.2221.9153536"
+        "date": "October 14, 2022"
       },
       {
         "version": "2022.2.1.3",
         "platformBuild": "222.4167.29",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 3",
         "channel": "Canary",
-        "build": "AI-222.4167.29.2221.9133400"
+        "date": "October 6, 2022"
       },
       {
         "version": "2022.2.1.2",
         "platformBuild": "222.4167.29",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 2",
         "channel": "Canary",
-        "build": "AI-222.4167.29.2221.9093980"
+        "date": "September 27, 2022"
       }
     ]
   },
@@ -38,6 +38,6 @@
   },
   "info": {
     "size": 415071,
-    "date": 1690697911428
+    "date": 1690711010878
   }
 }

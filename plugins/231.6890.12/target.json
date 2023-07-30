@@ -7,7 +7,7 @@
         "platformBuild": "231.6890.12",
         "name": "Android Studio Hedgehog | 2023.1.1 Canary 2",
         "channel": "Canary",
-        "build": "AI-231.6890.12.2311.10027519"
+        "date": "May 2, 2023"
       }
     ]
   },
@@ -24,6 +24,6 @@
   },
   "info": {
     "size": 433758,
-    "date": 1690697715006
+    "date": 1690710837917
   }
 }

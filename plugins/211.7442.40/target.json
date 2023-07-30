@@ -7,7 +7,7 @@
         "platformBuild": "211.7442.40",
         "name": "Android Studio Bumblebee | 2021.1.1 Canary 3",
         "channel": "Canary",
-        "build": "AI-211.7442.40.2111.7518594"
+        "date": "July 8, 2021"
       }
     ]
   },
@@ -24,6 +24,6 @@
   },
   "info": {
     "size": 399604,
-    "date": 1690698242252
+    "date": 1690711375954
   }
 }

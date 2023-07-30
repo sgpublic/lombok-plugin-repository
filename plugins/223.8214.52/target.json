@@ -7,14 +7,14 @@
         "platformBuild": "223.8214.52",
         "name": "Android Studio Giraffe | 2022.3.1 Canary 6",
         "channel": "Canary",
-        "build": "AI-223.8214.52.2231.9615888"
+        "date": "February 21, 2023"
       },
       {
         "version": "2022.3.1.5",
         "platformBuild": "223.8214.52",
         "name": "Android Studio Giraffe | 2022.3.1 Canary 5",
         "channel": "Canary",
-        "build": "AI-223.8214.52.2231.9601041"
+        "date": "February 16, 2023"
       }
     ]
   },
@@ -31,6 +31,6 @@
   },
   "info": {
     "size": 415606,
-    "date": 1690697797374
+    "date": 1690710914764
   }
 }

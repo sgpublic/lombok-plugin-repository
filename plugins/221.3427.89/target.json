@@ -7,7 +7,7 @@
         "platformBuild": "221.3427.89",
         "name": "Android Studio Electric Eel | 2022.1.1 Canary 4",
         "channel": "Canary",
-        "build": "AI-221.3427.89.2211.8689873"
+        "date": "June 13, 2022"
       }
     ]
   },
@@ -23,7 +23,7 @@
     }
   },
   "info": {
-    "size": 414262,
-    "date": 1690698065560
+    "size": 414965,
+    "date": 1690711182196
   }
 }

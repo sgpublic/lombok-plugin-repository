@@ -3,81 +3,81 @@
     "platform_build": "222.4459.24",
     "versions": [
       {
+        "version": "2022.2.1.20",
+        "platformBuild": "222.4459.24",
+        "name": "Android Studio Flamingo | 2022.2.1 Patch 2",
+        "channel": "Patch",
+        "date": "May 24, 2023"
+      },
+      {
         "version": "2022.2.1.19",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Patch 1",
         "channel": "Patch",
-        "build": "AI-222.4459.24.2221.9971841"
+        "date": "May 1, 2023"
       },
       {
         "version": "2022.2.1.18",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1",
         "channel": "Release",
-        "build": "AI-222.4459.24.2221.9862592"
+        "date": "April 13, 2023"
       },
       {
         "version": "2022.2.1.17",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 RC 1",
         "channel": "RC",
-        "build": "AI-222.4459.24.2221.9787799"
+        "date": "March 27, 2023"
       },
       {
         "version": "2022.2.1.16",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Beta 5",
         "channel": "Beta",
-        "build": "AI-222.4459.24.2221.9682058"
+        "date": "March 9, 2023"
       },
       {
         "version": "2022.2.1.15",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Beta 4",
         "channel": "Beta",
-        "build": "AI-222.4459.24.2221.9645777"
+        "date": "March 2, 2023"
       },
       {
         "version": "2022.2.1.14",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Beta 3",
         "channel": "Beta",
-        "build": "AI-222.4459.24.2221.9601061"
+        "date": "February 16, 2023"
       },
       {
         "version": "2022.2.1.13",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Beta 2",
         "channel": "Beta",
-        "build": "AI-222.4459.24.2221.9526055"
+        "date": "February 7, 2023"
       },
       {
         "version": "2022.2.1.12",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Beta 1",
         "channel": "Beta",
-        "build": "AI-222.4459.24.2221.9471578"
+        "date": "January 17, 2023"
       },
       {
         "version": "2022.2.1.11",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 11",
         "channel": "Canary",
-        "build": "AI-222.4459.24.2221.9445173"
+        "date": "January 4, 2023"
       },
       {
         "version": "2022.2.1.10",
         "platformBuild": "222.4459.24",
         "name": "Android Studio Flamingo | 2022.2.1 Canary 10",
         "channel": "Canary",
-        "build": "AI-222.4459.24.2221.9409768"
-      },
-      {
-        "version": "2022.2.1.20",
-        "platformBuild": "222.4459.24",
-        "name": "Android Studio Flamingo | 2022.2.1 Patch 2",
-        "channel": "Patch",
-        "build": "AI-222.4459.24.2221.10121639"
+        "date": "December 21, 2022"
       }
     ]
   },
@@ -94,6 +94,6 @@
   },
   "info": {
     "size": 415072,
-    "date": 1690697864219
+    "date": 1690710811877
   }
 }
