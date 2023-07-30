@@ -1,6 +1,7 @@
 package io.github.sgpublic.lombokaction.action.task
 
 import com.google.gson.annotations.SerializedName
+import io.github.sgpublic.kotlin.core.util.fromGson
 import io.github.sgpublic.kotlin.core.util.toGson
 import io.github.sgpublic.kotlin.util.log
 import io.github.sgpublic.lombokaction.Config
@@ -24,22 +25,20 @@ interface RepoAction: AutoCloseable {
 
     /**
      * 检查当前 repo 是否包含适用于指定 Android Studio 版本的 Lombok
-     * @param asBuild 指定版本
+     * @param targetInfo 目标版本信息
      */
-    fun hasVersion(asBuild: String): Boolean
+    fun hasVersion(
+        targetInfo: PluginTargetInfo,
+    ): Boolean
 
     /**
      * 提交插件文件
      * @param file 插件文件
-     * @param asBuild Android Studio 平台版本
-     * @param asVersions 平台版本下 Android Studio 版本列表
-     * @param ideaInfo 提供插件的源 IDEA Ultimate 版本
+     * @param targetInfo 目标版本信息
      */
     fun saveVersion(
         file: File,
-        asBuild: String,
-        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
-        ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
+        targetInfo: PluginTargetInfo,
     )
 
     companion object {
@@ -82,7 +81,11 @@ class RepoActionImpl internal constructor(
                 .call()
         }
         if (branch != null) {
-            open.checkout().setName("origin/$branch").call()
+            open.checkout()
+                .setName(branch)
+                .setCreateBranch(true)
+                .setStartPoint("origin/$branch")
+                .call()
         }
         return open
     }
@@ -93,29 +96,39 @@ class RepoActionImpl internal constructor(
     private fun targetInfo(asBuild: String): File {
         return File(repository, "plugins/${asBuild}/target.json")
     }
-    override fun hasVersion(asBuild: String): Boolean {
-        val root = File(repository, "plugins/${asBuild}")
-        return root.listFiles { _: File, name: String ->
-            name == "target.json" || (name.startsWith("lombok-") && name.endsWith(".zip"))
-        }?.size == 2
+    override fun hasVersion(
+        targetInfo: PluginTargetInfo,
+    ): Boolean {
+        val root = File(repository, "plugins/${targetInfo.androidStudio.platformBuild}")
+        val plugin = File(root, "lombok-${targetInfo.ideaUltimate.build}.zip")
+        val target = File(root, "target.json")
+        return if (plugin.exists() && target.exists()) {
+            if (targetInfo != PluginTargetInfo::class.fromGson(target.readText())) {
+                log.info("更新版本信息：${targetInfo.androidStudio.platformBuild}")
+                target.writeText(targetInfo.toGson())
+            }
+            true
+        } else {
+            false
+        }
     }
 
     override fun saveVersion(
         file: File,
-        asBuild: String,
-        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
-        ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
+        targetInfo: PluginTargetInfo,
     ) {
-        file.copyTo(plugin(asBuild, ideaInfo.build), true)
-        targetInfo(asBuild).writeText(PluginTargetInfo(
-            PluginTargetInfo.AndroidStudio(asBuild, asVersions), ideaInfo
-        ).toGson())
-        log.info("插件导出成功：$asBuild")
+        file.copyTo(plugin(
+            targetInfo.androidStudio.platformBuild,
+            targetInfo.ideaUltimate.build
+        ), true)
+        targetInfo(targetInfo.androidStudio.platformBuild).writeText(targetInfo.toGson())
+        log.info("插件导出成功：${targetInfo.androidStudio.platformBuild}")
     }
 
     override fun close() {
         repositoryGit.also {
             it.add().addFilepattern(".").call()
+            it.commit().setMessage("auto update").call()
             it.push().setForce(true).call()
             it.close()
         }

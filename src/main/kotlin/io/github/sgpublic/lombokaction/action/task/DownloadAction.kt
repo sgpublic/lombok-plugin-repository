@@ -120,14 +120,15 @@ class DownloadActionImp(
     }
 
     private fun checkSum(): Boolean {
+        log.info("文件校验中...")
         val sha256 = tempFile.inputStream().use {
             DigestUtils.sha256Hex(it)
         }
         return if (sha256 == targetSha256) {
-            log.debug("文件校验成功：{}", tempFile)
+            log.info("文件校验成功：{}", tempFile)
             true
         } else {
-            log.debug("文件校验失败：{}", tempFile)
+            log.info("文件校验失败：{}", tempFile)
             false
         }
     }

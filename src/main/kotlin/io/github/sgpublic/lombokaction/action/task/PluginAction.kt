@@ -1,11 +1,12 @@
 package io.github.sgpublic.lombokaction.action.task
 
-import io.github.sgpublic.kotlin.core.util.closeQuietly
 import io.github.sgpublic.kotlin.util.log
 import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
-import java.io.*
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.File
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
@@ -19,20 +20,18 @@ import java.util.zip.ZipOutputStream
 interface PluginAction: AutoCloseable {
     /**
      * 检查所有仓库中是否有至少一个仓库缺少指定版本的 Lombok
-     * @param asBuild 指定版本
+     * @param targetInfo 目标版本信息
      */
-    fun needAddVersion(asBuild: String): Boolean
+    fun needAddVersion(
+        targetInfo: PluginTargetInfo
+    ): Boolean
 
     /**
      * 开始缺少指定版本 Lombok 的仓库提交插件文件
-     * @param asBuild Android Studio 平台版本
-     * @param asVersions 平台版本下 Android Studio 版本列表
-     * @param ideaInfo 提供插件的源 IDEA Ultimate 版本
+     * @param targetInfo 目标版本信息
      */
     fun postVersion(
-        asBuild: String,
-        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
-        ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
+        targetInfo: PluginTargetInfo
     )
 
     companion object {
@@ -45,9 +44,11 @@ interface PluginAction: AutoCloseable {
 class PluginActionImpl(
     private val list: List<RepoAction>
 ): PluginAction {
-    override fun needAddVersion(asBuild: String): Boolean {
+    override fun needAddVersion(
+        targetInfo: PluginTargetInfo
+    ): Boolean {
         for (item in list) {
-            if (!item.hasVersion(asBuild)) {
+            if (!item.hasVersion(targetInfo)) {
                 return true
             }
         }
@@ -55,23 +56,26 @@ class PluginActionImpl(
     }
 
     override fun postVersion(
-        asBuild: String,
-        asVersions: LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>,
-        ideaInfo: IdeaUltimateVersionRSS.IdeaVersionItem,
+        targetInfo: PluginTargetInfo,
     ) {
-        val plugin: File? = extractPlugin(asBuild, ideaInfo)
+        val plugin: File? = extractPlugin(
+            targetInfo.androidStudio.platformBuild,
+            targetInfo.ideaUltimate
+        )
         if (plugin == null) {
-            log.warn("IDEA Ultimate 版本 ${ideaInfo.version}（${ideaInfo.build}）下载失败")
+            log.warn("IDEA Ultimate 版本 ${targetInfo.ideaUltimate.build} 下载失败")
             return
         }
         for (item in list) {
-            if (item.hasVersion(asBuild)) {
+            if (item.hasVersion(targetInfo)) {
                 continue
             }
             try {
-                item.saveVersion(plugin, asBuild, asVersions, ideaInfo)
+                item.saveVersion(plugin, targetInfo)
             } catch (e: Exception) {
-                log.warn("插件版本 ${ideaInfo.build}（目标 Android Studio 版本 $asBuild）保存失败，仓库 ID：${item.id}", e)
+                log.warn("插件版本 ${targetInfo.ideaUltimate.build}（目标 Android Studio 版本 ${
+                    targetInfo.androidStudio.platformBuild
+                }）保存失败，仓库 ID：${item.id}", e)
             }
         }
     }

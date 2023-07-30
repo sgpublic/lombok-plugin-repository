@@ -5,6 +5,7 @@ import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import io.github.sgpublic.lombokaction.action.task.PluginAction
+import io.github.sgpublic.lombokaction.action.task.PluginTargetInfo
 import io.github.sgpublic.lombokaction.action.task.RepoAction
 import org.quartz.Job
 import org.quartz.JobExecutionContext
@@ -40,15 +41,16 @@ object Action: Loggable, Job {
             }.use { actions ->
                 for ((asBuild, asInfo) in asRss) {
                     log.debug("检查版本：$asBuild")
+                    val target = PluginTargetInfo(
+                        PluginTargetInfo.AndroidStudio(asBuild, asInfo),
+                        ideaRss.findTargetVersion(asBuild) ?: continue,
+                    )
                     try {
-                        if (!actions.needAddVersion(asBuild)) {
+                        if (!actions.needAddVersion(target)) {
                             continue
                         }
-                        log.info("开始导出插件版本：$asBuild")
-                        actions.postVersion(
-                            asBuild, asInfo,
-                            ideaRss.findTargetVersion(asBuild) ?: continue
-                        )
+                        log.info("开始导出插件：$asBuild（源版本 ${target.ideaUltimate.build}）")
+                        actions.postVersion(target)
                     } catch (e: Exception) {
                         log.warn("版本导出失败：$asBuild", e)
                     }
@@ -70,11 +72,11 @@ object Action: Loggable, Job {
             val next = iterator.next()
             val nextBuild = next.build
             if (nextBuild == version) {
-                log.info("找到 $version 的原生版本：${nextBuild}")
+                log.debug("找到 $version 的原生版本：${nextBuild}")
                 return next
             }
             if (Version(nextBuild) > comparableVersion) {
-                log.info("找到 $version 的替代版本：${nextBuild}")
+                log.debug("找到 $version 的替代版本：${nextBuild}")
                 return next
             }
         }
