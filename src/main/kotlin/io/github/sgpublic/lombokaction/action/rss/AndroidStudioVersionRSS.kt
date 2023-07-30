@@ -9,7 +9,15 @@ import com.google.gson.annotations.SerializedName
 import io.github.sgpublic.kotlin.core.util.fromGson
 import io.github.sgpublic.kotlin.util.log
 import io.github.sgpublic.lombokaction.Config
+import io.github.sgpublic.lombokaction.core.util.asDate
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.util.Date
 import java.util.LinkedList
+import java.util.Locale
 import kotlin.reflect.KProperty
 
 
@@ -67,11 +75,11 @@ object AndroidStudioVersionRSS: RetryWhen {
         @SerializedName("channel")
         val channel: Channel,
         /** AI-223.8836.35.2231.10406996 */
-        @SerializedName("build")
-        private val build: String,
+        @SerializedName("date")
+        private val date: String,
     ): Comparable<AndroidVersionItem> {
         override fun compareTo(other: AndroidVersionItem): Int {
-            return build.compareTo(other.build)
+            return date.asDate.compareTo(other.date.asDate)
         }
 
         enum class Channel {

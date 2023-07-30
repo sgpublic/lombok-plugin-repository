@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-	testImplementation("junit:junit:4.13.2")
+	testImplementation("junit:junit:4.12")
 
 	implementation("com.google.code.gson:gson:2.10.1")
 
