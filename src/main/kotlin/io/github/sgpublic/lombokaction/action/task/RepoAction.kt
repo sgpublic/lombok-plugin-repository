@@ -127,15 +127,20 @@ class RepoActionImpl internal constructor(
 
     override fun close() {
         repositoryGit.also {
-            it.add().addFilepattern(".").call()
-            it.commit().setMessage("auto update").call()
-            it.push().setForce(true).call()
+            if (!it.status().call().isClean) {
+                it.add().addFilepattern(".").call()
+                it.commit().setMessage("auto update").call()
+                it.push().setForce(true).call()
+            }
             it.close()
         }
         if (wikiGit.isInitialized()) {
             wikiGit.value.also {
-                it.add().addFilepattern(".").call()
-                it.push().setForce(true).call()
+                if (!it.status().call().isClean) {
+                    it.add().addFilepattern(".").call()
+                    it.commit().setMessage("auto update").call()
+                    it.push().setForce(true).call()
+                }
                 it.close()
             }
         }
