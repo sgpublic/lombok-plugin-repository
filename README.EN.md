@@ -11,8 +11,8 @@ This is a repository for Lombok plugin incompatibility issues with Android Studi
 1. Go to `File` -> `Settings` -> `Plugins`, click the settings gear icon to the right of `Install`.
 2. Select `Manage Plugin repositories...`.
 3. Please add the repository link to the list based on the version you are using:
-   + Release: `%RELEASE%`
-   + Beta or Canary (includes Release): `%FULL%`
+   + Release: `https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/release`
+   + Beta or Canary (includes Release): `https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/full`
 4. Search `Lombok` in `Marketplace` and install, enjoy!
 
 ### Manual installation
