@@ -3,6 +3,20 @@
     "platform_build": "223.8836.35",
     "versions": [
       {
+        "version": "2022.3.1.20",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Patch 2",
+        "channel": "Patch",
+        "date": "September 28, 2023"
+      },
+      {
+        "version": "2022.3.1.19",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Patch 1",
+        "channel": "Patch",
+        "date": "August 21, 2023"
+      },
+      {
         "version": "2022.3.1.18",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1",
@@ -84,9 +98,5 @@
         "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2022.3.3.win.zip.sha256"
       }
     }
-  },
-  "info": {
-    "size": 416111,
-    "date": 1690710682095
   }
 }

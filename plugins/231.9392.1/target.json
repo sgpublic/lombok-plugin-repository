@@ -1,0 +1,78 @@
+{
+  "android_studio": {
+    "platform_build": "231.9392.1",
+    "versions": [
+      {
+        "version": "2023.1.1.24",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 RC 2",
+        "channel": "RC",
+        "date": "October 30, 2023"
+      },
+      {
+        "version": "2023.1.1.23",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 RC 1",
+        "channel": "RC",
+        "date": "October 17, 2023"
+      },
+      {
+        "version": "2023.1.1.22",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 6",
+        "channel": "Beta",
+        "date": "September 27, 2023"
+      },
+      {
+        "version": "2023.1.1.21",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 5",
+        "channel": "Beta",
+        "date": "September 21, 2023"
+      },
+      {
+        "version": "2023.1.1.20",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 4",
+        "channel": "Beta",
+        "date": "September 13, 2023"
+      },
+      {
+        "version": "2023.1.1.19",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 3",
+        "channel": "Beta",
+        "date": "September 7, 2023"
+      },
+      {
+        "version": "2023.1.1.18",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 2",
+        "channel": "Beta",
+        "date": "September 5, 2023"
+      },
+      {
+        "version": "2023.1.1.17",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 Beta 1",
+        "channel": "Beta",
+        "date": "August 24, 2023"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "231.9392.1",
+    "version": "2023.1.5",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2023.1.5.win.zip",
+        "size": 1105847460,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2023.1.5.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 434808,
+    "date": 1701403250820
+  }
+}

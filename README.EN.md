@@ -4,8 +4,6 @@
 
 This is a repository for Lombok plugin incompatibility issues with Android Studio.
 
-**Android Studio Hedgehog has built-in Lombok again, and the [Lombok](https://plugins.jetbrains.com/plugin/6317-lombok/versions) plugin continues to upload new versions in the plugin store to provide official support, applicable to Android Studio Iguana and above, so this repository will no longer update these versions.**
-
 ## How to use
 
 ### Plugin repository (Recommend)
