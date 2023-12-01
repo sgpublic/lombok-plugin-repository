@@ -29,15 +29,17 @@ data class AbsConfig(
         val androidStudio: String = "https://jb.gg/android-studio-releases-list.json",
         @SerialName("idea-ultimate")
         val ideaUltimate: String = "https://data.services.jetbrains.com/products?code=IU&fields=releases",
+        @SerialName("lombok-official")
+        val lombokOfficial: String = "https://plugins.jetbrains.com/api/plugins/6317/updates",
     )
     @Serializable
     data class Repo(
+        @SerialName("release-repository")
+        val releaseRepository: String,
         @SerialName("full-repository")
         val fullRepository: String,
         @SerialName("item-download-url")
         val itemDownloadUrl: String,
-        @SerialName("release-repository")
-        val releaseRepository: String,
 
         @SerialName("repo-url")
         val repoUrl: String,

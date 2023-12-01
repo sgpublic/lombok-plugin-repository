@@ -4,17 +4,20 @@ import io.github.sgpublic.kotlin.util.Loggable
 import io.github.sgpublic.lombokaction.Config
 import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
+import io.github.sgpublic.lombokaction.action.rss.LombokOfficialVersionRSS
 import io.github.sgpublic.lombokaction.action.task.PluginAction
 import io.github.sgpublic.lombokaction.action.task.PluginTargetInfo
 import io.github.sgpublic.lombokaction.action.task.RepoAction
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 import java.util.*
+import kotlin.collections.HashSet
 import kotlin.math.min
 
 object Action: Loggable, Job {
     private val asRss: LinkedHashMap<String, LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>>? by AndroidStudioVersionRSS
     private val ideaRss: LinkedList<IdeaUltimateVersionRSS.IdeaVersionItem>? by IdeaUltimateVersionRSS
+    private val lombokRss: HashSet<String>? by LombokOfficialVersionRSS
 
     fun realExecute(force: Boolean = false) {
         try {
@@ -25,6 +28,7 @@ object Action: Loggable, Job {
 
             val asRss = this.asRss ?: return
             val ideaRss = this.ideaRss ?: return
+            val lombokRss = this.lombokRss ?: return
 
             try {
                 PluginAction.create(
@@ -44,6 +48,10 @@ object Action: Loggable, Job {
                         ideaRss.findTargetVersion(asBuild) ?: continue,
                     )
                     try {
+                        if (lombokRss.contains(asBuild)) {
+                            log.info("版本 $asBuild 由官方插件商城提供支持，跳过导出")
+                            continue
+                        }
                         if (!force && !actions.needAddVersion(target)) {
                             continue
                         }
