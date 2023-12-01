@@ -1,7 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	val kotlin = "1.8.22"
+	application
+	val kotlin = "1.9.21"
 	kotlin("jvm") version kotlin
 	kotlin("plugin.serialization") version kotlin
 }
@@ -11,6 +12,11 @@ version = "1.0.0"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+application {
+	mainClass = "io.github.sgpublic.lombokaction.Application"
 }
 
 repositories {

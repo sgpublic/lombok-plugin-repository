@@ -1,9 +1,15 @@
-FROM openjdk:17
+FROM openjdk:17-slim-bullseye
 
 WORKDIR /app
 
-COPY build/libs/lombok-plugin-repository-*.jar /app/app.jar
+COPY ./build/install/lombok-plugin-repository /app
 
 VOLUME ["/app/config.yaml"]
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+RUN useradd -u 1000 runner &&\
+ apt update &&\
+ apt install findutils -y &&\
+ chown -R runner:runner /app
+USER 1000
+
+ENTRYPOINT ["/app/bin/lombok-plugin-repository"]
