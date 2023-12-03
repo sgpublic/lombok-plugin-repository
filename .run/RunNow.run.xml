@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application" type="JetRunConfigurationType" nameIsGenerated="true">
+  <configuration default="false" name="RunNow" type="JetRunConfigurationType">
     <option name="MAIN_CLASS_NAME" value="io.github.sgpublic.lombokaction.Application" />
     <module name="lombok-plugin-repository.main" />
     <option name="PROGRAM_PARAMETERS" value="--now" />

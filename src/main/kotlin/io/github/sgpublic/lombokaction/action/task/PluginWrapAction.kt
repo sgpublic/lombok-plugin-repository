@@ -1,7 +1,7 @@
 package io.github.sgpublic.lombokaction.action.task
 
 import io.github.sgpublic.lombokaction.Config
-import io.github.sgpublic.lombokaction.action.Action.log
+import io.github.sgpublic.lombokaction.action.Action.Companion.log
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import java.io.File
 import java.io.InputStream

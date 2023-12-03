@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.collections.HashSet
 import kotlin.math.min
 
-object Action: Loggable, Job {
+class Action: Job {
     private val asRss: LinkedHashMap<String, LinkedList<AndroidStudioVersionRSS.AndroidVersionItem>>? by AndroidStudioVersionRSS
     private val ideaRss: LinkedList<IdeaUltimateVersionRSS.IdeaVersionItem>? by IdeaUltimateVersionRSS
     private val lombokRss: HashSet<String>? by LombokOfficialVersionRSS
@@ -125,4 +125,6 @@ object Action: Loggable, Job {
             return version.hashCode()
         }
     }
+
+    companion object: Loggable
 }

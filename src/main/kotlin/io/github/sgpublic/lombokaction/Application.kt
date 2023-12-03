@@ -3,13 +3,11 @@ package io.github.sgpublic.lombokaction
 import ch.qos.logback.classic.LoggerContext
 import ch.qos.logback.classic.joran.JoranConfigurator
 import com.charleskorn.kaml.Yaml
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import io.github.sgpublic.kotlin.core.util.GSON
 import io.github.sgpublic.kotlin.util.Loggable
 import io.github.sgpublic.lombokaction.action.Action
 import io.github.sgpublic.lombokaction.core.AbsConfig
-import io.github.sgpublic.lombokaction.core.util.asDate
 import org.apache.commons.cli.*
 import org.quartz.JobKey
 import org.quartz.impl.JobDetailImpl
@@ -61,7 +59,7 @@ object Application: Loggable {
     private fun start(once: Boolean, force: Boolean) {
         if (once) {
             log.info("单次运行模式...")
-            Action.realExecute(force)
+            Action().realExecute(force)
             return
         }
         val factory = StdSchedulerFactory()
