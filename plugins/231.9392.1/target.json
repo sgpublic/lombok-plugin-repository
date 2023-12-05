@@ -3,6 +3,20 @@
     "platform_build": "231.9392.1",
     "versions": [
       {
+        "version": "2023.1.1.26",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1",
+        "channel": "Release",
+        "date": "November 30, 2023"
+      },
+      {
+        "version": "2023.1.1.25",
+        "platformBuild": "231.9392.1",
+        "name": "Android Studio Hedgehog | 2023.1.1 RC 3",
+        "channel": "RC",
+        "date": "November 9, 2023"
+      },
+      {
         "version": "2023.1.1.24",
         "platformBuild": "231.9392.1",
         "name": "Android Studio Hedgehog | 2023.1.1 RC 2",
@@ -70,9 +84,5 @@
         "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2023.1.5.win.zip.sha256"
       }
     }
-  },
-  "info": {
-    "size": 434808,
-    "date": 1701403250820
   }
 }

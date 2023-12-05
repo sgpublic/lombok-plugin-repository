@@ -3,6 +3,20 @@
     "platform_build": "223.8836.35",
     "versions": [
       {
+        "version": "2022.3.1.22",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Patch 4",
+        "channel": "Patch",
+        "date": "November 16, 2023"
+      },
+      {
+        "version": "2022.3.1.21",
+        "platformBuild": "223.8836.35",
+        "name": "Android Studio Giraffe | 2022.3.1 Patch 3",
+        "channel": "Patch",
+        "date": "November 7, 2023"
+      },
+      {
         "version": "2022.3.1.20",
         "platformBuild": "223.8836.35",
         "name": "Android Studio Giraffe | 2022.3.1 Patch 2",

@@ -29,6 +29,7 @@
 
 | 适用于 Android Studio 版本 | 源 IDEA Ultimate 版本 | 下载 |
 |-----------------------|--------------------|----|
+| Android Studio Hedgehog \| 2023.1.1 (231.9392.1) | 2023.1.5 (231.9392.1) | [lombok-231.9392.1.zip](https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/plugins/231.9392.1/lombok-231.9392.1.zip) |
 | Android Studio Giraffe \| 2022.3.1 (223.8836.35) | 2022.3.3 (223.8836.41) | [lombok-223.8836.41.zip](https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/plugins/223.8836.35/lombok-223.8836.41.zip) |
 | Android Studio Flamingo \| 2022.2.1 (222.4459.24) | 2022.2.4 (222.4459.24) | [lombok-222.4459.24.zip](https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/plugins/222.4459.24/lombok-222.4459.24.zip) |
 | Android Studio Electric Eel \| 2022.1.1 (221.6008.13) | 2022.1.4 (221.6008.13) | [lombok-221.6008.13.zip](https://raw.githubusercontent.com/sgpublic/lombok-plugin-repository/repository/plugins/221.6008.13/lombok-221.6008.13.zip) |
