@@ -129,8 +129,18 @@ class RepoActionImpl internal constructor(
         val target = File(root, "target.json")
         return if (plugin.exists() && target.exists()) {
             val exist = PluginTargetInfo::class.fromGson(target.readText())
-            if (targetInfo.androidStudio != exist.androidStudio) {
+            var forceUpdate = false
+            if (exist.info == null) {
+                forceUpdate = true
+                exist.info = PluginTargetInfo.FileInfo(
+                    size = plugin.length(),
+                    date = plugin.lastModified(),
+                )
+                log.warn("文件信息缺失，已补充。")
+            }
+            if (targetInfo.androidStudio != exist.androidStudio || forceUpdate) {
                 log.info("更新版本信息：${targetInfo.androidStudio.platformBuild}")
+                targetInfo.info = exist.info
                 target.writeText(targetInfo.toGson())
             }
             true
@@ -158,10 +168,11 @@ class RepoActionImpl internal constructor(
                 continue
             }
             val target = File(file, "target.json")
-            log.debug("读取 target.json：{}", target)
             if (!target.exists()) {
-                return
+                log.warn("target.json 不存在：{}", target)
+                continue
             }
+            log.debug("读取 target.json：{}", target)
             existList.add(
                 try {
                     PluginTargetInfo::class.fromGson(target.readText())
