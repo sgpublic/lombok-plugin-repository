@@ -1,3 +1,7 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -5,10 +9,12 @@ plugins {
 	val kotlin = "1.9.21"
 	kotlin("jvm") version kotlin
 	kotlin("plugin.serialization") version kotlin
+
+	id("com.bmuschko.docker-remote-api") version "9.4.0"
 }
 
 group = "io.github.sgpublic"
-version = "1.0.0"
+version = "1.0.2"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
@@ -29,7 +35,7 @@ repositories {
 }
 
 dependencies {
-	testImplementation("junit:junit:4.12")
+	testImplementation("junit:junit:4.13.1")
 
 	implementation("com.google.code.gson:gson:2.10.1")
 
@@ -66,4 +72,54 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks {
+	val clean by getting
+	val assembleDist by getting
+	val installDist by getting
+
+	val dockerCreateDockerfile by creating(Dockerfile::class) {
+		group = "docker"
+		from("openjdk:17-slim-bullseye")
+		workingDir("/app")
+		copy {
+			copyFile("./install/lombok-plugin-repository", "/app")
+		}
+		runCommand(listOf(
+				"useradd -u 1000 runner",
+				"apt-get update",
+				"apt-get install findutils -y",
+				"chown -R runner:runner /app"
+		).joinToString(" &&\\\n "))
+		user("runner")
+		volume("/app/config.yaml")
+		entryPoint("/app/bin/lombok-plugin-repository")
+	}
+
+	val tag = "mhmzx/lombok-plugin-repository"
+	val dockerBuildImage by creating(DockerBuildImage::class) {
+		group = "docker"
+		dependsOn(assembleDist, installDist, dockerCreateDockerfile)
+		inputDir = project.file("./build")
+		dockerFile = dockerCreateDockerfile.destFile
+		images.add("$tag:$version")
+		images.add("$tag:latest")
+		noCache = true
+	}
+
+	val dockerPushImageOfficial by creating(DockerPushImage::class) {
+		group = "docker"
+		dependsOn(dockerBuildImage)
+		images.add("$tag:$version")
+		images.add("$tag:latest")
+	}
+}
+
+docker {
+	registryCredentials {
+		username = findProperty("publishing.docker.username")!!.toString()
+		password = findProperty("publishing.docker.password")!!.toString()
+		email = findProperty("publishing.developer.email")!!.toString()
+	}
 }
