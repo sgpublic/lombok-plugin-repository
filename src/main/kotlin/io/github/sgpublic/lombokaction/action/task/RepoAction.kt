@@ -202,10 +202,10 @@ class RepoActionImpl internal constructor(
 
     private fun Git.autoClose() {
         add().addFilepattern(".").call()
-        if (!status().call().isClean) {
+        if (status().call().hasUncommittedChanges()) {
             commit().setMessage("auto update").call()
-            push().setForce(true).call()
         }
+        push().setForce(true).call()
         close()
     }
 }
