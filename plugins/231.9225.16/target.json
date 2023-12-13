@@ -35,5 +35,9 @@
         "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2023.1.4.win.zip.sha256"
       }
     }
+  },
+  "info": {
+    "size": 434801,
+    "date": 1701741636252
   }
 }
