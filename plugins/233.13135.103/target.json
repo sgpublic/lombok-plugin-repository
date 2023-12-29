@@ -1,0 +1,29 @@
+{
+  "android_studio": {
+    "platform_build": "233.13135.103",
+    "versions": [
+      {
+        "version": "2023.3.1.1",
+        "platformBuild": "233.13135.103",
+        "name": "Android Studio Jellyfish | 2023.3.1 Canary 1",
+        "channel": "Canary",
+        "date": "December 28, 2023"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "233.13135.103",
+    "version": "2023.3.2",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2023.3.2.win.zip",
+        "size": 1005458882,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2023.3.2.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 470731,
+    "date": 1703816217769
+  }
+}
