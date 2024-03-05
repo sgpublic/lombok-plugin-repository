@@ -3,6 +3,13 @@
     "platform_build": "233.14015.106",
     "versions": [
       {
+        "version": "2023.3.1.9",
+        "platformBuild": "233.14015.106",
+        "name": "Android Studio Jellyfish | 2023.3.1 Canary 9",
+        "channel": "Canary",
+        "date": "February 8, 2024"
+      },
+      {
         "version": "2023.3.1.8",
         "platformBuild": "233.14015.106",
         "name": "Android Studio Jellyfish | 2023.3.1 Canary 8",
