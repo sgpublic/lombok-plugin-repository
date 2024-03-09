@@ -9,9 +9,11 @@ import io.github.sgpublic.lombokaction.action.rss.AndroidStudioVersionRSS
 import io.github.sgpublic.lombokaction.action.rss.IdeaUltimateVersionRSS
 import io.github.sgpublic.lombokaction.core.AbsConfig
 import io.github.sgpublic.lombokaction.core.applyAuth
+import org.eclipse.jgit.api.CommitCommand
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.errors.RepositoryNotFoundException
+import org.eclipse.jgit.lib.PersonIdent
 import java.io.File
 import java.util.*
 
@@ -203,10 +205,16 @@ class RepoActionImpl internal constructor(
     private fun Git.autoClose() {
         add().addFilepattern(".").call()
         if (status().call().hasUncommittedChanges()) {
-            commit().setMessage("auto update").call()
+            commit().applyAuthor().setMessage("auto update").call()
         }
         push().setForce(true).call()
         close()
+    }
+
+    private fun CommitCommand.applyAuthor() = apply {
+        Config.vcs?.let { vcs ->
+            setAuthor(vcs.name, vcs.email)
+        }
     }
 }
 

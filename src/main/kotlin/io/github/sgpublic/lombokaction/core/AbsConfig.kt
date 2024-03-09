@@ -22,6 +22,8 @@ data class AbsConfig(
     val downloadRetry: Int = 3,
     @SerialName("repos")
     val repos: Map<String, Repo> = mapOf(),
+    @SerialName("vcs")
+    val vcs: Vcs? = null,
 ) {
     @Serializable
     data class VersionRSS(
@@ -80,6 +82,13 @@ data class AbsConfig(
             val token: String,
         )
     }
+    @Serializable
+    data class Vcs(
+        @SerialName("name")
+        val name: String,
+        @SerialName("email")
+        val email: String,
+    )
 }
 
 fun AbsConfig.Repo.fullRepository(): String {
