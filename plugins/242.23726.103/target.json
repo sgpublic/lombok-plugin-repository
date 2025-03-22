@@ -1,0 +1,64 @@
+{
+  "android_studio": {
+    "platform_build": "242.23726.103",
+    "versions": [
+      {
+        "version": "2024.2.2.15",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2 Patch 2",
+        "channel": "Patch",
+        "date": "February 26, 2025"
+      },
+      {
+        "version": "2024.2.2.14",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2 Patch 1",
+        "channel": "Patch",
+        "date": "February 13, 2025"
+      },
+      {
+        "version": "2024.2.2.13",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2",
+        "channel": "Release",
+        "date": "January 9, 2025"
+      },
+      {
+        "version": "2024.2.2.12",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2 RC 2",
+        "channel": "RC",
+        "date": "December 16, 2024"
+      },
+      {
+        "version": "2024.2.2.11",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2 RC 1",
+        "channel": "RC",
+        "date": "December 5, 2024"
+      },
+      {
+        "version": "2024.2.2.10",
+        "platformBuild": "242.23726.103",
+        "name": "Android Studio Ladybug Feature Drop | 2024.2.2 Beta 1",
+        "channel": "Beta",
+        "date": "November 18, 2024"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "242.23726.103",
+    "version": "2024.2.4",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2024.2.4.win.zip",
+        "size": 1443473913,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2024.2.4.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 491244,
+    "date": 1742604713902
+  }
+}

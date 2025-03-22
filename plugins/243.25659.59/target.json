@@ -1,0 +1,29 @@
+{
+  "android_studio": {
+    "platform_build": "243.25659.59",
+    "versions": [
+      {
+        "version": "2024.3.2.9",
+        "platformBuild": "243.25659.59",
+        "name": "Android Studio Meerkat Feature Drop | 2024.3.2 Beta 1",
+        "channel": "Beta",
+        "date": "March 18, 2025"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "243.25659.59",
+    "version": "2024.3.4.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.win.zip",
+        "size": 1606823880,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 492331,
+    "date": 1742604654255
+  }
+}
