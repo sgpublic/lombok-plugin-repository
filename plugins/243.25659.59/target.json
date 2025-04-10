@@ -3,6 +3,13 @@
     "platform_build": "243.25659.59",
     "versions": [
       {
+        "version": "2024.3.2.11",
+        "platformBuild": "243.25659.59",
+        "name": "Android Studio Meerkat Feature Drop | 2024.3.2 RC 2",
+        "channel": "RC",
+        "date": "April 9, 2025"
+      },
+      {
         "version": "2024.3.2.10",
         "platformBuild": "243.25659.59",
         "name": "Android Studio Meerkat Feature Drop | 2024.3.2 RC 1",
