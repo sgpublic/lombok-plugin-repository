@@ -1,0 +1,57 @@
+{
+  "android_studio": {
+    "platform_build": "251.25410.109",
+    "versions": [
+      {
+        "version": "2025.1.1.12",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal | 2025.1.1 RC 2",
+        "channel": "RC",
+        "date": "June 12, 2025"
+      },
+      {
+        "version": "2025.1.1.11",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal | 2025.1.1 RC 1",
+        "channel": "RC",
+        "date": "June 3, 2025"
+      },
+      {
+        "version": "2025.1.2.3",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal Feature Drop | 2025.1.2 Canary 3",
+        "channel": "Canary",
+        "date": "May 29, 2025"
+      },
+      {
+        "version": "2025.1.2.2",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal Feature Drop | 2025.1.2 Canary 2",
+        "channel": "Canary",
+        "date": "May 22, 2025"
+      },
+      {
+        "version": "2025.1.2.1",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal Feature Drop | 2025.1.2 Canary 1",
+        "channel": "Canary",
+        "date": "May 20, 2025"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "251.25410.109",
+    "version": "2025.1.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2025.1.1.win.zip",
+        "size": 1694377299,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2025.1.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 494627,
+    "date": 1750356279834
+  }
+}
