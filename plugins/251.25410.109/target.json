@@ -3,6 +3,13 @@
     "platform_build": "251.25410.109",
     "versions": [
       {
+        "version": "2025.1.1.13",
+        "platformBuild": "251.25410.109",
+        "name": "Android Studio Narwhal | 2025.1.1",
+        "channel": "Release",
+        "date": "June 24, 2025"
+      },
+      {
         "version": "2025.1.1.12",
         "platformBuild": "251.25410.109",
         "name": "Android Studio Narwhal | 2025.1.1 RC 2",
