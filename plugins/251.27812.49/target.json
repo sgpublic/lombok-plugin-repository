@@ -3,6 +3,13 @@
     "platform_build": "251.27812.49",
     "versions": [
       {
+        "version": "2025.1.4.3",
+        "platformBuild": "251.27812.49",
+        "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 Canary 3",
+        "channel": "Canary",
+        "date": "August 29, 2025"
+      },
+      {
         "version": "2025.1.4.2",
         "platformBuild": "251.27812.49",
         "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 Canary 2",
