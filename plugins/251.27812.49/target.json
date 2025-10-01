@@ -3,6 +3,27 @@
     "platform_build": "251.27812.49",
     "versions": [
       {
+        "version": "2025.1.4.7",
+        "platformBuild": "251.27812.49",
+        "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 RC 2",
+        "channel": "RC",
+        "date": "September 29, 2025"
+      },
+      {
+        "version": "2025.1.4.6",
+        "platformBuild": "251.27812.49",
+        "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 RC 1",
+        "channel": "RC",
+        "date": "September 24, 2025"
+      },
+      {
+        "version": "2025.1.4.5",
+        "platformBuild": "251.27812.49",
+        "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 Canary 5",
+        "channel": "Canary",
+        "date": "September 11, 2025"
+      },
+      {
         "version": "2025.1.4.4",
         "platformBuild": "251.27812.49",
         "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 Canary 4",
