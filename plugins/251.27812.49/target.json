@@ -3,6 +3,13 @@
     "platform_build": "251.27812.49",
     "versions": [
       {
+        "version": "2025.1.4.8",
+        "platformBuild": "251.27812.49",
+        "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4",
+        "channel": "Release",
+        "date": "October 9, 2025"
+      },
+      {
         "version": "2025.1.4.7",
         "platformBuild": "251.27812.49",
         "name": "Android Studio Narwhal 4 Feature Drop | 2025.1.4 RC 2",

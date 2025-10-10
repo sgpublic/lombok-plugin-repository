@@ -3,6 +3,13 @@
     "platform_build": "252.25557.131",
     "versions": [
       {
+        "version": "2025.2.1.5",
+        "platformBuild": "252.25557.131",
+        "name": "Android Studio Otter | 2025.2.1 Canary 5",
+        "channel": "Canary",
+        "date": "October 9, 2025"
+      },
+      {
         "version": "2025.2.1.4",
         "platformBuild": "252.25557.131",
         "name": "Android Studio Otter | 2025.2.1 Canary 4",
