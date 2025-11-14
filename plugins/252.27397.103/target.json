@@ -3,6 +3,20 @@
     "platform_build": "252.27397.103",
     "versions": [
       {
+        "version": "2025.2.3.1",
+        "platformBuild": "252.27397.103",
+        "name": "Android Studio Otter 3 Feature Drop | 2025.2.3 Canary 1",
+        "channel": "Canary",
+        "date": "November 13, 2025"
+      },
+      {
+        "version": "2025.2.2.5",
+        "platformBuild": "252.27397.103",
+        "name": "Android Studio Otter 2 Feature Drop | 2025.2.2 RC 1",
+        "channel": "RC",
+        "date": "November 13, 2025"
+      },
+      {
         "version": "2025.2.2.4",
         "platformBuild": "252.27397.103",
         "name": "Android Studio Otter 2 Feature Drop | 2025.2.2 Canary 4",
