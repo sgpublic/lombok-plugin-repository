@@ -1,0 +1,29 @@
+{
+  "android_studio": {
+    "platform_build": "252.28238.7",
+    "versions": [
+      {
+        "version": "2025.2.3.3",
+        "platformBuild": "252.28238.7",
+        "name": "Android Studio Otter 3 Feature Drop | 2025.2.3 Canary 3",
+        "channel": "Canary",
+        "date": "November 26, 2025"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "252.28238.7",
+    "version": "2025.2.5",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/ideaIU-2025.2.5.win.zip",
+        "size": 1899342000,
+        "checksumLink": "https://download.jetbrains.com/idea/ideaIU-2025.2.5.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 505025,
+    "date": 1764266901854
+  }
+}
