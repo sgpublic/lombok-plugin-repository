@@ -3,6 +3,13 @@
     "platform_build": "252.27397.103",
     "versions": [
       {
+        "version": "2025.2.2.8",
+        "platformBuild": "252.27397.103",
+        "name": "Android Studio Otter 2 Feature Drop | 2025.2.2 Patch 1",
+        "channel": "Patch",
+        "date": "December 23, 2025"
+      },
+      {
         "version": "2025.2.2.7",
         "platformBuild": "252.27397.103",
         "name": "Android Studio Otter 2 Feature Drop | 2025.2.2",
