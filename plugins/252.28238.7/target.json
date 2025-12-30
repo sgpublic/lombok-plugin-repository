@@ -3,6 +3,13 @@
     "platform_build": "252.28238.7",
     "versions": [
       {
+        "version": "2025.2.3.7",
+        "platformBuild": "252.28238.7",
+        "name": "Android Studio Otter 3 Feature Drop | 2025.2.3 RC 2",
+        "channel": "RC",
+        "date": "December 29, 2025"
+      },
+      {
         "version": "2025.2.3.6",
         "platformBuild": "252.28238.7",
         "name": "Android Studio Otter 3 Feature Drop | 2025.2.3 RC 1",

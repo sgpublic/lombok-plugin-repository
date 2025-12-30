@@ -1,0 +1,29 @@
+{
+  "android_studio": {
+    "platform_build": "253.29346.138",
+    "versions": [
+      {
+        "version": "2025.3.1.2",
+        "platformBuild": "253.29346.138",
+        "name": "Android Studio Panda 1 | 2025.3.1 Canary 2",
+        "channel": "Canary",
+        "date": "December 29, 2025"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "253.29346.138",
+    "version": "2025.3.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/idea-2025.3.1.win.zip",
+        "size": 1528037961,
+        "checksumLink": "https://download.jetbrains.com/idea/idea-2025.3.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 525169,
+    "date": 1767117904773
+  }
+}
