@@ -3,6 +3,13 @@
     "platform_build": "253.29346.138",
     "versions": [
       {
+        "version": "2025.3.1.7",
+        "platformBuild": "253.29346.138",
+        "name": "Android Studio Panda 1 | 2025.3.1",
+        "channel": "Release",
+        "date": "February 10, 2026"
+      },
+      {
         "version": "2025.3.2.2",
         "platformBuild": "253.29346.138",
         "name": "Android Studio Panda 2 | 2025.3.2 Canary 2",
