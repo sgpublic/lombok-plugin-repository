@@ -1,0 +1,36 @@
+{
+  "android_studio": {
+    "platform_build": "253.32098.37",
+    "versions": [
+      {
+        "version": "2025.3.4.2",
+        "platformBuild": "253.32098.37",
+        "name": "Android Studio Panda 4 | 2025.3.4 Canary 2",
+        "channel": "Canary",
+        "date": "March 26, 2026"
+      },
+      {
+        "version": "2025.3.4.1",
+        "platformBuild": "253.32098.37",
+        "name": "Android Studio Panda 4 | 2025.3.4 Canary 1",
+        "channel": "Canary",
+        "date": "March 19, 2026"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "253.32098.37",
+    "version": "2025.3.4",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/idea-2025.3.4.win.zip",
+        "size": 1532262393,
+        "checksumLink": "https://download.jetbrains.com/idea/idea-2025.3.4.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 525177,
+    "date": 1775239418354
+  }
+}
