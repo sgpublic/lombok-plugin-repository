@@ -3,6 +3,13 @@
     "platform_build": "253.31033.145",
     "versions": [
       {
+        "version": "2025.3.3.7",
+        "platformBuild": "253.31033.145",
+        "name": "Android Studio Panda 3 | 2025.3.3 Patch 1",
+        "channel": "Patch",
+        "date": "April 13, 2026"
+      },
+      {
         "version": "2025.3.3.6",
         "platformBuild": "253.31033.145",
         "name": "Android Studio Panda 3 | 2025.3.3",

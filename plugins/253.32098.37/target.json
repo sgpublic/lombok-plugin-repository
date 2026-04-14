@@ -3,6 +3,13 @@
     "platform_build": "253.32098.37",
     "versions": [
       {
+        "version": "2025.3.4.5",
+        "platformBuild": "253.32098.37",
+        "name": "Android Studio Panda 4 | 2025.3.4 RC 1",
+        "channel": "RC",
+        "date": "April 13, 2026"
+      },
+      {
         "version": "2025.3.4.4",
         "platformBuild": "253.32098.37",
         "name": "Android Studio Panda 4 | 2025.3.4 Canary 4",
