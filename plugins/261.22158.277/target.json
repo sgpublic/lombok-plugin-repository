@@ -1,0 +1,29 @@
+{
+  "android_studio": {
+    "platform_build": "261.22158.277",
+    "versions": [
+      {
+        "version": "2026.1.1.1",
+        "platformBuild": "261.22158.277",
+        "name": "Android Studio Quail 1 | 2026.1.1 Canary 1",
+        "channel": "Canary",
+        "date": "April 16, 2026"
+      }
+    ]
+  },
+  "idea_ultimate": {
+    "build": "261.22158.277",
+    "version": "2026.1",
+    "downloads": {
+      "windowsZip": {
+        "link": "https://download.jetbrains.com/idea/idea-2026.1.win.zip",
+        "size": 1579722173,
+        "checksumLink": "https://download.jetbrains.com/idea/idea-2026.1.win.zip.sha256"
+      }
+    }
+  },
+  "info": {
+    "size": 530469,
+    "date": 1776448907847
+  }
+}
