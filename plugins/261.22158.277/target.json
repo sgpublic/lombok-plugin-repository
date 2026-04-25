@@ -3,6 +3,13 @@
     "platform_build": "261.22158.277",
     "versions": [
       {
+        "version": "2026.1.1.2",
+        "platformBuild": "261.22158.277",
+        "name": "Android Studio Quail 1 | 2026.1.1 Canary 2",
+        "channel": "Canary",
+        "date": "April 24, 2026"
+      },
+      {
         "version": "2026.1.1.1",
         "platformBuild": "261.22158.277",
         "name": "Android Studio Quail 1 | 2026.1.1 Canary 1",
